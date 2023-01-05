@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lulzkat.kat">
    <application
-        android:label="kat"
+        android:label="Kat"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
