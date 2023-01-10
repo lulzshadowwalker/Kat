@@ -34,5 +34,14 @@
     "goBackToHome": "Вернуться на главную",
     "continueAsGuest": "продолжить в качестве гостя",
     "pageDoesNotExist": "страница не существует",
-    "signedOut": "Подписано"
+    "signedOut": "Подписано",
+    "gif": "GIF",
+    "saySomething": "Скажи что-нибудь",
+    "goodMorning": "Доброе утро",
+    "howAreYou": "Как дела ?",
+    "onMyPuter": "На моем компьютере",
+    "iWouldLikeSomeCoffee": "Я бы хотела кофе",
+    "addToFavs": "добавить в избранное",
+    "share": "акция",
+    "download": "скачать"
 }

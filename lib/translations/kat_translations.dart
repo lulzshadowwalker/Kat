@@ -30,6 +30,15 @@ class KatTranslations {
   static const String gallery = 'gallery';
   static const String continueAsGuest = 'continueAsGuest';
   static const String signedOut = 'signedOut';
+  static const String gif = 'gif';
+  static const String saySomething = 'saySomething';
+  static const String goodMorning = 'goodMorning';
+  static const String howAreYou = 'howAreYou';
+  static const String onMyPuter = 'onMyPuter';
+  static const String iWouldLikeSomeCoffee = 'iWouldLikeSomeCoffee';
+  static const String addToFavs = 'addToFavs';
+  static const String share = 'share';
+  static const String download = 'download';
 
   static LangCode? currenetLangCode(BuildContext context) =>
       EasyLocalization.of(context)?.locale.languageCode;

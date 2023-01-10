@@ -1,24 +1,65 @@
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../hooks/use_invalidate_cred.dart';
-
-import '../../controllers/auth_controller.dart';
+part of './comp/home_comp.dart';
 
 class Home extends HookConsumerWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useInvalidateCred(ref);
+    final isPieMenuActive = useState(false);
 
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton.icon(
-          onPressed: () async {
-            await AuthController.signOut(context);
-          },
-          icon: const Icon(Icons.exit_to_app),
-          label: const Text('Sign out'),
+    return PieCanvas(
+      theme: PieTheme(
+        delayDuration: Duration.zero,
+        buttonThemeHovered: PieButtonTheme(
+          backgroundColor: KatColors.primary(context),
+          iconColor: KatColors.primaryContainer(context),
+        ),
+        buttonTheme: PieButtonTheme(
+          backgroundColor: KatColors.primaryContainer(context),
+          iconColor: KatColors.primary(context),
+        ),
+      ),
+      onMenuToggle: (active) => isPieMenuActive.value = active,
+      child: Scaffold(
+        body: NestedScrollView(
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverAppBar(
+              floating: true,
+              snap: true,
+              collapsedHeight: AppBar().preferredSize.height * 1.5,
+              flexibleSpace: FlexibleSpaceBar(
+                title: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: 650,
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                    ),
+                    child: _HomeSearchBar(),
+                  ),
+                ),
+              ),
+            ),
+          ],
+          body: Expanded(
+            child: MasonryGridView.count(
+              physics: isPieMenuActive.value
+                  ? const NeverScrollableScrollPhysics()
+                  : const ClampingScrollPhysics(),
+              itemCount: 100,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              crossAxisCount: KatHelpers.isMobileBp(context)
+                  ? 2
+                  : KatHelpers.isTabletBp(context)
+                      ? 3
+                      : 4,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
+              itemBuilder: (context, index) => _HomeCard(index: index),
+            ),
+          ),
         ),
       ),
     );

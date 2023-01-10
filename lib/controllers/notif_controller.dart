@@ -72,7 +72,7 @@ class NotifController {
     /// TODO maybe use the same colors of [ElegantNotif] for mobile snackbars
     switch (type) {
       case NotifType.success:
-        KatHelpers.isMobile
+        KatHelpers.isAndroidOrIos
             ? _showMobilePopop(
                 context: context,
                 title: title,
@@ -90,7 +90,7 @@ class NotifController {
               ).show(context);
         break;
       case NotifType.oops:
-        KatHelpers.isMobile
+        KatHelpers.isAndroidOrIos
             ? _showMobilePopop(
                 context: context,
                 title: title,
@@ -108,7 +108,7 @@ class NotifController {
               ).show(context);
         break;
       case NotifType.warning:
-        KatHelpers.isMobile
+        KatHelpers.isAndroidOrIos
             ? _showMobilePopop(
                 context: context,
                 title: title,
@@ -128,7 +128,7 @@ class NotifController {
               ).show(context);
         break;
       case NotifType.tip:
-        KatHelpers.isMobile
+        KatHelpers.isAndroidOrIos
             ? _showMobilePopop(
                 context: context,
                 title: title,

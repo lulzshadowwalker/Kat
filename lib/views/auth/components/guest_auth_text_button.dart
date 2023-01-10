@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../auth_imports.dart';
 
 class GuestAuthTextButton extends StatelessWidget {

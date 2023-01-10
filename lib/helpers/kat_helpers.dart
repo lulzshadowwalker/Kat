@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'kat_const.dart';
 import '../controllers/notif_controller.dart';
 import '../models/enums/notif_type.dart';
 import 'package:logger/logger.dart';
@@ -52,8 +53,9 @@ class KatHelpers {
     );
   }
 
-  ///returns [true] if the application is currently running on a mobile device
-  static bool get isMobile => !kIsWeb && (Platform.isAndroid || Platform.isIOS);
+  ///returns [true] if the application is currently running on a mobile platform
+  static bool get isAndroidOrIos =>
+      !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 
   /// image picking utility for android/iOS/web
   /// ..
@@ -66,7 +68,7 @@ class KatHelpers {
 
       ImageSource? imageSource = ImageSource.gallery;
 
-      if (!kIsWeb && KatHelpers.isMobile) {
+      if (!kIsWeb && KatHelpers.isAndroidOrIos) {
         imageSource = await showModalBottomSheet(
           context: context,
           builder: (_) => const KatImagePicker(),
@@ -92,10 +94,38 @@ class KatHelpers {
     }
   }
 
+  static Size screenSize(BuildContext context) => MediaQuery.of(context).size;
+
   // returns a random int between min (default 0) and max
   static int randomInt({
     required int max,
     int min = 0,
   }) =>
       math.Random().nextInt(max) + min;
+
+  /// returns the subjective screen width depending on the orientation of the device
+  static int screenWidth(BuildContext context) => isPortrait(context)
+      ? math.min(
+          screenSize(context).width.toInt(),
+          screenSize(context).height.toInt(),
+        )
+      : math.max(
+          screenSize(context).width.toInt(),
+          screenSize(context).height.toInt(),
+        );
+
+  static bool isPortrait(BuildContext context) =>
+      MediaQuery.of(context).orientation == Orientation.portrait;
+
+  /// returns [true] if the screen width is less than or equal to the mobile breakpoint
+  static bool isMobileBp(BuildContext context) =>
+      screenWidth(context) <= KatConst.mobileBreakpoint;
+
+  /// returns [true] if the screen width is less than or equal to the tablet breakpoint
+  static bool isTabletBp(BuildContext context) =>
+      screenWidth(context) <= KatConst.tabletBreakpoint && !isMobileBp(context);
+
+  /// returns [true] if the screen width larger than the tablet breakpoint
+  static bool isDesktopBp(BuildContext context) =>
+      screenWidth(context) > KatConst.tabletBreakpoint;
 }

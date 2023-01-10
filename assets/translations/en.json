@@ -33,6 +33,14 @@
     "goBackToHome": "Go back to home",
     "continueAsGuest": "continue as a guest",
     "pageDoesNotExist": "page does not exist",
-    "signedOut": "Signed out"
-
+    "signedOut": "Signed out",
+    "gif": "GIF",
+    "saySomething": "Say something",
+    "goodMorning": "good morning",
+    "howAreYou": "how are you ?",
+    "onMyPuter": "on my puter",
+    "iWouldLikeSomeCoffee": "I would like some coffee",
+    "addToFavs": "add to favorites",
+    "share": "share",
+    "download": "download"
 }

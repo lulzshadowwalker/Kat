@@ -27,4 +27,7 @@ class KatConst {
 
   /// google auth map key
   static const String gUserId = 'email';
+
+  static const int mobileBreakpoint = 520;
+  static const int tabletBreakpoint = 1024;
 }

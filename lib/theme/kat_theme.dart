@@ -55,12 +55,12 @@ class KatTheme {
   );
 
   static final _appBarTheme = ThemeData().appBarTheme.copyWith(
-        color: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         scrolledUnderElevation: 0,
       );
 
+  static const Color _seedColor = KatColors.purple;
   //
   // ─── DARK THEME ─────────────────────────────────────────────────────────────────
   //
@@ -71,16 +71,13 @@ class KatTheme {
       //
       colorScheme: ColorScheme.fromSeed(
         brightness: Brightness.dark,
-        seedColor: KatColors.purple,
+        seedColor: _seedColor,
       ),
 
       //
       textTheme: ThemeData.dark().textTheme.apply(
             fontFamily: _fontFamily(context),
           ),
-
-      //
-      // scaffoldBackgroundColor: ,
 
       //
       dividerTheme: _dividerThemeData,
@@ -103,16 +100,13 @@ class KatTheme {
       //
       colorScheme: ColorScheme.fromSeed(
         brightness: Brightness.light,
-        seedColor: KatColors.purple,
+        seedColor: _seedColor,
       ),
 
       //
       textTheme: ThemeData.light().textTheme.apply(
             fontFamily: _fontFamily(context),
           ),
-
-      //
-      // scaffoldBackgroundColor: ,
 
       //
       dividerTheme: _dividerThemeData,
