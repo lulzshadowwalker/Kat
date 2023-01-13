@@ -18,6 +18,6 @@ class KatLogPrinter extends PrettyPrinter {
     final color = PrettyPrinter.levelColors[event.level];
     final emoji = '\t${levelEmjois[event.level]}';
 
-    return [color!('$emoji + $className | ${event.message}')];
+    return [color!('$emoji $className | ${event.message}')];
   }
 }

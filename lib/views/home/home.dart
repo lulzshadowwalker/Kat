@@ -5,35 +5,29 @@ class Home extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isPieMenuActive = useState(false);
+    final isPieMenuInactive = useState(false);
+    final cats = ref.watch(catsProvider(context));
 
     return PieCanvas(
-      theme: PieTheme(
-        delayDuration: Duration.zero,
-        buttonThemeHovered: PieButtonTheme(
-          backgroundColor: KatColors.primary(context),
-          iconColor: KatColors.primaryContainer(context),
-        ),
-        buttonTheme: PieButtonTheme(
-          backgroundColor: KatColors.primaryContainer(context),
-          iconColor: KatColors.primary(context),
-        ),
-      ),
-      onMenuToggle: (active) => isPieMenuActive.value = active,
+      theme: KatTheme.pieTheme(context),
+      onMenuToggle: (active) => isPieMenuInactive.value = active,
       child: Scaffold(
+        /// TODO replace the [SliverAppBar] in [Home] with a custom implementation as apparently
+        ///  the [NeverScrollableScrollPhysics] doesn't work in the [NestedScrollView]
+        ///  for some reason
+        ///  https://github.com/flutter/flutter/issues/45619
         body: NestedScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverAppBar(
+              backgroundColor: Colors.transparent,
               floating: true,
               snap: true,
               collapsedHeight: AppBar().preferredSize.height * 1.5,
-              flexibleSpace: FlexibleSpaceBar(
-                title: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 650,
-                  ),
-                  child: const Padding(
+              flexibleSpace: const FlexibleSpaceBar(
+                title: KatConstrainedBox(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 24,
                     ),
@@ -43,12 +37,9 @@ class Home extends HookConsumerWidget {
               ),
             ),
           ],
-          body: Expanded(
-            child: MasonryGridView.count(
-              physics: isPieMenuActive.value
-                  ? const NeverScrollableScrollPhysics()
-                  : const ClampingScrollPhysics(),
-              itemCount: 100,
+          body: cats.when(
+            data: (data) => MasonryGridView.count(
+              itemCount: data.length,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               crossAxisCount: KatHelpers.isMobileBp(context)
                   ? 2
@@ -57,8 +48,16 @@ class Home extends HookConsumerWidget {
                       : 4,
               crossAxisSpacing: 20,
               mainAxisSpacing: 20,
-              itemBuilder: (context, index) => _HomeCard(index: index),
+              itemBuilder: (context, index) => _HomeCard(
+                index: index,
+                cat: data[index],
+              ),
             ),
+            error: (error, stackTrace) => const Oops(),
+            loading: () =>
+
+                /// TODO home screen shimmer loading
+                const Loading(),
           ),
         ),
       ),

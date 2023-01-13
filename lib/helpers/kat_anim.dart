@@ -1,8 +1,9 @@
 class KatAnim {
   /// https://lottiefiles.com/75212-cat-loader
   static const String loading = 'assets/anims/loading.json';
+
   static const notFound = <String>[
-    /// https://lottiefiles.com/120103-404-error-page-with-cute-cat
+    /// https://lottiefiles.com/119968-alien-spaceship-abducting-a-cat-404-error
     'assets/anims/cat-404-1.json',
 
     /// https://lottiefiles.com/120103-404-error-page-with-cute-cat

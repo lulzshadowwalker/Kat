@@ -1,19 +1,17 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'notif_controller.dart';
-import 'remote_db_controller.dart';
-import '../models/enums/notif_type.dart';
-import '../models/kat_user_cred.dart';
-import '../providers/user_cred_provider.dart';
 
 import '../../helpers/kat_helpers.dart';
 import '../helpers/typedefs.dart';
+import '../models/enums/notif_type.dart';
+import '../models/kat_user_cred.dart';
+import '../providers/user_cred_provider.dart';
 import '../translations/kat_translations.dart';
+import 'notif_controller.dart';
+import 'remote_db_controller.dart';
 
 class AuthController {
   AuthController._internal();
@@ -44,10 +42,8 @@ class AuthController {
         desc: KatTranslations.signedInAnon.tr(),
         type: NotifType.success,
       );
-    } on SocketException {
-      KatHelpers.handleSocketException(context, _log);
     } catch (e) {
-      KatHelpers.handleUnkownError(context, e, _log);
+      KatHelpers.handleException(context: context, e: e, logger: _log);
     }
   }
 
@@ -62,10 +58,8 @@ class AuthController {
         desc: KatTranslations.signedOut.tr(),
         type: NotifType.warning,
       );
-    } on SocketException {
-      KatHelpers.handleSocketException(context, _log);
     } catch (e) {
-      KatHelpers.handleUnkownError(context, e, _log);
+      KatHelpers.handleException(context: context, e: e, logger: _log);
     }
   }
 
@@ -82,12 +76,8 @@ class AuthController {
       );
 
       _log.v('Signed-in with email and password');
-    } on SocketException {
-      KatHelpers.handleSocketException(context, _log);
-    } on FirebaseAuthException catch (e) {
-      _handleFirebaseAuthException(context, e);
     } catch (e) {
-      KatHelpers.handleUnkownError(context, e, _log);
+      KatHelpers.handleException(context: context, e: e, logger: _log);
     }
   }
 
@@ -110,12 +100,8 @@ class AuthController {
         ref: ref,
         uid: u.user!.uid,
       );
-    } on SocketException {
-      KatHelpers.handleSocketException(context, _log);
-    } on FirebaseAuthException catch (e) {
-      _handleFirebaseAuthException(context, e);
     } catch (e) {
-      KatHelpers.handleUnkownError(context, e, _log);
+      KatHelpers.handleException(context: context, e: e, logger: _log);
     }
   }
 
@@ -160,12 +146,8 @@ class AuthController {
         ref: ref,
         uid: userCredential.user!.uid,
       );
-    } on FirebaseAuthException catch (e) {
-      _handleFirebaseAuthException(context, e);
-    } on SocketException {
-      KatHelpers.handleSocketException(context, _log);
     } catch (e) {
-      KatHelpers.handleUnkownError(context, e, _log);
+      KatHelpers.handleException(context: context, e: e, logger: _log);
     }
   }
 
@@ -174,18 +156,5 @@ class AuthController {
     //  ..
     //  requires an Apple developer account.
     throw UnimplementedError('Apple auth has not been implemnted');
-  }
-
-  static void _handleFirebaseAuthException(
-    BuildContext context,
-    FirebaseAuthException e,
-  ) {
-    _log.e('${e.message}');
-
-    NotifController.showPopup(
-      context: context,
-      desc: (e.message ?? KatTranslations.unknownError).tr(),
-      type: NotifType.oops,
-    );
   }
 }

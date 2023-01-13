@@ -18,6 +18,7 @@ class SignIn extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useInvalidateCred(ref);
 
+    /// TODO refactor to [KatPageBase]
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(

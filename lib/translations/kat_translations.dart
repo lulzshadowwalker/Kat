@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:kat/models/enums/notif_type.dart';
 
 import '../helpers/typedefs.dart';
 
@@ -39,6 +40,13 @@ class KatTranslations {
   static const String addToFavs = 'addToFavs';
   static const String share = 'share';
   static const String download = 'download';
+  static const String tags = 'tags';
+
+  /// TODO replace all refs
+  static final String oops = NotifType.oops.name;
+  static final String warning = NotifType.warning.name;
+  static final String tip = NotifType.tip.name;
+  static final String success = NotifType.success.name;
 
   static LangCode? currenetLangCode(BuildContext context) =>
       EasyLocalization.of(context)?.locale.languageCode;

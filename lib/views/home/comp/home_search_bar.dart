@@ -7,72 +7,49 @@ class _HomeSearchBar extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isGif = useState(false);
     final showcaseWord = ref.watch(wordsProvider).asData;
+    final tags = ref.watch(catTagsProvider(context)).asData;
+    final selectedTags = ref.watch(selectedTagsNotifierProvider.notifier);
 
-    return Container(
-      height: 48,
-      width: double.infinity,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      decoration: BoxDecoration(
-        color: KatColors.mutedLight,
-        borderRadius: BorderRadius.circular(50),
-      ),
+    return KatFormFieldBase(
       child: Row(
         children: [
           Expanded(
-            flex: 3,
+            flex: 5,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextField(
-                /// TODO search hints on supported tags
-                cursorColor: KatColors.black,
                 decoration: InputDecoration.collapsed(
                     hintText:
                         tr(showcaseWord?.value ?? KatTranslations.saySomething),
                     hintStyle: _textStyle(context)),
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2
-                    ?.copyWith(color: KatColors.black),
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      fontFamily: KatTheme.enFontFamily,
+                      color: KatColors.black,
+                    ),
               ),
             ),
           ),
-          DropdownButton(
-            style: _textStyle(context),
-            borderRadius: BorderRadius.circular(8),
-            elevation: 2,
-            iconEnabledColor: KatColors.muted,
-            hint: Text('Tags', style: _textStyle(context)),
-            onTap: () {},
-            items: const [
-              /// TODO search bar tags
-              DropdownMenuItem(value: 1, child: Text('hello')),
-              DropdownMenuItem(value: 2, child: Text('hello')),
-              DropdownMenuItem(value: 3, child: Text('hello')),
-            ],
-            onChanged: (v) {},
-          ),
-          const VerticalDivider(),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => isGif.value = !isGif.value,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 120),
-                color: isGif.value
-                    ? KatColors.primaryContainer(context)
-                    : KatColors.muted,
-                alignment: Alignment.center,
-                height: double.infinity,
-                child: Text(
-                  KatTranslations.gif.tr(),
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                        color: isGif.value
-                            ? KatColors.primary(context)
-                            : KatColors.white,
-                      ),
+          if (tags != null && tags.hasValue)
+            Expanded(
+              child: GestureDetector(
+                /// TODO, tags button should change color in response to whether
+                ///  the results are filtered. e.g. cats dogs but not ducks or whatever
+                onTap: () => _showTagsSheet(context, selectedTags, tags),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 120),
+                  color: KatColors.primaryContainer(context),
+                  alignment: Alignment.center,
+                  height: double.infinity,
+                  child: Text(
+                    KatTranslations.tags.tr(),
+                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          fontFamily: KatTheme.enFontFamily,
+                          color: KatColors.primary(context),
+                        ),
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
@@ -80,7 +57,23 @@ class _HomeSearchBar extends HookConsumerWidget {
 
   static TextStyle? _textStyle(BuildContext context) =>
       Theme.of(context).textTheme.bodyText2?.copyWith(
+            fontFamily: KatTheme.enFontFamily,
             overflow: TextOverflow.ellipsis,
             color: KatColors.muted,
           );
+
+  void _showTagsSheet(
+    BuildContext context,
+    SelectedTagsNotifier selectedTags,
+    AsyncData<List<CatTag>>? tags,
+  ) =>
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) => _TagsSheet(
+          tags: tags,
+          selectedTags: selectedTags,
+        ),
+      );
 }

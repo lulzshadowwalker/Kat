@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class KatColors {
   /// #FFFFFF -> FFFFFF
-  static Color colorFromHex(String hexColor, [String opacity = 'FF']) {
+  static Color fromHex(String hexColor, [String opacity = 'FF']) {
     /// #FFFFFF -> FFFFFF
     final String color = hexColor.replaceAll('#', '');
 
@@ -26,14 +26,18 @@ class KatColors {
   static Color primaryContainer(BuildContext context) =>
       Theme.of(context).colorScheme.primaryContainer;
 
+  static Color scaffold(BuildContext context) =>
+      Theme.of(context).scaffoldBackgroundColor;
+
   static const Color black = Colors.black;
   static const Color white = Colors.white;
-  static final Color cyan = colorFromHex('#56ABAC');
-  static final Color green = colorFromHex('#70EA71');
-  static final Color yellow = colorFromHex('#ffc800');
-  static final Color red = colorFromHex('#ff4b4b');
+  static final Color cyan = fromHex('#56ABAC');
+  static final Color green = fromHex('#70EA71');
+  static final Color yellow = fromHex('#ffc800');
+  static final Color red = fromHex('#ff4b4b');
   static const Color blue = Colors.lightBlue;
-  static final Color muted = colorFromHex('999999');
+  static final Color muted = fromHex('999999');
   static const Color purple = Colors.deepPurple;
+  static final Color dark = fromHex('#121315');
   static Color mutedLight = Colors.grey.shade200;
 }

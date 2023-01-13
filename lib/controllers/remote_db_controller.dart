@@ -1,12 +1,11 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'remote_storage.dart';
+
 import '../helpers/kat_helpers.dart';
 import '../helpers/typedefs.dart';
 import '../providers/user_cred_provider.dart';
+import 'remote_storage.dart';
 
 class RemoteDbController {
   RemoteDbController._internal();
@@ -53,10 +52,8 @@ class RemoteDbController {
       _log.v('''registered new user with details:
                 ${cred.toMap()}
           ''');
-    } on SocketException {
-      KatHelpers.handleSocketException(context, _log);
     } catch (e) {
-      KatHelpers.handleUnkownError(context, e, _log);
+      KatHelpers.handleException(context: context, e: e, logger: _log);
     }
   }
 }

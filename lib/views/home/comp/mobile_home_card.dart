@@ -3,16 +3,15 @@ part of './home_comp.dart';
 class _MobileHomeCard extends HookWidget {
   const _MobileHomeCard({
     required this.index,
+    required this.cat,
   });
 
   final int index;
+  final Cat cat;
 
   @override
   Widget build(BuildContext context) {
-    final scale = useKatScale();
-
     return KatAnimatedScale(
-      scale: scale,
       index: index,
       child: PieMenu(
         actions: [
@@ -38,8 +37,7 @@ class _MobileHomeCard extends HookWidget {
           color: Colors.transparent,
           child: CachedNetworkImage(
             fit: BoxFit.cover,
-            imageUrl:
-                'https://images.unsplash.com/photo-1672760164718-8e42d512fd88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
+            imageUrl: '${cat.url}',
           ),
         ),
       ),

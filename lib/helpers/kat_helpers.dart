@@ -1,7 +1,9 @@
-import 'dart:io' show Platform;
+import 'dart:io' show Platform, SocketException;
 import 'dart:math' as math;
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,7 +28,7 @@ class KatHelpers {
         printer: KatLogPrinter(className),
       );
 
-  static void handleSocketException(
+  static void _handleSocketException(
     BuildContext context,
     Logger logger,
   ) {
@@ -39,7 +41,7 @@ class KatHelpers {
     );
   }
 
-  static void handleUnkownError(
+  static void _handleUnkownError(
     BuildContext context,
     Object error,
     Logger logger,
@@ -51,6 +53,33 @@ class KatHelpers {
       desc: KatTranslations.unknownError.tr(),
       type: NotifType.oops,
     );
+  }
+
+  static void _handleFirebaseAuthException(
+    BuildContext context,
+    FirebaseAuthException e,
+  ) {
+    _log.e('${e.message}');
+
+    NotifController.showPopup(
+      context: context,
+      desc: (e.message ?? KatTranslations.unknownError).tr(),
+      type: NotifType.oops,
+    );
+  }
+
+  static void handleException({
+    required BuildContext context,
+    required Object e,
+    required Logger logger,
+  }) {
+    if (e is SocketException) {
+      _handleSocketException(context, logger);
+    } else if (e is FirebaseException) {
+      _handleFirebaseAuthException(context, e as FirebaseAuthException);
+    } else {
+      _handleUnkownError(context, e, logger);
+    }
   }
 
   ///returns [true] if the application is currently running on a mobile platform

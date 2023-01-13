@@ -1,11 +1,11 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'auth_controller.dart';
-import '../helpers/kat_helpers.dart';
 import 'package:uuid/uuid.dart';
+
+import '../helpers/kat_helpers.dart';
+import 'auth_controller.dart';
 
 class RemoteStorageController {
   RemoteStorageController._internal();
@@ -40,10 +40,8 @@ class RemoteStorageController {
       _log.v('file uploaded successfully');
 
       return downloadUrl;
-    } on SocketException {
-      KatHelpers.handleSocketException(context, _log);
     } catch (e) {
-      KatHelpers.handleUnkownError(context, e, _log);
+      KatHelpers.handleException(context: context, e: e, logger: _log);
     }
     return null;
   }

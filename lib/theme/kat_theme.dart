@@ -2,18 +2,22 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kat/helpers/kat_fonts.dart';
+import 'package:pie_menu/pie_menu.dart';
 import '../helpers/kat_const.dart';
 import 'kat_colors.dart';
 import '../translations/kat_translations.dart';
 
 class KatTheme {
-  static final String? _enFontFamily = GoogleFonts.kanit().fontFamily;
-  static final String? _ruFontFamily = GoogleFonts.montserrat().fontFamily;
+  static final String? enFontFamily = GoogleFonts.kanit().fontFamily;
+  static const String ruFontFamily = KatFonts.ukrainianPrincessShadow;
 
   static String? _fontFamily(BuildContext context) =>
       KatTranslations.currenetLangCode(context) == KatConst.en
-          ? _enFontFamily
-          : _ruFontFamily;
+          ? enFontFamily
+
+          /// TODO find a better russian font
+          : enFontFamily;
 
   /// returns a map of all the currently supported themes and their corresponding translated names
   static Map<Brightness, String> get themes => {
@@ -70,7 +74,7 @@ class KatTheme {
 
       //
       colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         seedColor: _seedColor,
       ),
 
@@ -78,6 +82,9 @@ class KatTheme {
       textTheme: ThemeData.dark().textTheme.apply(
             fontFamily: _fontFamily(context),
           ),
+
+      //
+      scaffoldBackgroundColor: KatColors.dark,
 
       //
       dividerTheme: _dividerThemeData,
@@ -118,4 +125,19 @@ class KatTheme {
   //
   // ────────────────────────────────────────────────────────────── LIGHT THEME ─────
   //
+
+  static PieTheme pieTheme(BuildContext context) => PieTheme(
+        tooltipStyle: Theme.of(context).textTheme.headline3?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: KatColors.muted,
+            ),
+        buttonThemeHovered: PieButtonTheme(
+          backgroundColor: KatColors.primary(context),
+          iconColor: KatColors.primaryContainer(context),
+        ),
+        buttonTheme: PieButtonTheme(
+          backgroundColor: KatColors.primaryContainer(context),
+          iconColor: KatColors.primary(context),
+        ),
+      );
 }

@@ -3,18 +3,18 @@ part of './home_comp.dart';
 class _WebHomeCard extends HookWidget {
   const _WebHomeCard({
     required this.index,
+    required this.cat,
   });
 
   final int index;
   static const _duration = Duration(milliseconds: 240);
+  final Cat cat;
 
   @override
   Widget build(BuildContext context) {
-    final scale = useKatScale();
     final isHovering = useState(false);
 
     return KatAnimatedScale(
-      scale: scale,
       index: index,
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -26,11 +26,7 @@ class _WebHomeCard extends HookWidget {
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl:
-                    'https://images.unsplash.com/photo-1672760164718-8e42d512fd88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
-              ),
+              const Placeholder(),
               Visibility(
                 maintainState: true,
                 maintainAnimation: true,
