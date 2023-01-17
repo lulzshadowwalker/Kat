@@ -43,5 +43,9 @@
     "addToFavs": "add to favorites",
     "share": "share",
     "download": "download",
-    "tags": "Tags"
+    "tags": "Tags",
+    "imageDownloaded": "Image downloaded",
+    "needAccount": "you need to create an account to access this feature",
+    "sry": "sryy 🥺",
+    "inDevelopment": "this feature is not ready yet"
 }

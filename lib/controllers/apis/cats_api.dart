@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:http/http.dart' as http;
 import 'package:kat/controllers/apis/api_handler.dart';
-import '../../helpers/typedefs.dart';
 import '../../models/cat.dart';
 
 class CatsApi {
   static const String _baseUrl = 'https://cataas.com/api';
 
-  /// returns a list of 100 images
+  /// returns a list of 1000 images
   static Future<List<Cat>> fetchCats(BuildContext context) async {
-    const url = '$_baseUrl/cats?limit=100';
+    const url = '$_baseUrl/cats?limit=1000';
 
     return await ApiHandler.get<List<Cat>>(
           context: context,
@@ -25,10 +24,10 @@ class CatsApi {
   }
 
   /// returns a list of all avaialable tags
-  static Future<List<CatTag>> fetchTags(BuildContext context) async {
+  static Future<List<String>> fetchTags(BuildContext context) async {
     const url = '$_baseUrl/tags';
 
-    return await ApiHandler.get<List<CatTag>>(
+    return await ApiHandler.get<List<String>>(
           context: context,
           url: url,
           onResponse: (res) => (jsonDecode(res.body) as List)

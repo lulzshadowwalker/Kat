@@ -53,6 +53,8 @@ failure,  request of time id ( $timeId )
     required BuildContext context,
     required RequestType type,
     required String url,
+
+    /// TODO add the body to the log
     Map<String, String>? headers,
     T? Function(http.Response)? onResponse,
     required Future<http.Response> Function() request,
@@ -77,6 +79,7 @@ failure,  request of time id ( $timeId )
       if (onResponse != null) {
         return onResponse(res);
       }
+      return null;
     } catch (e) {
       KatHelpers.handleException(context: context, e: e, logger: _log);
       return null;
@@ -121,6 +124,8 @@ failure,  request of time id ( $timeId )
           body: body,
         ),
         onResponse: onResponse,
+
+        /// TODO pass the body and the headers
       );
 
   static Future<T?> patch<T>({

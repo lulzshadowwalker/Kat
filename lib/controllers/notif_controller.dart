@@ -9,6 +9,7 @@ import '../theme/kat_colors.dart';
 import 'package:lottie/lottie.dart';
 
 import '../models/enums/notif_type.dart';
+import '../translations/kat_translations.dart';
 
 class NotifController {
   /// class name
@@ -17,7 +18,7 @@ class NotifController {
 
   static final _notifConfigs = <NotifType, NotifConfig>{
     NotifType.success: NotifConfig(
-      color: KatColors.green,
+      color: KatColors.purple,
       leading: LottieBuilder.asset(KatAnim.success, repeat: false),
     ),
     NotifType.warning: NotifConfig(
@@ -53,8 +54,20 @@ class NotifController {
             height: double.infinity,
             child: _getNotifConfig(type).leading,
           ),
-          title: Text(title),
-          subtitle: Text(desc),
+          title: Text(
+            title,
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                ?.copyWith(color: KatColors.white),
+          ),
+          subtitle: Text(
+            desc,
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                ?.copyWith(color: KatColors.white.withOpacity(0.65)),
+          ),
         ),
       ),
     );
@@ -63,10 +76,11 @@ class NotifController {
   /// shows an adaptive platform appropriate popup
   static void showPopup({
     required BuildContext context,
+    String? title,
     required String desc,
     required NotifType type,
   }) {
-    final title = type.name.tr();
+    title ??= type.name.tr();
     const duration = Duration(milliseconds: 3500);
 
     /// TODO maybe use the same colors of [ElegantNotif] for mobile snackbars
@@ -153,5 +167,14 @@ class NotifController {
                 title: $title, 
                 description: $desc
           ''');
+  }
+
+  static void showInDevPopup(BuildContext context) {
+    NotifController.showPopup(
+      context: context,
+      title: KatTranslations.sry.tr(),
+      desc: KatTranslations.inDevelopment.tr(),
+      type: NotifType.tip,
+    );
   }
 }

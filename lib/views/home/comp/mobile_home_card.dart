@@ -1,48 +1,87 @@
 part of './home_comp.dart';
 
-class _MobileHomeCard extends HookWidget {
+class _MobileHomeCard extends ConsumerWidget {
   const _MobileHomeCard({
     required this.index,
-    required this.cat,
+    required this.url,
   });
 
   final int index;
-  final Cat cat;
+  final String url;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final text = ref.watch(processingInputProvider);
+    final controller = ScreenshotController();
+
     return KatAnimatedScale(
       index: index,
       child: PieMenu(
         actions: [
           PieAction(
             tooltip: KatTranslations.addToFavs.tr(),
-            onSelect: () {},
+            onSelect: () {
+              context.setLocale(const Locale('ru'));
+              NotifController.showInDevPopup(context);
+            },
             child: const Icon(Icons.favorite),
           ),
           PieAction(
             tooltip: KatTranslations.share.tr(),
-            onSelect: () {},
+            onSelect: () async {
+              context.setLocale(const Locale('en'));
+              NotifController.showInDevPopup(context);
+            },
             child: const Icon(Icons.share),
           ),
           PieAction(
             tooltip: KatTranslations.download.tr(),
-            onSelect: () {},
+            onSelect: () {
+              KatHelpers.downloadImage(
+                context: context,
+                controller: controller,
+              );
+            },
             child: const Icon(Icons.download),
           ),
         ],
-        child: Card(
+        child: Container(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          elevation: 0,
-          color: Colors.transparent,
-          child: CachedNetworkImage(
-            fit: BoxFit.cover,
-            imageUrl: '${cat.url}',
+          decoration: BoxDecoration(
+            color: KatColors.black,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Screenshot(
+            controller: controller,
+            child: Image.network(
+              url,
+              loadingBuilder: (context, child, prog) {
+                return prog == null
+                    ? Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          child,
+                          KatAnimatedScale(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: BorderedText(
+                                strokeColor: KatColors.white,
+                                strokeWidth: 2,
+                                child: Text(
+                                  text,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    : Container(color: Colors.red, height: 29, width:123);
+              },
+            ),
           ),
         ),
       ),
     );
   }
 }
-// share, download(GIF, mp4, image)
-// mobile(platform), always visible. desktop, animated expand on hover.

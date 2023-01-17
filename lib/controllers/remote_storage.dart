@@ -25,8 +25,8 @@ class RemoteStorageController {
   }) async {
     try {
       final uid = AuthController.userId;
-      if (uid == uid) throw Exception('User ID is null');
-      final String userId = uid!;
+      if (uid == null) throw Exception('User ID is null');
+      final String userId = uid;
 
       final String fileId = const Uuid().v4();
 

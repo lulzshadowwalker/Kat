@@ -3,16 +3,16 @@ part of './home_comp.dart';
 class _HomeCard extends StatelessWidget {
   const _HomeCard({
     required this.index,
-    required this.cat,
+    required this.url,
   });
 
   final int index;
-  final Cat cat;
+  final String url;
 
   @override
   Widget build(BuildContext context) {
     return KatHelpers.isAndroidOrIos
-        ? _MobileHomeCard(index: index, cat: cat)
-        : _WebHomeCard(index: index, cat: cat);
+        ? _MobileHomeCard(index: index, url: url)
+        : _WebHomeCard(index: index, url: url);
   }
 }

@@ -2,8 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models/kat_user_cred.dart';
 
-final credProvider =
-    StateNotifierProvider.autoDispose<CredNotifier, KatUserCred>((ref) {
+final credProvider = StateNotifierProvider<CredNotifier, KatUserCred>((ref) {
   return CredNotifier(KatUserCred());
 });
 

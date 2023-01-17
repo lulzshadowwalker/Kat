@@ -3,22 +3,24 @@ import 'dart:math' as math;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
-import 'kat_const.dart';
+import 'package:kat/models/kat_slient_exception.dart';
+import 'package:logger/logger.dart';
+import 'package:screenshot/screenshot.dart';
+
 import '../controllers/notif_controller.dart';
 import '../models/enums/notif_type.dart';
-import 'package:logger/logger.dart';
-
 import '../translations/kat_translations.dart';
 import '../views/shared/kat_image_picker/kat_image_picker.dart';
+import 'kat_const.dart';
 import 'kat_log_printer.dart';
 
 class KatHelpers {
   /* STRING CONSTANTS --------------------------------------------------------- */
-  /// class name===
+  /// class name
   static const String _cn = 'KatHelpers';
   /* -------------------------------------------------------------------------- */
   static final _log = getLogger(_cn);
@@ -77,6 +79,8 @@ class KatHelpers {
       _handleSocketException(context, logger);
     } else if (e is FirebaseException) {
       _handleFirebaseAuthException(context, e as FirebaseAuthException);
+    } else if (e is KatSilentException) {
+      logger.e(e.message);
     } else {
       _handleUnkownError(context, e, logger);
     }
@@ -157,4 +161,31 @@ class KatHelpers {
   /// returns [true] if the screen width larger than the tablet breakpoint
   static bool isDesktopBp(BuildContext context) =>
       screenWidth(context) > KatConst.tabletBreakpoint;
+
+  /// captures a widget as an image and saves it to the gallery
+  static Future<String?> downloadImage({
+    required BuildContext context,
+    required ScreenshotController controller,
+  }) async {
+    /// TODO better permissions handling
+    try {
+      final image = await controller.capture();
+
+      final res = await ImageGallerySaver.saveImage(
+        image!,
+        name: 'aboba.png',
+      ) as Map;
+
+      NotifController.showPopup(
+        context: context,
+        desc: KatTranslations.imageDownloaded.tr(),
+        type: NotifType.success,
+      );
+
+      return res['filePath'].toString();
+    } catch (e) {
+      handleException(context: context, e: e, logger: _log);
+      return null;
+    }
+  }
 }

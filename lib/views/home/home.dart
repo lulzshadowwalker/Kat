@@ -6,12 +6,17 @@ class Home extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isPieMenuInactive = useState(false);
-    final cats = ref.watch(catsProvider(context));
+    final images = ref.watch(imagesProvider(context));
 
     return PieCanvas(
       theme: KatTheme.pieTheme(context),
       onMenuToggle: (active) => isPieMenuInactive.value = active,
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.exit_to_app),
+          onPressed: () => AuthController.signOut(context),
+        ),
+
         /// TODO replace the [SliverAppBar] in [Home] with a custom implementation as apparently
         ///  the [NeverScrollableScrollPhysics] doesn't work in the [NestedScrollView]
         ///  for some reason
@@ -21,11 +26,13 @@ class Home extends HookConsumerWidget {
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverAppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.dark,
               backgroundColor: Colors.transparent,
               floating: true,
               snap: true,
               collapsedHeight: AppBar().preferredSize.height * 1.5,
               flexibleSpace: const FlexibleSpaceBar(
+                centerTitle: true,
                 title: KatConstrainedBox(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -37,27 +44,21 @@ class Home extends HookConsumerWidget {
               ),
             ),
           ],
-          body: cats.when(
-            data: (data) => MasonryGridView.count(
-              itemCount: data.length,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              crossAxisCount: KatHelpers.isMobileBp(context)
-                  ? 2
-                  : KatHelpers.isTabletBp(context)
-                      ? 3
-                      : 4,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-              itemBuilder: (context, index) => _HomeCard(
-                index: index,
-                cat: data[index],
-              ),
+          body: MasonryGridView.count(
+            itemCount: images.length,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            crossAxisCount: KatHelpers.isMobileBp(context)
+                ? 2
+                : KatHelpers.isTabletBp(context)
+                    ? 3
+                    : 5,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            cacheExtent: 300,
+            itemBuilder: (context, index) => _HomeCard(
+              index: index,
+              url: images.elementAt(index),
             ),
-            error: (error, stackTrace) => const Oops(),
-            loading: () =>
-
-                /// TODO home screen shimmer loading
-                const Loading(),
           ),
         ),
       ),

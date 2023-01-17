@@ -5,10 +5,8 @@ class _HomeSearchBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isGif = useState(false);
-    final showcaseWord = ref.watch(wordsProvider).asData;
-    final tags = ref.watch(catTagsProvider(context)).asData;
-    final selectedTags = ref.watch(selectedTagsNotifierProvider.notifier);
+    final processingInput = ref.watch(processingInputProvider);
+    final searchTerms = ref.watch(searchTermsProvider.notifier);
 
     return KatFormFieldBase(
       child: Row(
@@ -19,9 +17,10 @@ class _HomeSearchBar extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextField(
                 decoration: InputDecoration.collapsed(
-                    hintText:
-                        tr(showcaseWord?.value ?? KatTranslations.saySomething),
-                    hintStyle: _textStyle(context)),
+                  hintText: processingInput,
+                  hintStyle: _textStyle(context),
+                ),
+                onChanged: (value) => searchTerms.state = value,
                 style: Theme.of(context).textTheme.bodyText2?.copyWith(
                       fontFamily: KatTheme.enFontFamily,
                       color: KatColors.black,
@@ -29,12 +28,18 @@ class _HomeSearchBar extends HookConsumerWidget {
               ),
             ),
           ),
-          if (tags != null && tags.hasValue)
             Expanded(
               child: GestureDetector(
                 /// TODO, tags button should change color in response to whether
                 ///  the results are filtered. e.g. cats dogs but not ducks or whatever
-                onTap: () => _showTagsSheet(context, selectedTags, tags),
+                onTap: () => 
+                showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) => _TagsSheet(
+        ),
+                ),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 120),
                   color: KatColors.primaryContainer(context),
@@ -62,18 +67,6 @@ class _HomeSearchBar extends HookConsumerWidget {
             color: KatColors.muted,
           );
 
-  void _showTagsSheet(
-    BuildContext context,
-    SelectedTagsNotifier selectedTags,
-    AsyncData<List<CatTag>>? tags,
-  ) =>
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (context) => _TagsSheet(
-          tags: tags,
-          selectedTags: selectedTags,
-        ),
-      );
+ 
+      
 }

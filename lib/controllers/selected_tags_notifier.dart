@@ -1,20 +1,18 @@
 import 'dart:collection';
-
+import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../helpers/typedefs.dart';
+class SelectedTagsNotifier extends ChangeNotifier {
+  SelectedTagsNotifier(List<String> tags) : _tags = tags;
+  final List<String> _tags;
 
-class SelectedTagsNotifier extends StateNotifier<List<CatTag>> {
-  SelectedTagsNotifier(super.state);
+  List<String> get tags => UnmodifiableListView(_tags);
 
-  List<CatTag> get value => UnmodifiableListView(state);
+  void toggleSelect(String tag) {
+    _tags.contains(tag) && _tags.length > 1
+        ? _tags.remove(tag)
+        : _tags.add(tag);
 
-  void toggleSelect(CatTag tag) {
-    if (state.contains(tag)) {
-      state = state..remove(tag);
-      return;
-    }
-
-    state = state..add(tag);
+    notifyListeners();
   }
 }

@@ -15,8 +15,8 @@ extension Capitalize on String {
 }
 
 /// returns a list without the [null] values if any
-extension CompactMap<T> on List<T?> {
-  List<T> get toCompactMap =>
+extension CompactMap<T> on Iterable<T?> {
+  Iterable<T> get toCompactMap =>
       map((e) => e).where((e) => e != null).toList().cast();
 }
 

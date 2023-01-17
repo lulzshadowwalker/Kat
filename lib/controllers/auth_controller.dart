@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kat/models/kat_slient_exception.dart';
 
 import '../../helpers/kat_helpers.dart';
 import '../helpers/typedefs.dart';
@@ -22,7 +24,6 @@ class AuthController {
   static const String _cn = 'Authenticator';
   /* -------------------------------------------------------------------------- */
   static final _auth = FirebaseAuth.instance;
-  static final _remoteDb = RemoteDbController();
   static final _log = KatHelpers.getLogger(_cn);
 
   static UserId? get userId => _user?.uid;
@@ -50,14 +51,7 @@ class AuthController {
   static Future<void> signOut(BuildContext context) async {
     try {
       await _auth.signOut();
-
       _log.v('Signed-out');
-
-      NotifController.showPopup(
-        context: context,
-        desc: KatTranslations.signedOut.tr(),
-        type: NotifType.warning,
-      );
     } catch (e) {
       KatHelpers.handleException(context: context, e: e, logger: _log);
     }
@@ -95,7 +89,7 @@ class AuthController {
 
       _log.v('Signed-up with email and password');
 
-      await _remoteDb.createUserRecord(
+      await RemoteDbController.createUserRecord(
         context: context,
         ref: ref,
         uid: u.user!.uid,
@@ -111,15 +105,15 @@ class AuthController {
     WidgetRef ref,
   ) async {
     try {
-      final googleSignIn = GoogleSignIn(scopes: [
-        'profile',
-      ]);
+      final googleSignIn = GoogleSignIn(
+        scopes: [
+          'profile',
+        ],
+      );
 
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) {
-        /// not throwing an exception not to show the user an unnecessary error message
-        _log.e('Process terminated by the user');
-        return;
+        throw const KatSilentException('Process terminated by the user');
       }
 
       _log.v('Google auth process initiated');
@@ -141,7 +135,7 @@ class AuthController {
             ),
           );
 
-      await _remoteDb.createUserRecord(
+      await RemoteDbController.createUserRecord(
         context: context,
         ref: ref,
         uid: userCredential.user!.uid,

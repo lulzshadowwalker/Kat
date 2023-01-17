@@ -1,83 +1,97 @@
 part of './home_comp.dart';
 
-class _WebHomeCard extends HookWidget {
+class _WebHomeCard extends HookConsumerWidget {
   const _WebHomeCard({
     required this.index,
-    required this.cat,
+    required this.url,
   });
 
   final int index;
   static const _duration = Duration(milliseconds: 240);
-  final Cat cat;
+  final String url;
+  static final _borderRadius = BorderRadius.circular(15);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isHovering = useState(false);
+    final text = ref.watch(processingInputProvider);
 
     return KatAnimatedScale(
       index: index,
-      child: Card(
+      child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 0,
-        color: Colors.transparent,
+        decoration: BoxDecoration(
+          color: KatColors.black,
+          borderRadius: _borderRadius,
+        ),
         child: MouseRegion(
+          cursor: SystemMouseCursors.click,
           onHover: (_) => isHovering.value = true,
           onExit: (_) => isHovering.value = false,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              const Placeholder(),
-              Visibility(
-                maintainState: true,
-                maintainAnimation: true,
-                maintainSize: true,
-                visible: isHovering.value,
-                child: AnimatedSize(
-                  duration: _duration,
-                  reverseDuration: _duration,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0x00795548), Colors.black],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+          child: Center(
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                CachedNetworkImage(
+                  imageUrl: url,
+                  imageBuilder: (context, imageProvider) => KatFullscreen(
+                    child: Container(
+                      foregroundDecoration: BoxDecoration(
+                        color: isHovering.value
+                            ? KatColors.black.withOpacity(0.35)
+                            : null,
+                        borderRadius: _borderRadius,
+                      ),
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          Image(image: imageProvider),
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: BorderedText(
+                              strokeColor: KatColors.white,
+                              strokeWidth: 2,
+                              child: Text(
+                                text,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    padding: const EdgeInsets.all(16),
-                    height: isHovering.value ? null : 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          icon: const Icon(
-                            Icons.download,
-                            color: Colors.white,
-                            size: 16,
+                  ),
+                  placeholder: (context, url) => Container(),
+                ),
+                Visibility(
+                  maintainState: true,
+                  maintainAnimation: true,
+                  maintainSize: true,
+                  visible: isHovering.value,
+                  child: AnimatedSize(
+                    duration: _duration,
+                    reverseDuration: _duration,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      height: isHovering.value ? null : 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.favorite_border,
+                              color: KatColors.red,
+                              size: 24,
+                            ),
+                            onPressed: () {},
                           ),
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.share,
-                            color: Colors.white,
-                            size: 16,
-                          ),
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.favorite,
-                            color: KatColors.red,
-                            size: 16,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

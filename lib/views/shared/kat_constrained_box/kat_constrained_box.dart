@@ -11,7 +11,7 @@ class KatConstrainedBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 650),
+      constraints: const BoxConstraints(maxWidth: 550),
       child: child,
     );
   }

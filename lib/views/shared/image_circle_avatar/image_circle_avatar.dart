@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kat/helpers/kat_anim.dart';
+import 'package:lottie/lottie.dart';
 import '../../../helpers/kat_helpers.dart';
 
 import '../../../theme/kat_colors.dart';
@@ -16,6 +18,7 @@ class ImageCircleAvatar extends HookWidget {
   }) : super(key: key);
 
   final Function(Uint8List?)? onSelected;
+  static const double _radius = 128;
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +49,29 @@ class ImageCircleAvatar extends HookWidget {
       },
       child: Stack(
         children: [
-          CircleAvatar(
-            radius: 64,
-            backgroundColor: KatColors.primaryContainer(context),
-            backgroundImage: image.value == null
-                ? Image.network('https://bit.ly/3WF021k').image
-                : MemoryImage(image.value!),
+          Container(
+            height: _radius,
+            width: _radius,
+            decoration: BoxDecoration(
+              color: KatColors.primaryContainer(context),
+              shape: BoxShape.circle,
+              image: image.value != null
+                  ? DecorationImage(
+                      image: Image.memory(image.value!).image,
+                      fit: BoxFit.cover,
+                    )
+                  : null,
+            ),
+            child: image.value == null
+                ? FractionallySizedBox(
+                    widthFactor: 0.65,
+                    child: LottieBuilder.asset(KatAnim.frog),
+                  )
+                : null,
           ),
           Positioned(
             bottom: 0,
-            right: 5,
+            right: 8,
             child: FaIcon(
               FontAwesomeIcons.circlePlus,
               color: KatColors.primary(context),

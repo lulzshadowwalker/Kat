@@ -15,16 +15,13 @@ class KatCheckBoxListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isSelected = useState(value);
-
     return CheckboxListTile(
       title: title,
       activeColor: KatColors.primary(context),
       checkColor: KatColors.primaryContainer(context),
       checkboxShape: const CircleBorder(),
-      value: isSelected.value,
+      value: value,
       onChanged: (value) {
-        isSelected.value = value ?? false;
         onChanged(value);
       },
     );

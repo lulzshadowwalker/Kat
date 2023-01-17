@@ -41,6 +41,13 @@ class KatTranslations {
   static const String share = 'share';
   static const String download = 'download';
   static const String tags = 'tags';
+  static const String imageDownloaded = 'imageDownloaded';
+  static const String cats = 'cats';
+  static const String dogs = 'dogs';
+  static const String birds = 'birds';
+  static const String needAccount = 'needAccount';
+  static const String sry = 'sry';
+  static const String inDevelopment = 'inDevelopment';
 
   /// TODO replace all refs
   static final String oops = NotifType.oops.name;

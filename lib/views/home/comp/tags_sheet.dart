@@ -1,17 +1,15 @@
 part of './home_comp.dart';
 
-class _TagsSheet extends StatelessWidget {
+class _TagsSheet extends ConsumerWidget {
   const _TagsSheet({
     Key? key,
-    required this.tags,
-    required this.selectedTags,
   }) : super(key: key);
 
-  final AsyncData<List<CatTag>>? tags;
-  final SelectedTagsNotifier selectedTags;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tags = ref.watch(tagsProvider);
+    final selectedTags = ref.watch(selectedTagsProvider);
+
     return KatConstrainedBox(
       child: Container(
         decoration: BoxDecoration(
@@ -36,30 +34,26 @@ class _TagsSheet extends StatelessWidget {
                       .headline5
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: _TagsSheetSearchBar(),
-                ),
+                const SizedBox(height: 24),
                 Expanded(
                   child: SingleChildScrollView(
                     controller: scrollController,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: List.generate(
-                          tags!.value.length,
-                          (index) {
-                            final tag = tags!.value[index];
+                    child: Column(
+                      children: List.generate(
+                        tags.length,
+                        (index) {
+                          final tag = tags[index];
 
-                            return KatCheckBoxListTile(
-                              title: Text(tag),
-                              value: selectedTags.value.contains(tag),
-                              onChanged: (val) {
-                                selectedTags.toggleSelect(tag);
-                              },
-                            );
-                          },
-                        ),
+                          return KatCheckBoxListTile(
+                            title: Text(tag.tr()),
+                            value: selectedTags.tags.contains(tag),
+                            onChanged: (val) {
+                              ref
+                                  .read(selectedTagsProvider.notifier)
+                                  .toggleSelect(tag);
+                            },
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -68,23 +62,6 @@ class _TagsSheet extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _TagsSheetSearchBar extends HookWidget {
-  const _TagsSheetSearchBar();
-
-  @override
-  Widget build(BuildContext context) {
-    final searchTerms = useState<String?>(null);
-    final searchCon = useTextEditingController();
-
-    return KatFormFieldBase(
-      child: TextField(
-        controller: searchCon,
-        onChanged: (val) => searchTerms.value = val,
       ),
     );
   }

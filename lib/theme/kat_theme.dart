@@ -116,6 +116,9 @@ class KatTheme {
           ),
 
       //
+      scaffoldBackgroundColor: KatColors.white,
+
+      //
       dividerTheme: _dividerThemeData,
 
       //
@@ -129,7 +132,6 @@ class KatTheme {
   static PieTheme pieTheme(BuildContext context) => PieTheme(
         tooltipStyle: Theme.of(context).textTheme.headline3?.copyWith(
               fontWeight: FontWeight.bold,
-              color: KatColors.muted,
             ),
         buttonThemeHovered: PieButtonTheme(
           backgroundColor: KatColors.primary(context),
