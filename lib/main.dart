@@ -1,7 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'controllers/notif_controller.dart';
+import 'views/auth/auth_imports.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'firebase_options.dart';
 import 'helpers/kat_const.dart';
@@ -19,6 +19,8 @@ void main() async {
   /// removes the annoying '#' from the url
   setPathUrlStrategy();
 
+  await NotifController().init();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -27,6 +29,7 @@ void main() async {
       ],
       path: 'assets/translations',
       fallbackLocale: const Locale(KatConst.en),
+      startLocale: const Locale(KatConst.ru),
       useOnlyLangCode: true,
       child: const ProviderScope(
         child: Kat(),

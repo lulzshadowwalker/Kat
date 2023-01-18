@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:kat/controllers/notif_controller.dart';
+import 'notif_controller.dart';
 import 'package:kat/models/enums/notif_type.dart';
 import 'package:kat/models/kat_slient_exception.dart';
 import 'package:kat/models/kat_user.dart';

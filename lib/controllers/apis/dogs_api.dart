@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:kat/controllers/apis/api_handler.dart';
+import 'api_handler.dart';
 
 class DogsApi {
   static const String _baseUrl = 'https://dog.ceo/api';

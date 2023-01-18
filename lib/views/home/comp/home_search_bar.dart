@@ -28,33 +28,31 @@ class _HomeSearchBar extends HookConsumerWidget {
               ),
             ),
           ),
-            Expanded(
-              child: GestureDetector(
-                /// TODO, tags button should change color in response to whether
-                ///  the results are filtered. e.g. cats dogs but not ducks or whatever
-                onTap: () => 
-                showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (context) => _TagsSheet(
-        ),
-                ),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 120),
-                  color: KatColors.primaryContainer(context),
-                  alignment: Alignment.center,
-                  height: double.infinity,
-                  child: Text(
-                    KatTranslations.tags.tr(),
-                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                          fontFamily: KatTheme.enFontFamily,
-                          color: KatColors.primary(context),
-                        ),
-                  ),
+          Expanded(
+            child: GestureDetector(
+              /// TODO, tags button should change color in response to whether
+              ///  the results are filtered. e.g. cats dogs but not ducks or whatever
+              onTap: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => const _TagsSheet(),
+              ),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 120),
+                color: KatColors.primaryContainer(context),
+                alignment: Alignment.center,
+                height: double.infinity,
+                child: Text(
+                  KatTranslations.tags.tr(),
+                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        fontFamily: KatTheme.enFontFamily,
+                        color: KatColors.primary(context),
+                      ),
                 ),
               ),
             ),
+          ),
         ],
       ),
     );
@@ -66,7 +64,4 @@ class _HomeSearchBar extends HookConsumerWidget {
             overflow: TextOverflow.ellipsis,
             color: KatColors.muted,
           );
-
- 
-      
 }

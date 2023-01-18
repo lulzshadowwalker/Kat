@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:kat/helpers/kat_anim.dart';
-import 'package:kat/router/kat_routes.dart';
-import 'package:kat/views/auth/auth_imports.dart';
-import 'package:lottie/lottie.dart';
+part of './comps/splash_comps.dart';
 
 class Splash extends HookWidget {
   const Splash({Key? key}) : super(key: key);
@@ -31,7 +25,7 @@ class Splash extends HookWidget {
             alignment: Alignment.topCenter,
             child: RotatedBox(
               quarterTurns: 2,
-              child: _Conffeti(),
+              child: _KatConffeti(),
             ),
           ),
           Padding(
@@ -71,25 +65,9 @@ im proud of you
               ],
             ),
           ),
-          const Align(alignment: Alignment.bottomCenter, child: _Conffeti()),
+          const Align(alignment: Alignment.bottomCenter, child: _KatConffeti()),
         ],
       ),
-    );
-  }
-}
-
-class _Conffeti extends StatelessWidget {
-  const _Conffeti({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return LottieBuilder.asset(
-      KatAnim.confetti,
-      frameRate: FrameRate.max,
-      filterQuality: FilterQuality.high,
-      repeat: false,
     );
   }
 }

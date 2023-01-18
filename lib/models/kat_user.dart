@@ -9,8 +9,6 @@ class KatUser {
   final String? bio;
   final DateTime? createdOn;
   final String? pfpUrl;
-
-  /// TODO change this to set
   final Map<String, String> favs;
 
   const KatUser(

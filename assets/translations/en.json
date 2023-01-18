@@ -47,5 +47,6 @@
     "imageDownloaded": "Image downloaded",
     "needAccount": "you need to create an account to access this feature",
     "sry": "sryy 🥺",
-    "inDevelopment": "this feature is not ready yet"
+    "inDevelopment": "this feature is not ready yet",
+    "holdToSignOut": "tap and hold the settings icon to sign out"
 }

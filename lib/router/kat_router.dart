@@ -1,11 +1,10 @@
 import 'package:go_router/go_router.dart';
-
 import '../controllers/auth_controller.dart';
 import '../views/auth/sign_in/sign_in.dart';
 import '../views/auth/sign_up/sign_up.dart';
 import '../views/home/comp/home_comp.dart';
 import '../views/not_found/not_found.dart';
-import '../views/splash/splash.dart';
+import '../views/splash/comps/splash_comps.dart';
 import 'gorouter_refresh_stream.dart';
 import 'kat_routes.dart';
 

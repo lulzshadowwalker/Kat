@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kat/controllers/apis/cats_api.dart';
-import 'package:kat/controllers/apis/dogs_api.dart';
-import 'package:kat/controllers/apis/shibes_api.dart';
-import 'package:kat/models/cat.dart';
-import 'package:kat/providers/tags_provider.dart';
-import 'package:kat/views/auth/auth_imports.dart';
+import '../controllers/apis/cats_api.dart';
+import '../controllers/apis/dogs_api.dart';
+import '../controllers/apis/shibes_api.dart';
+import '../models/cat.dart';
+import 'tags_provider.dart';
+import '../views/auth/auth_imports.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'images_provider.g.dart';

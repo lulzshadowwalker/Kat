@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kat/hooks/use_kat_scale.dart';
-import 'package:kat/views/auth/auth_imports.dart';
+import '../../../hooks/use_kat_scale.dart';
+import '../../auth/auth_imports.dart';
 
 class KatAnimatedScale extends HookWidget {
   const KatAnimatedScale({

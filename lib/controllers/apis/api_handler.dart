@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_status_code/http_status_code.dart';
-import 'package:kat/helpers/kat_helpers.dart';
+import '../../helpers/kat_helpers.dart';
 import 'package:retry/retry.dart';
 
 import '../../models/enums/request_type.dart';
@@ -53,9 +53,8 @@ failure,  request of time id ( $timeId )
     required BuildContext context,
     required RequestType type,
     required String url,
-
-    /// TODO add the body to the log
-    Map<String, String>? headers,
+    required Object? body,
+    required Map<String, String>? headers,
     T? Function(http.Response)? onResponse,
     required Future<http.Response> Function() request,
   }) async {
@@ -64,6 +63,7 @@ failure,  request of time id ( $timeId )
         type: RequestType.get,
         url: url,
         headers: headers,
+        body: body,
       );
 
       final res = await retry(
@@ -100,6 +100,8 @@ failure,  request of time id ( $timeId )
         context: context,
         type: RequestType.get,
         url: url,
+        headers: headers,
+        body: null,
         request: () => http.get(
           Uri.parse(url),
           headers: (headers ?? {})..addAll(globalHeaders),
@@ -118,14 +120,14 @@ failure,  request of time id ( $timeId )
         context: context,
         type: RequestType.post,
         url: url,
+        headers: headers,
+        body: body,
         request: () => http.post(
           Uri.parse(url),
           headers: (headers ?? {})..addAll(globalHeaders),
           body: body,
         ),
         onResponse: onResponse,
-
-        /// TODO pass the body and the headers
       );
 
   static Future<T?> patch<T>({
@@ -139,6 +141,8 @@ failure,  request of time id ( $timeId )
         context: context,
         type: RequestType.patch,
         url: url,
+        headers: headers,
+        body: body,
         request: () => http.patch(
           Uri.parse(url),
           headers: (headers ?? {})..addAll(globalHeaders),
@@ -158,6 +162,8 @@ failure,  request of time id ( $timeId )
         context: context,
         type: RequestType.put,
         url: url,
+        headers: headers,
+        body: body,
         request: () => http.put(
           Uri.parse(url),
           headers: (headers ?? {})..addAll(globalHeaders),
@@ -176,6 +182,8 @@ failure,  request of time id ( $timeId )
         context: context,
         type: RequestType.delete,
         url: url,
+        headers: headers,
+        body: body,
         request: () => http.delete(
           Uri.parse(url),
           headers: (headers ?? {})..addAll(globalHeaders),

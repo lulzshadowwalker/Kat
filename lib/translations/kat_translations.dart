@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:kat/models/enums/notif_type.dart';
+import '../models/enums/notif_type.dart';
 
 import '../helpers/typedefs.dart';
 
@@ -48,6 +48,7 @@ class KatTranslations {
   static const String needAccount = 'needAccount';
   static const String sry = 'sry';
   static const String inDevelopment = 'inDevelopment';
+  static const String holdToSignOut = 'holdToSignOut';
 
   /// TODO replace all refs
   static final String oops = NotifType.oops.name;

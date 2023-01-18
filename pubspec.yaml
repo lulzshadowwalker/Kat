@@ -55,8 +55,12 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   full_screen_image_null_safe: ^2.0.0
   riverpod_annotation: ^1.1.1
-  skeletons: ^0.0.3
   animated_text_kit: ^4.2.2
+  molten_navigationbar_flutter: ^1.0.1
+  flutter_native_timezone: ^2.0.0
+  timezone: ^0.9.1
+  flutter_local_notifications: ^13.0.0
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

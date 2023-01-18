@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kat/views/auth/auth_imports.dart';
+import '../../auth/auth_imports.dart';
 
 class KatCheckBoxListTile extends HookWidget {
   const KatCheckBoxListTile({

@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:kat/views/auth/components/guest_auth_text_button.dart';
-import 'package:kat/views/shared/kat_constrained_box/kat_constrained_box.dart';
+import '../../shared/kat_constrained_box/kat_constrained_box.dart';
 import '../../../hooks/use_invalidate_cred.dart';
 import '../../../models/enums/auth_type.dart';
 import '../../shared/text_fields/kat_email_field.dart';

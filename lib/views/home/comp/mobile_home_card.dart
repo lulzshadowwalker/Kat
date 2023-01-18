@@ -21,15 +21,13 @@ class _MobileHomeCard extends ConsumerWidget {
           PieAction(
             tooltip: KatTranslations.addToFavs.tr(),
             onSelect: () {
-              context.setLocale(const Locale('ru'));
               NotifController.showInDevPopup(context);
             },
             child: const Icon(Icons.favorite),
           ),
           PieAction(
             tooltip: KatTranslations.share.tr(),
-            onSelect: () async {
-              context.setLocale(const Locale('en'));
+            onSelect: () {
               NotifController.showInDevPopup(context);
             },
             child: const Icon(Icons.share),
@@ -48,36 +46,42 @@ class _MobileHomeCard extends ConsumerWidget {
         child: Container(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
-            color: KatColors.black,
+            color: KatColors.mutedLight,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Screenshot(
             controller: controller,
-            child: Image.network(
-              url,
-              loadingBuilder: (context, child, prog) {
-                return prog == null
-                    ? Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          child,
-                          KatAnimatedScale(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: BorderedText(
-                                strokeColor: KatColors.white,
-                                strokeWidth: 2,
-                                child: Text(
-                                  text,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      )
-                    : Container(color: Colors.red, height: 29, width:123);
-              },
+            child: CachedNetworkImage(
+              imageUrl: url,
+              imageBuilder: (context, imageProvider) => Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Image(image: imageProvider),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: BorderedText(
+                      strokeColor: KatColors.white,
+                      strokeWidth: 2,
+                      child: Text(
+                        text,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              placeholder: (context, url) => Shimmer.fromColors(
+                baseColor: KatColors.mutedLight,
+                highlightColor: KatColors.white,
+                child: Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  child: Container(
+                    color: KatColors.mutedLight,
+                    width: double.infinity,
+                    height: 150,
+                  ),
+                ),
+              ),
             ),
           ),
         ),

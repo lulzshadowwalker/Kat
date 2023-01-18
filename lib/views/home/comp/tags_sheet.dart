@@ -13,7 +13,9 @@ class _TagsSheet extends ConsumerWidget {
     return KatConstrainedBox(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
           color: KatColors.scaffold(context),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16),

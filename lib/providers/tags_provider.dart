@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:kat/controllers/selected_tags_notifier.dart';
+import '../controllers/selected_tags_notifier.dart';
 
 import '../views/auth/auth_imports.dart';
 

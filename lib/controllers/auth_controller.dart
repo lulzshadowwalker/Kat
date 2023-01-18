@@ -1,14 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kat/models/kat_slient_exception.dart';
 
 import '../../helpers/kat_helpers.dart';
 import '../helpers/typedefs.dart';
 import '../models/enums/notif_type.dart';
+import '../models/kat_slient_exception.dart';
 import '../models/kat_user_cred.dart';
 import '../providers/user_cred_provider.dart';
 import '../translations/kat_translations.dart';

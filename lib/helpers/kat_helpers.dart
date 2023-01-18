@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kat/models/kat_slient_exception.dart';
+import '../models/kat_slient_exception.dart';
 import 'package:logger/logger.dart';
 import 'package:screenshot/screenshot.dart';
 

@@ -12,17 +12,14 @@ class Home extends HookConsumerWidget {
       theme: KatTheme.pieTheme(context),
       onMenuToggle: (active) => isPieMenuInactive.value = active,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.exit_to_app),
-          onPressed: () => AuthController.signOut(context),
-        ),
+        extendBody: true,
+        bottomNavigationBar: const _KatBottomNavBar(),
 
         /// TODO replace the [SliverAppBar] in [Home] with a custom implementation as apparently
         ///  the [NeverScrollableScrollPhysics] doesn't work in the [NestedScrollView]
         ///  for some reason
         ///  https://github.com/flutter/flutter/issues/45619
         body: NestedScrollView(
-          physics: const NeverScrollableScrollPhysics(),
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverAppBar(

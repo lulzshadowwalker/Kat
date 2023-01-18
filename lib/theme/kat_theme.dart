@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kat/helpers/kat_fonts.dart';
+import '../helpers/kat_fonts.dart';
 import 'package:pie_menu/pie_menu.dart';
 import '../helpers/kat_const.dart';
 import 'kat_colors.dart';
@@ -64,7 +64,7 @@ class KatTheme {
         scrolledUnderElevation: 0,
       );
 
-  static const Color _seedColor = KatColors.purple;
+  static final Color _seedColor = KatColors.purple;
   //
   // ─── DARK THEME ─────────────────────────────────────────────────────────────────
   //
