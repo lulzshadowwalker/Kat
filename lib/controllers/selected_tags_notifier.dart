@@ -9,10 +9,15 @@ class SelectedTagsNotifier extends ChangeNotifier {
   List<String> get tags => UnmodifiableListView(_tags);
 
   void toggleSelect(String tag) {
-    _tags.contains(tag) && _tags.length > 1
-        ? _tags.remove(tag)
-        : _tags.add(tag);
+    if (!_tags.contains(tag)) {
+      _tags.add(tag);
+      notifyListeners();
+      return;
+    }
 
+    if (_tags.length <= 1) return;
+
+    _tags.remove(tag);
     notifyListeners();
   }
 }

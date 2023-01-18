@@ -13,10 +13,10 @@ class KatColors {
   static bool isLight(BuildContext context) =>
       Theme.of(context).brightness == Brightness.light;
 
-  /// same color as theme
-  /// ..
-  /// dark theme => black
-  /// light theme => white
+  /// same color as the current theme
+  /// 
+  /// - dark theme => black
+  /// - light theme => white
   static Color same(BuildContext context) =>
       isLight(context) ? Colors.white : Colors.black;
 

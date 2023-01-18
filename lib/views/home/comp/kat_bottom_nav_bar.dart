@@ -8,7 +8,7 @@ class _KatBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MoltenBottomNavigationBar(
-      barHeight: kBottomNavigationBarHeight * 2,
+      barHeight: kBottomNavigationBarHeight * 1.5,
       barColor: KatColors.primary(context),
       domeCircleColor: KatColors.primaryContainer(context),
       domeHeight: 10,
@@ -52,7 +52,7 @@ class _KatBottomNavBar extends StatelessWidget {
           return;
         }
 
-        if (val == 2) {
+        if (i == 2) {
           NotifController.showPopup(
             context: context,
             desc: KatTranslations.holdToSignOut.tr(),

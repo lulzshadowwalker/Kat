@@ -14,59 +14,63 @@ class Splash extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final future = useMemoized(() => _start(context));
-    useFuture(future);
+    useFuture(_start(context));
 
     return Scaffold(
       backgroundColor: KatColors.primaryContainer(context),
-      body: Stack(
-        children: [
-          const Align(
-            alignment: Alignment.topCenter,
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: _KatConffeti(),
+      body: Center(
+        child: Stack(
+          children: [
+            const Align(
+              alignment: Alignment.topCenter,
+              child: RotatedBox(
+                quarterTurns: 2,
+                child: _KatConffeti(),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(64.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LottieBuilder.asset(
-                  KatAnim.clown,
-                  frameRate: FrameRate.max,
-                  filterQuality: FilterQuality.high,
-                ),
-                Text(
-                  'to Kate',
-                  style: GoogleFonts.fredokaOne(
-                    fontSize: 46,
-                    color: KatColors.primary(context),
-                  ),
-                ),
-                Text(
-                  '''
-
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 64.0),
+              child: KatSingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LottieBuilder.asset(
+                      KatAnim.clown,
+                      frameRate: FrameRate.max,
+                      filterQuality: FilterQuality.high,
+                    ),
+                    Text(
+                      'to Kate',
+                      style: GoogleFonts.fredokaOne(
+                        fontSize: 46,
+                        color: KatColors.primary(context),
+                      ),
+                    ),
+                    Text(
+                      '''        
 happy birthday cutie pie
 
-wish this year of your life is as beautful as your art and soul
-be kind and sweet to yourself as you are to others
+wish this year to be as beautiful as your art and soul be kind and sweet to yourself as you are to others
 
 im proud of you
 🤭
 ''',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.fredokaOne(
-                    fontSize: 18,
-                    color: KatColors.primary(context).withOpacity(0.85),
-                  ),
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.fredokaOne(
+                        fontSize: 18,
+                        color: KatColors.primary(context).withOpacity(0.85),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-          const Align(alignment: Alignment.bottomCenter, child: _KatConffeti()),
-        ],
+            const Align(
+              alignment: Alignment.bottomCenter,
+              child: _KatConffeti(),
+            ),
+          ],
+        ),
       ),
     );
   }

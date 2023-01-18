@@ -6,6 +6,10 @@
   - [Flutterhooks](#flutterhooks)
   - [Riverpod](#riverpod)
   - [Equality in Dart](#equality-in-dart)
+  - [Automated Testing in Flutter](#automated-testing-in-flutter)
+    - [Unit Testing](#unit-testing)
+    - [Widget Testing](#widget-testing)
+    - [Integration Testing](#integration-testing)
 
 ## What I learned
 
@@ -41,7 +45,7 @@
 
 - hooks should **NOT** be used within loops, conditionally, or inside a user interaction lifecycle such as `onPressed` ( [read more](https://docs-v2.riverpod.dev/docs/about_hooks#what-are-hooks) )
 
-## Riverpod
+### Riverpod
 
 - I learned that this guy "Remi Rousselet" is fkin insane
 
@@ -138,7 +142,7 @@
 
 - `ProviderObserver` can be used to observe changes in a `ProviderContainer` such as adding, disposing, or updating a provider
 
-## Equality in Dart
+### Equality in Dart
 
 - Equality in dartlang is referential by default meaning it compares references to objects.
   
@@ -191,3 +195,109 @@
   [Dart Data Class Generator vscode extension](https://marketplace.visualstudio.com/items?itemName=hzgood.dart-data-class-generator)
   
   [equatable | Dart Package](https://pub.dev/packages/equatable) ( no need for explicit overriding )
+
+### Automated Testing in Flutter
+
+- The `_test` in the filename syntax marks the file as a testing file.
+
+#### Unit Testing
+
+- testing a small piece or a "unit" of code possibly with fake data to mock an api call or the original data source
+
+```dart
+test("Define what the test will do", (){
+
+   // Arrange: Get the resources needed for testing
+
+   // Act: Perform operations you need
+
+   // Assert: Check if the output generated is the one you expected
+
+});
+```
+
+- if you wish to perform ur test with the real API, ur gonna need to create ur own `HttpClient` which can be done by extending `HttpOverrides` and then using`HttpOverrides.global = _MyHttpOverrides();` inside the test
+
+- common instructions can be refactored into the `setUpAll` function which exectues before any test ( [docs](https://api.flutter.dev/flutter/flutter_test/setUpAll.html) )
+  
+  ```dart
+  setUpAll(() async {
+      HttpOverrides.global = _MyHttpOverrides();
+    });
+  ```
+
+- related tests can be grouped in a `group` function to be run together
+
+#### Widget Testing
+
+- checking to see if a widget (UI) behaves as expected with real or mocked data
+
+```dart
+testWidget('desc',
+(tester) async {
+    /// if you wish to use async code you have to use `runAsync`
+    /// as widget testing doesn't support real async code 
+    await tester.runAsync(() async {
+        //
+    });
+});
+```
+
+- `.pumpWidget` "Renders the UI from the given `widget`"
+
+- `.pumpAndSettle` "This essentially waits for all animations to have completed"
+
+- you can interact with the widget through the `tester` as it exposes methods such as `.tap` or `.enterText` on a given widget that can be found through e.g. type `find.byType` [(see more finders)](https://docs.flutter.dev/cookbook/testing/widget/finders)
+
+- `.pump` acts like a `setState`
+
+- for test assert we can use a `matcher` [(all matchers)](https://github.com/flutter/flutter/blob/master/packages/flutter_test/lib/src/matchers.dart)
+
+#### Integration Testing
+
+- testing the complete application flow in real-world conditions
+
+- The integration test runs in a real device
+
+- we need to add a dev dependancy to our project
+  
+  ```yaml
+  integration_test:
+      sdk: flutter
+  ```
+
+> *"Integration tests are used to check the complete app or to check the flow of the application. So here real HTTP requests are made and run in a real async environment. So we don’t need to create our custom HttpClient or use `tester.runAsync` to run asynchronous statements."*
+
+- directory structure
+  
+  ```
+  lib/
+    ...
+  integration_test/
+    foo_test.dart
+    bar_test.dart
+  test/
+    # Other unit tests go here
+  ```
+
+- basic setup would look like
+  
+  ```dart
+  void main() {
+    final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
+        as IntegrationTestWidgetsFlutterBinding;
+  
+    // fullyLive ensures that every frame is shown, suitable for heavy animations and navigation
+    if (binding is LiveTestWidgetsFlutterBinding) {
+      binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+    }
+  }
+  ```
+
+> *" You should only use `testWidgets` to declare your tests, or errors won’t be reported correctly."*
+
+|              | unit    | widget | integration |
+| ------------ | ------- | ------ | ----------- |
+| speed        | fastest | fast   | slow        |
+| dependencies | few     | more   | most        |
+| usage freq.  | high    | low    | moderate    |

@@ -19,6 +19,8 @@ class NotifController {
   NotifController._internal();
   factory NotifController() => NotifController._internal();
 
+  /// TODO handle push notif ids programmatically
+
   /// class name
   static const String _cn = 'NotifController';
   static final _log = KatHelpers.getLogger(_cn);
@@ -196,58 +198,77 @@ Popup shown with details
   final _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   Future<void> init() async {
-    if (!KatHelpers.isAndroidOrIos) return;
+    try {
+      /// TODO there are better ways to handle scheduled notifications
+      ///  https://pub.dev/documentation/flutter_local_notifications/latest/flutter_local_notifications/FlutterLocalNotificationsPlugin-class.html
 
-    if (Platform.isAndroid) {
-      _flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>();
-    } else if (Platform.isIOS) {
-      _flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin>()
-          ?.requestPermissions(
-            alert: true,
-            badge: true,
-            sound: true,
+      if (!KatHelpers.isAndroidOrIos) return;
+
+      if (Platform.isAndroid) {
+        final isGranted = await _flutterLocalNotificationsPlugin
+                .resolvePlatformSpecificImplementation<
+                    AndroidFlutterLocalNotificationsPlugin>()
+                ?.requestPermission() ??
+            false;
+
+        if (!isGranted) {
+          /// hecker man
+          await show(
+            id: 372,
+            title: 'гони преколы',
+            body: 'я не знаю, что мне делать со своей кринге энерджи..',
           );
+        }
+      } else if (Platform.isIOS) {
+        await _flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+                IOSFlutterLocalNotificationsPlugin>()
+            ?.requestPermissions(
+              alert: true,
+              badge: true,
+              sound: true,
+            );
+      }
+
+      tz.initializeTimeZones();
+      final localTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+      tz.setLocalLocation(tz.getLocation(localTimeZone));
+
+      const initializationSettingsAndroid = AndroidInitializationSettings(
+        '@drawable/ic_notification',
+      );
+
+      const initializationSettingsIOS = DarwinInitializationSettings();
+
+      const initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsIOS,
+      );
+
+      await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+      _log.v('[NotifController] has been initialized');
+
+      showScheduled(
+        id: 6969,
+        title: 'гони преколы',
+        body: 'я не знаю, что мне делать со своей кринге энерджи..',
+        scheduledTime: scheduleDaily(
+          const Time(9, 00),
+        ),
+      );
+
+      showScheduled(
+        id: 420,
+        title: 'Улыбка',
+        body: 'Сегодня будет хороший день, я чувствую это',
+        scheduledTime: scheduleWeekly(
+          const Time(6, 00),
+        ),
+      );
+    } catch (e) {
+      _log.e(e.toString());
     }
-
-    tz.initializeTimeZones();
-    final localTimeZone = await FlutterNativeTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(localTimeZone));
-
-    const initializationSettingsAndroid = AndroidInitializationSettings(
-      '@drawable/ic_notification',
-    );
-
-    const initializationSettingsIOS = DarwinInitializationSettings();
-
-    const initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS,
-    );
-
-    await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-    _log.v('[NotifController] has been initialized');
-
-    showScheduled(
-      id: DateTime.now().second,
-      title: 'гони преколы',
-      body: 'я не знаю, что мне делать со своей кринге энерджи..',
-      scheduledTime: _scheduleDaily(
-        const Time(8, 00),
-      ),
-    );
-
-    showScheduled(
-      id: DateTime.now().second,
-      title: 'Улыбка',
-      body: 'Сегодня будет хороший день, я чувствую это',
-      scheduledTime: _scheduleWeekly(
-        const Time(6, 00),
-      ),
-    );
   }
 
   Future<void> show({
@@ -327,13 +348,12 @@ local push notification has been shown
     _log.v('''
 local push notification has been scheduled to be shown 
   @ ${scheduledTime.toString()} 
-  on day ${scheduledTime.day}
     title: $title
     body: $body
 ''');
   }
 
-  tz.TZDateTime _scheduleDaily(Time time) {
+  tz.TZDateTime scheduleDaily(Time time) {
     final now = tz.TZDateTime.now(tz.local);
 
     final scheduledTime = tz.TZDateTime(
@@ -347,11 +367,11 @@ local push notification has been scheduled to be shown
     );
 
     return scheduledTime.isBefore(now)
-        ? scheduledTime.add(const Duration(days: 1))
+        ? scheduledTime.add(const Duration(seconds: 5))
         : scheduledTime;
   }
 
-  tz.TZDateTime _scheduleWeekly(Time time) {
+  tz.TZDateTime scheduleWeekly(Time time) {
     final now = tz.TZDateTime.now(tz.local);
 
     final scheduledTime = tz.TZDateTime(

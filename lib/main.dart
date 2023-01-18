@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'controllers/notif_controller.dart';
-import 'views/auth/auth_imports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'firebase_options.dart';
 import 'helpers/kat_const.dart';
 import 'kat.dart';
+import 'views/auth/auth_imports.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,13 @@ void main() async {
   /// removes the annoying '#' from the url
   setPathUrlStrategy();
 
-  await NotifController().init();
+  if (KatHelpers.isAndroidOrIos) {
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+      ],
+    );
+  }
 
   runApp(
     EasyLocalization(

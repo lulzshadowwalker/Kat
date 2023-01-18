@@ -7,6 +7,10 @@ class Home extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isPieMenuInactive = useState(false);
     final images = ref.watch(imagesProvider(context));
+    useEffect(() {
+      NotifController().init();
+      return null;
+    }, const []);
 
     return PieCanvas(
       theme: KatTheme.pieTheme(context),

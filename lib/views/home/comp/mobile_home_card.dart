@@ -73,13 +73,10 @@ class _MobileHomeCard extends ConsumerWidget {
               placeholder: (context, url) => Shimmer.fromColors(
                 baseColor: KatColors.mutedLight,
                 highlightColor: KatColors.white,
-                child: Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Container(
-                    color: KatColors.mutedLight,
-                    width: double.infinity,
-                    height: 150,
-                  ),
+                child: Container(
+                  color: KatColors.mutedLight,
+                  width: double.infinity,
+                  height: 150,
                 ),
               ),
             ),
