@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  awesome_bottom_bar:
+    dependency: "direct main"
+    description:
+      name: awesome_bottom_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -330,6 +337,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  firebase_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_messaging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "14.2.1"
+  firebase_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_messaging_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.10"
+  firebase_messaging_web:
+    dependency: transitive
+    description:
+      name: firebase_messaging_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.11"
   firebase_storage:
     dependency: "direct main"
     description:

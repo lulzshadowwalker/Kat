@@ -1,25 +1,37 @@
 import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import '../helpers/kat_anim.dart';
-import '../helpers/kat_helpers.dart';
-import '../models/notif_config.dart';
-import '../theme/kat_colors.dart';
 import 'package:lottie/lottie.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import '../helpers/kat_anim.dart';
+import '../helpers/kat_helpers.dart';
 import '../models/enums/notif_type.dart';
+import '../models/notif_config.dart';
+import '../theme/kat_colors.dart';
 import '../translations/kat_translations.dart';
+
+/// ! must be a top level function [read more](https://firebase.flutter.dev/docs/messaging/usage#:~:text=Handling%20messages%20whilst,which%20requires%20initialization).)
+Future<void> _handleFcmBackgroundMessage(RemoteMessage message) async {
+  final RemoteNotification? notif = message.notification;
+  if (notif != null) {
+    NotifController().show(
+      id: DateTime.now().second,
+      title: notif.title ?? 'Улыбка 🤭',
+      body: notif.body ?? 'Сегодня будет хороший день, я чувствую это',
+    );
+  }
+}
 
 class NotifController {
   NotifController._internal();
   factory NotifController() => NotifController._internal();
-
-  /// TODO handle push notif ids programmatically
 
   /// class name
   static const String _cn = 'NotifController';
@@ -62,9 +74,10 @@ class NotifController {
           borderRadius: BorderRadius.circular(25),
         ),
         behavior: SnackBarBehavior.floating,
+        dismissDirection: DismissDirection.horizontal,
         margin: const EdgeInsets.symmetric(
           horizontal: 24,
-          vertical: 16,
+          vertical: 56,
         ),
         content: ListTile(
           leading: SizedBox(
@@ -197,11 +210,26 @@ Popup shown with details
 
   final _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+  static final _notifDetails = NotificationDetails(
+    //
+    android: AndroidNotificationDetails(
+      'main_channel',
+      'General',
+      importance: Importance.max,
+      priority: Priority.max,
+      color: KatColors.purple,
+    ),
+
+    //
+    iOS: const DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    ),
+  );
+
   Future<void> init() async {
     try {
-      /// TODO there are better ways to handle scheduled notifications
-      ///  https://pub.dev/documentation/flutter_local_notifications/latest/flutter_local_notifications/FlutterLocalNotificationsPlugin-class.html
-
       if (!KatHelpers.isAndroidOrIos) return;
 
       if (Platform.isAndroid) {
@@ -247,28 +275,44 @@ Popup shown with details
 
       await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
+      await _initPeriodicNotifs();
+
+      await _initCloudMessaging();
+
       _log.v('[NotifController] has been initialized');
-
-      showScheduled(
-        id: 6969,
-        title: 'гони преколы',
-        body: 'я не знаю, что мне делать со своей кринге энерджи..',
-        scheduledTime: scheduleDaily(
-          const Time(9, 00),
-        ),
-      );
-
-      showScheduled(
-        id: 420,
-        title: 'Улыбка',
-        body: 'Сегодня будет хороший день, я чувствую это',
-        scheduledTime: scheduleWeekly(
-          const Time(6, 00),
-        ),
-      );
     } catch (e) {
       _log.e(e.toString());
     }
+  }
+
+  Future<void> _initPeriodicNotifs() async {
+    const templates = {
+      'гони преколы': 'я не знаю, что мне делать со своей кринге энерджи',
+      'uhm Uhmm uhmm mm': 'ahm ohm uhmmmm umm uhm',
+      'Tip 💡': 'you can\'t be sad if ur sleeping 😌',
+      'some idiot once said':
+          'when life fucks you in the pussy fuck it in the ass 😇🔪',
+      'Улыбка 🤭': 'Сегодня будет хороший день, я чувствую это',
+      'not to be rude': 'but you kinda smell, take a shower stinkyy 🫣',
+      'the beauty u c in anything': 'is a reflection of the beauty in u ✨',
+      'did u fart ????': '🤨',
+      'I\'m no a photographer but..':
+          'I can picture u the best artist in the world 📷',
+      'it\'s only for character development':
+          '( ur the main character, it\'s part of the plot )',
+      'cats can speak just like us, ask ur cat to do it':
+          'but promise her u wont tell anyone 🤫'
+    };
+
+    final i = DateTime.now().day % templates.length;
+
+    await _flutterLocalNotificationsPlugin.periodicallyShow(
+      6969,
+      templates.keys.elementAt(i),
+      templates.values.elementAt(i),
+      RepeatInterval.daily,
+      _notifDetails,
+    );
   }
 
   Future<void> show({
@@ -280,23 +324,7 @@ Popup shown with details
       id,
       title,
       body,
-      NotificationDetails(
-        //
-        android: AndroidNotificationDetails(
-          'main_channel',
-          'General',
-          importance: Importance.max,
-          priority: Priority.max,
-          color: KatColors.purple,
-        ),
-
-        //
-        iOS: const DarwinNotificationDetails(
-          presentAlert: true,
-          presentBadge: true,
-          presentSound: true,
-        ),
-      ),
+      _notifDetails,
     );
 
     _log.v('''
@@ -393,5 +421,31 @@ local push notification has been scheduled to be shown
     await _flutterLocalNotificationsPlugin.cancelAll();
 
     _log.v('all notifications have been cancelled');
+  }
+
+  Future<void> _initCloudMessaging() async {
+    if (KatHelpers.isIos) {
+      final settings = await FirebaseMessaging.instance.requestPermission();
+
+      _log.v(
+          'user\'s notifications permission status: ${settings.authorizationStatus}');
+    }
+
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        final RemoteNotification? notif = message.notification;
+        if (notif != null) {
+          show(
+            id: DateTime.now().second,
+            title: notif.title ?? 'Улыбка 🤭',
+            body: notif.body ?? 'Сегодня будет хороший день, я чувствую это',
+          );
+        }
+      },
+    );
+
+    FirebaseMessaging.onBackgroundMessage(_handleFcmBackgroundMessage);
+
+    _log.v('Firebase Cloud-Messaging has been initialized');
   }
 }

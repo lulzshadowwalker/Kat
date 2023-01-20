@@ -14,7 +14,8 @@ class Splash extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    useFuture(_start(context));
+    final future = useMemoized(() => _start(context));
+    useFuture(future);
 
     return Scaffold(
       backgroundColor: KatColors.primaryContainer(context),
@@ -47,12 +48,12 @@ class Splash extends HookWidget {
                       ),
                     ),
                     Text(
-                      '''        
+                      '''
 happy birthday cutie pie
 
 wish this year to be as beautiful as your art and soul be kind and sweet to yourself as you are to others
 
-im proud of you
+I'm proud of you
 🤭
 ''',
                       textAlign: TextAlign.center,

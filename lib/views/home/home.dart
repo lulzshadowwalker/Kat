@@ -7,59 +7,71 @@ class Home extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isPieMenuInactive = useState(false);
     final images = ref.watch(imagesProvider(context));
+
     useEffect(() {
       NotifController().init();
       return null;
     }, const []);
 
+    final crossCount = KatHelpers.isMobileBp(context)
+        ? 2
+        : KatHelpers.isTabletBp(context)
+            ? 3
+            : 5;
+
     return PieCanvas(
       theme: KatTheme.pieTheme(context),
       onMenuToggle: (active) => isPieMenuInactive.value = active,
-      child: Scaffold(
-        extendBody: true,
-        bottomNavigationBar: const _KatBottomNavBar(),
-
-        /// TODO replace the [SliverAppBar] in [Home] with a custom implementation as apparently
-        ///  the [NeverScrollableScrollPhysics] doesn't work in the [NestedScrollView]
-        ///  for some reason
-        ///  https://github.com/flutter/flutter/issues/45619
-        body: NestedScrollView(
-          floatHeaderSlivers: true,
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            SliverAppBar(
-              systemOverlayStyle: SystemUiOverlayStyle.dark,
-              backgroundColor: Colors.transparent,
-              floating: true,
-              snap: true,
-              collapsedHeight: AppBar().preferredSize.height * 1.5,
-              flexibleSpace: const FlexibleSpaceBar(
-                centerTitle: true,
-                title: KatConstrainedBox(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24,
-                    ),
-                    child: _HomeSearchBar(),
-                  ),
-                ),
+      child: KatUnfocusableWrapper(
+        child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: true,
+          bottomNavigationBar: const _KatBottomNavBar(),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            title: const KatConstrainedBox(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4),
+                child: _HomeSearchBar(),
               ),
             ),
-          ],
-          body: MasonryGridView.count(
-            itemCount: images.length,
+          ),
+          body: MasonryGridView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            crossAxisCount: KatHelpers.isMobileBp(context)
-                ? 2
-                : KatHelpers.isTabletBp(context)
-                    ? 3
-                    : 5,
+            physics: isPieMenuInactive.value
+                ? const NeverScrollableScrollPhysics()
+                : null,
+            gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossCount,
+            ),
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,
             cacheExtent: 300,
-            itemBuilder: (context, index) => _HomeCard(
-              index: index,
-              url: images.elementAt(index),
-            ),
+            children: [
+              /// app bar spacing when scrolled to top
+              ...List.generate(
+                crossCount,
+                (index) => SizedBox(
+                  height: AppBar().preferredSize.height * 1.85,
+                ),
+              ),
+
+              /// bod
+              ...List.generate(
+                images.length,
+                (index) => _HomeCard(
+                  index: index,
+                  url: images.elementAt(index),
+                ),
+              ),
+
+              /// bottom bar safe area when scrolled all the way to the bottom
+              ...List.generate(
+                crossCount,
+                (index) =>
+                    const SizedBox(height: kBottomNavigationBarHeight * 2.5),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,3 +1,5 @@
+import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
+import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
@@ -6,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:kat/views/shared/kat_single_child_scroll_view/kat_single_child_scroll_view.dart';
+import 'package:kat/views/shared/kat_unfocusable_wrapper/kat_unfocusable_wrapper.dart';
 import '../../../models/enums/notif_type.dart';
 import '../../../providers/images_provider.dart';
 import '../../../providers/processing_input_provider.dart';

@@ -1,65 +1,81 @@
 part of './home_comp.dart';
 
-class _KatBottomNavBar extends StatelessWidget {
+class _KatBottomNavBar extends HookWidget {
   const _KatBottomNavBar({
     Key? key,
   }) : super(key: key);
 
+  static const String _storageKey = 'aboba';
+
   @override
   Widget build(BuildContext context) {
-    return MoltenBottomNavigationBar(
-      barHeight: kBottomNavigationBarHeight * 1.5,
-      barColor: KatColors.primary(context),
-      domeCircleColor: KatColors.primaryContainer(context),
-      domeHeight: 10,
-      domeCircleSize: 65,
-      borderRaduis: const BorderRadius.vertical(
-        top: Radius.circular(25),
-      ),
-      tabs: [
-        MoltenTab(
-          icon: const Icon(
-            FontAwesomeIcons.userGroup,
-          ),
-          unselectedColor: KatColors.primaryContainer(context),
+    final settingsTapCount = useState(0);
+    final isMounted = useIsMounted();
+
+    return BottomBarInspiredOutside(
+      items: const [
+        TabItem(
+          icon: FontAwesomeIcons.userGroup,
         ),
-        MoltenTab(
-          icon: const Icon(
-            FontAwesomeIcons.houseChimneyWindow,
-          ),
-          selectedColor: KatColors.primary(context),
+        TabItem(
+          icon: FontAwesomeIcons.houseChimneyWindow,
         ),
-        MoltenTab(
-          icon: GestureDetector(
-            onLongPress: () => AuthController.signOut(context),
-            child: const Icon(
-              FontAwesomeIcons.gear,
-            ),
-          ),
-          unselectedColor: KatColors.primaryContainer(context),
+        TabItem(
+          icon: FontAwesomeIcons.gear,
         )
       ],
-      selectedIndex: 1,
-      onTabChange: (i) {
-        if (i == 1) return;
+      backgroundColor: KatColors.primary(context),
+      color: KatColors.primaryContainer(context),
+      colorSelected: KatColors.primary(context),
+      indexSelected: 1,
+      fixed: true,
+      fixedIndex: 1,
+      onTap: (int i) async {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
-        final storageKey = 'bottomBarTemp$i';
+        final isFirstTime = GetStorage().read(_storageKey) ?? true;
 
-        final val = GetStorage().read(storageKey);
-        if (val == null) {
+        if (isFirstTime) {
           NotifController.showInDevPopup(context);
-          GetStorage().write(storageKey, true);
+          GetStorage().write(_storageKey, false);
           return;
         }
 
-        if (i == 2) {
-          NotifController.showPopup(
-            context: context,
-            desc: KatTranslations.holdToSignOut.tr(),
-            type: NotifType.tip,
-          );
+        NotifController.showPopup(
+          context: context,
+          desc: KatTranslations.tap3TimesToSignOut.tr(),
+          type: NotifType.tip,
+        );
+
+        if (i == 2 && ++settingsTapCount.value == 3) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          AuthController.signOut(context);
+          return;
         }
+        
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () {
+            if (isMounted()) {
+              settingsTapCount.value = 0;
+            }
+          },
+        );
       },
+      animated: false,
+      itemStyle: ItemStyle.circle,
+      chipStyle: ChipStyle(
+        notchSmoothness: NotchSmoothness.verySmoothEdge,
+        background: KatColors.primaryContainer(context),
+        color: KatColors.primary(context),
+      ),
+      iconSize: 24,
+      borderRadius: const BorderRadius.vertical(
+        top: Radius.circular(50),
+      ),
+      sizeInside: 64,
+      top: -48,
+      radius: 15,
     );
   }
 }

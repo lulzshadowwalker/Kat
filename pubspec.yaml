@@ -61,6 +61,8 @@ dependencies:
   timezone: ^0.9.1
   flutter_local_notifications: ^13.0.0
   shimmer: ^2.0.0
+  awesome_bottom_bar: ^1.2.2
+  firebase_messaging: ^14.2.1
 
 dev_dependencies:
   flutter_test:

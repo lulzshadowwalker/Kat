@@ -8,7 +8,6 @@ export 'package:kat/translations/kat_translations.dart';
 export 'package:kat/views/shared/image_circle_avatar/image_circle_avatar.dart';
 export 'package:kat/views/shared/kat_expanded_elevated_button/kat_expanded_elevated_button.dart';
 export 'package:kat/views/shared/kat_form_field/kat_form_field.dart';
-export 'package:kat/views/shared/kat_page_base/kat_page_base.dart';
 export 'package:kat/views/shared/kat_rich_text_button/kat_rich_text_button.dart';
 export 'package:validators/validators.dart';
 export '../../../controllers/auth_controller.dart';

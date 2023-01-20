@@ -305,7 +305,217 @@ class DogsFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'dogsProvider';
 }
 
-String _$imagesHash() => r'c3563ca74ff872f6641143c0ec4680930ab01dcc';
+String _$monkeysHash() => r'1eeeaa4ad4be4c0ca91f250e2a97517e0c486f12';
+
+/// See also [monkeys].
+class MonkeysProvider extends AutoDisposeFutureProvider<List<String>> {
+  MonkeysProvider(
+    this.context,
+  ) : super(
+          (ref) => monkeys(
+            ref,
+            context,
+          ),
+          from: monkeysProvider,
+          name: r'monkeysProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$monkeysHash,
+        );
+
+  final BuildContext context;
+
+  @override
+  bool operator ==(Object other) {
+    return other is MonkeysProvider && other.context == context;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, context.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef MonkeysRef = AutoDisposeFutureProviderRef<List<String>>;
+
+/// See also [monkeys].
+final monkeysProvider = MonkeysFamily();
+
+class MonkeysFamily extends Family<AsyncValue<List<String>>> {
+  MonkeysFamily();
+
+  MonkeysProvider call(
+    BuildContext context,
+  ) {
+    return MonkeysProvider(
+      context,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+    covariant MonkeysProvider provider,
+  ) {
+    return call(
+      provider.context,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'monkeysProvider';
+}
+
+String _$fishesHash() => r'efa7a248fcd3a4b6823cf7700b16a9532636bb0b';
+
+/// See also [fishes].
+class FishesProvider extends AutoDisposeFutureProvider<List<String>> {
+  FishesProvider(
+    this.context,
+  ) : super(
+          (ref) => fishes(
+            ref,
+            context,
+          ),
+          from: fishesProvider,
+          name: r'fishesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fishesHash,
+        );
+
+  final BuildContext context;
+
+  @override
+  bool operator ==(Object other) {
+    return other is FishesProvider && other.context == context;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, context.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef FishesRef = AutoDisposeFutureProviderRef<List<String>>;
+
+/// See also [fishes].
+final fishesProvider = FishesFamily();
+
+class FishesFamily extends Family<AsyncValue<List<String>>> {
+  FishesFamily();
+
+  FishesProvider call(
+    BuildContext context,
+  ) {
+    return FishesProvider(
+      context,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+    covariant FishesProvider provider,
+  ) {
+    return call(
+      provider.context,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'fishesProvider';
+}
+
+String _$clownsHash() => r'eda8dff02af56853db121edbd146c5fd5c4913cc';
+
+/// See also [clowns].
+class ClownsProvider extends AutoDisposeFutureProvider<List<String>> {
+  ClownsProvider(
+    this.context,
+  ) : super(
+          (ref) => clowns(
+            ref,
+            context,
+          ),
+          from: clownsProvider,
+          name: r'clownsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$clownsHash,
+        );
+
+  final BuildContext context;
+
+  @override
+  bool operator ==(Object other) {
+    return other is ClownsProvider && other.context == context;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, context.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef ClownsRef = AutoDisposeFutureProviderRef<List<String>>;
+
+/// See also [clowns].
+final clownsProvider = ClownsFamily();
+
+class ClownsFamily extends Family<AsyncValue<List<String>>> {
+  ClownsFamily();
+
+  ClownsProvider call(
+    BuildContext context,
+  ) {
+    return ClownsProvider(
+      context,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+    covariant ClownsProvider provider,
+  ) {
+    return call(
+      provider.context,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'clownsProvider';
+}
+
+String _$imagesHash() => r'5987cbd6e37228b3b074f0c1da5c0eafef324cc0';
 
 /// See also [images].
 class ImagesProvider extends AutoDisposeProvider<List<String>> {

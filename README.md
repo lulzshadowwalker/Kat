@@ -218,7 +218,7 @@ test("Define what the test will do", (){
 
 - if you wish to perform ur test with the real API, ur gonna need to create ur own `HttpClient` which can be done by extending `HttpOverrides` and then using`HttpOverrides.global = _MyHttpOverrides();` inside the test
 
-- common instructions can be refactored into the `setUpAll` function which exectues before any test ( [docs](https://api.flutter.dev/flutter/flutter_test/setUpAll.html) )
+- common instructions can be refactored into the `setUpAll` function which is executed before any test ( [docs](https://api.flutter.dev/flutter/flutter_test/setUpAll.html) )
   
   ```dart
   setUpAll(() async {

@@ -45,10 +45,14 @@ class KatTranslations {
   static const String cats = 'cats';
   static const String dogs = 'dogs';
   static const String birds = 'birds';
+  static const String fishes = 'fishes';
+  static const String monkeys = 'monkeys';
+  static const String clowns = 'clowns';
   static const String needAccount = 'needAccount';
   static const String sry = 'sry';
   static const String inDevelopment = 'inDevelopment';
-  static const String holdToSignOut = 'holdToSignOut';
+  static const String tap3TimesToSignOut = 'tap3TimesToSignOut';
+  static const String all = 'all';
 
   /// TODO replace all refs
   static final String oops = NotifType.oops.name;

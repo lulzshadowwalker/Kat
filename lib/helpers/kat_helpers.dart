@@ -90,6 +90,9 @@ class KatHelpers {
   static bool get isAndroidOrIos =>
       !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 
+  static bool get isIos => !kIsWeb && Platform.isIOS;
+  static bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
   /// image picking utility for android/iOS/web
   /// ..
   /// mobile, gallery / camera
@@ -137,14 +140,14 @@ class KatHelpers {
       math.Random().nextInt(max) + min;
 
   /// returns the subjective screen width depending on the orientation of the device
-  static int screenWidth(BuildContext context) => isPortrait(context)
+  static double screenWidth(BuildContext context) => isPortrait(context)
       ? math.min(
-          screenSize(context).width.toInt(),
-          screenSize(context).height.toInt(),
+          screenSize(context).width,
+          screenSize(context).height,
         )
       : math.max(
-          screenSize(context).width.toInt(),
-          screenSize(context).height.toInt(),
+          screenSize(context).width,
+          screenSize(context).height,
         );
 
   static bool isPortrait(BuildContext context) =>

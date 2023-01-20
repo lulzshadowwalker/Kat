@@ -48,5 +48,12 @@
     "needAccount": "you need to create an account to access this feature",
     "sry": "sryy 🥺",
     "inDevelopment": "this feature is not ready yet",
-    "holdToSignOut": "tap and hold the settings icon to sign out"
+    "tap3TimesToSignOut": "tap the settings icon 3 times to sign out",
+    "cats": "cats",
+    "dogs": "dogs",
+    "birds": "birds",
+    "fishes": "fishes",
+    "monkeys": "monkeys",
+    "clowns": "clowns",
+    "all": "all"
 }

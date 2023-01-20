@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:kat/controllers/apis/pexels_api.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../controllers/apis/cats_api.dart';
 import '../controllers/apis/dogs_api.dart';
 import '../controllers/apis/shibes_api.dart';
 import '../models/cat.dart';
-import 'tags_provider.dart';
 import '../views/auth/auth_imports.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'tags_provider.dart';
 
 part 'images_provider.g.dart';
 
@@ -28,6 +30,24 @@ Future<List<String>> birds(BirdsRef ref, BuildContext context) {
 Future<List<String>> dogs(DogsRef ref, BuildContext context) {
   return DogsApi.fetchDogs(context);
 }
+
+@riverpod
+Future<List<String>> monkeys(MonkeysRef ref, BuildContext context) =>
+    PexelsApi.search(context, 'monkey').then(
+      (v) => v?.urls ?? [],
+    );
+
+@riverpod
+Future<List<String>> fishes(FishesRef ref, BuildContext context) =>
+    PexelsApi.search(context, 'fish').then(
+      (v) => v?.urls ?? [],
+    );
+
+@riverpod
+Future<List<String>> clowns(ClownsRef ref, BuildContext context) =>
+    PexelsApi.search(context, 'clown').then(
+      (v) => v?.urls ?? [],
+    );
 
 @riverpod
 List<String> images(ImagesRef ref, BuildContext context) {
@@ -60,6 +80,27 @@ List<String> images(ImagesRef ref, BuildContext context) {
     ..watch(birdsProvider(context)).whenData(
       (v) {
         if (selectedTags.tags.contains(KatTranslations.birds)) {
+          images.addAll(v);
+        }
+      },
+    )
+    ..watch(monkeysProvider(context)).whenData(
+      (v) {
+        if (selectedTags.tags.contains(KatTranslations.monkeys)) {
+          images.addAll(v);
+        }
+      },
+    )
+    ..watch(clownsProvider(context)).whenData(
+      (v) {
+        if (selectedTags.tags.contains(KatTranslations.clowns)) {
+          images.addAll(v);
+        }
+      },
+    )
+    ..watch(fishesProvider(context)).whenData(
+      (v) {
+        if (selectedTags.tags.contains(KatTranslations.fishes)) {
           images.addAll(v);
         }
       },
