@@ -13,11 +13,11 @@ class GoogleAuthButton extends ConsumerWidget {
       onPressed: () async => await AuthController.googleAuth(context, ref),
       leading: FaIcon(
         FontAwesomeIcons.google,
-        color: KatColors.primaryContainer(context),
+        color: KatColors.pink,
         size: 16,
       ),
-      backgroundColor: KatColors.primary(context),
-      foregroundColor: KatColors.primaryContainer(context),
+      backgroundColor: KatColors.purple,
+      foregroundColor: KatColors.pink,
       text: authType == AuthType.signIn
           ? KatTranslations.signInWithGoogle.tr()
           : KatTranslations.signUpWithGoogle.tr(),

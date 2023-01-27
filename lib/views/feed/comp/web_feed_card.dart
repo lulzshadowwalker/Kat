@@ -1,7 +1,7 @@
-part of './home_comp.dart';
+part of 'feed_comp.dart';
 
-class _WebHomeCard extends HookConsumerWidget {
-  const _WebHomeCard({
+class _WebFeedCard extends HookConsumerWidget {
+  const _WebFeedCard({
     required this.index,
     required this.url,
   });

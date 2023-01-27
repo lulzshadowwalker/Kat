@@ -12,7 +12,7 @@ class NotFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KatColors.primaryContainer(context),
+      backgroundColor: KatColors.pink,
       body: Center(
         child: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -34,16 +34,20 @@ class NotFound extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: NotifType.oops.name.tr(),
-                        style: Theme.of(context).textTheme.headline3?.copyWith(
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
                               color: KatColors.white,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
                       TextSpan(
                         text: '\n${KatTranslations.pageDoesNotExist.tr()}',
-                        style: Theme.of(context).textTheme.headline4?.copyWith(
-                              color: KatColors.white.withOpacity(0.75),
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  color: KatColors.white.withOpacity(0.75),
+                                ),
                       ),
                     ],
                   ),

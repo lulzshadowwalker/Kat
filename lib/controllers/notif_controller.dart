@@ -66,6 +66,8 @@ class NotifController {
     required NotifType type,
     Duration duration = const Duration(milliseconds: 3000),
   }) {
+    ScaffoldMessenger.maybeOf(context)?.removeCurrentSnackBar();
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: duration,
@@ -88,14 +90,14 @@ class NotifController {
             title,
             style: Theme.of(context)
                 .textTheme
-                .bodyText2
+                .bodyMedium
                 ?.copyWith(color: KatColors.white),
           ),
           subtitle: Text(
             desc,
             style: Theme.of(context)
                 .textTheme
-                .bodyText2
+                .bodyMedium
                 ?.copyWith(color: KatColors.white.withOpacity(0.65)),
           ),
         ),
@@ -296,12 +298,12 @@ Popup shown with details
       'not to be rude': 'but you kinda smell, take a shower stinkyy 🫣',
       'the beauty u c in anything': 'is a reflection of the beauty in u ✨',
       'did u fart ????': '🤨',
-      'I\'m no a photographer but..':
+      'I\'m not a photographer but..':
           'I can picture u the best artist in the world 📷',
       'it\'s only for character development':
           '( ur the main character, it\'s part of the plot )',
-      'cats can speak just like us, ask ur cat to do it':
-          'but promise her u wont tell anyone 🤫'
+      'cats can speak just like us':
+          'ask ur cat to do it but promise her u wont tell anyone 🤫'
     };
 
     final i = DateTime.now().day % templates.length;

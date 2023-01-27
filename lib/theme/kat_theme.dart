@@ -130,16 +130,16 @@ class KatTheme {
   //
 
   static PieTheme pieTheme(BuildContext context) => PieTheme(
-        tooltipStyle: Theme.of(context).textTheme.headline3?.copyWith(
+        tooltipStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
         buttonThemeHovered: PieButtonTheme(
-          backgroundColor: KatColors.primary(context),
-          iconColor: KatColors.primaryContainer(context),
+          backgroundColor: KatColors.purple,
+          iconColor: KatColors.pink,
         ),
         buttonTheme: PieButtonTheme(
-          backgroundColor: KatColors.primaryContainer(context),
-          iconColor: KatColors.primary(context),
+          backgroundColor: KatColors.pink,
+          iconColor: KatColors.purple,
         ),
       );
 }

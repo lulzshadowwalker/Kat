@@ -15,8 +15,8 @@ class KatImagePicker extends StatelessWidget {
         children: [
           // gallery option
           KatExpandedElevatedButton(
-            backgroundColor: KatColors.primary(context),
-            foregroundColor: KatColors.primaryContainer(context),
+            backgroundColor: KatColors.purple,
+            foregroundColor: KatColors.pink,
             onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
             leading: FaIcon(
               FontAwesomeIcons.solidImage,
@@ -29,8 +29,8 @@ class KatImagePicker extends StatelessWidget {
 
           //  camera option
           KatExpandedElevatedButton(
-            backgroundColor: KatColors.primary(context),
-            foregroundColor: KatColors.primaryContainer(context),
+            backgroundColor: KatColors.purple,
+            foregroundColor: KatColors.pink,
             onPressed: () => Navigator.of(context).pop(ImageSource.camera),
             leading: FaIcon(
               FontAwesomeIcons.camera,
@@ -43,8 +43,8 @@ class KatImagePicker extends StatelessWidget {
           // cancel
           const SizedBox(height: 15),
           KatExpandedElevatedButton(
-            backgroundColor: KatColors.primaryContainer(context),
-            foregroundColor: KatColors.primary(context),
+            backgroundColor: KatColors.pink,
+            foregroundColor: KatColors.purple,
             onPressed: () => Navigator.of(context).pop(),
             fontWeight: FontWeight.bold,
             text: KatTranslations.cancel.tr(),

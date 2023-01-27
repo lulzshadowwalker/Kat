@@ -37,9 +37,9 @@ class KatExpandedElevatedButton extends StatelessWidget {
       label: Text(
         text,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontWeight: fontWeight,
-              color: foregroundColor ?? KatColors.primary(context),
+              color: foregroundColor ?? KatColors.purple,
               overflow: TextOverflow.ellipsis,
             ),
       ),

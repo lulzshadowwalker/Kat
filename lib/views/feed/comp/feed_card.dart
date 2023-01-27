@@ -1,7 +1,7 @@
-part of './home_comp.dart';
+part of 'feed_comp.dart';
 
-class _HomeCard extends StatelessWidget {
-  const _HomeCard({
+class _FeedCard extends StatelessWidget {
+  const _FeedCard({
     required this.index,
     required this.url,
   });
@@ -12,7 +12,7 @@ class _HomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return KatHelpers.isAndroidOrIos
-        ? _MobileHomeCard(index: index, url: url)
-        : _WebHomeCard(index: index, url: url);
+        ? _MobileFeedCard(index: index, url: url)
+        : _WebFeedCard(index: index, url: url);
   }
 }

@@ -32,4 +32,6 @@ class SelectedTagsNotifier extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  bool get areAllSelected => _tags.length == _allTags.length;
 }

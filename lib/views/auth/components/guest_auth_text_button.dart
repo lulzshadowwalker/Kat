@@ -13,7 +13,7 @@ class GuestAuthTextButton extends StatelessWidget {
         KatTranslations.continueAsGuest.tr(),
         style: Theme.of(context)
             .textTheme
-            .bodyText2
+            .bodyMedium
             ?.copyWith(color: KatColors.muted),
       ),
     );

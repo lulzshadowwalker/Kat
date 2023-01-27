@@ -1,12 +1,13 @@
-part of './home_comp.dart';
+part of 'feed_comp.dart';
 
-class _HomeSearchBar extends HookConsumerWidget {
-  const _HomeSearchBar();
+class _FeedSearchBar extends HookConsumerWidget {
+  const _FeedSearchBar();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final processingInput = ref.watch(processingInputProvider);
     final searchTerms = ref.watch(searchTermsProvider.notifier);
+    final tags = ref.watch(selectedTagsProvider);
 
     return KatFormFieldBase(
       child: Row(
@@ -21,7 +22,7 @@ class _HomeSearchBar extends HookConsumerWidget {
                   hintStyle: _textStyle(context),
                 ),
                 onChanged: (value) => searchTerms.state = value,
-                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontFamily: KatTheme.enFontFamily,
                       color: KatColors.black,
                     ),
@@ -30,8 +31,6 @@ class _HomeSearchBar extends HookConsumerWidget {
           ),
           Expanded(
             child: GestureDetector(
-              /// TODO, tags button should change color in response to whether
-              ///  the results are filtered. e.g. cats dogs but not ducks or whatever
               onTap: () => showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
@@ -40,14 +39,16 @@ class _HomeSearchBar extends HookConsumerWidget {
               ),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 120),
-                color: KatColors.primaryContainer(context),
+                color: tags.areAllSelected ? KatColors.pink : KatColors.purple,
                 alignment: Alignment.center,
                 height: double.infinity,
                 child: Text(
                   KatTranslations.tags.tr(),
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontFamily: KatTheme.enFontFamily,
-                        color: KatColors.primary(context),
+                        color: tags.areAllSelected
+                            ? KatColors.purple
+                            : KatColors.mutedLight,
                       ),
                 ),
               ),
@@ -59,7 +60,7 @@ class _HomeSearchBar extends HookConsumerWidget {
   }
 
   static TextStyle? _textStyle(BuildContext context) =>
-      Theme.of(context).textTheme.bodyText2?.copyWith(
+      Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontFamily: KatTheme.enFontFamily,
             overflow: TextOverflow.ellipsis,
             color: KatColors.muted,

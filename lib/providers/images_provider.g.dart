@@ -29,10 +29,10 @@ class _SystemHash {
   }
 }
 
-String _$catsHash() => r'efa363d549daae11635d497e707e300bfc2d7cff';
+String _$catsHash() => r'c59353773e4eb4afa86a8f0c0341c06467db5bbc';
 
 /// See also [cats].
-class CatsProvider extends AutoDisposeFutureProvider<List<Cat>> {
+class CatsProvider extends AutoDisposeFutureProvider<List<String>> {
   CatsProvider(
     this.context,
   ) : super(
@@ -62,12 +62,12 @@ class CatsProvider extends AutoDisposeFutureProvider<List<Cat>> {
   }
 }
 
-typedef CatsRef = AutoDisposeFutureProviderRef<List<Cat>>;
+typedef CatsRef = AutoDisposeFutureProviderRef<List<String>>;
 
 /// See also [cats].
 final catsProvider = CatsFamily();
 
-class CatsFamily extends Family<AsyncValue<List<Cat>>> {
+class CatsFamily extends Family<AsyncValue<List<String>>> {
   CatsFamily();
 
   CatsProvider call(
@@ -79,7 +79,7 @@ class CatsFamily extends Family<AsyncValue<List<Cat>>> {
   }
 
   @override
-  AutoDisposeFutureProvider<List<Cat>> getProviderOverride(
+  AutoDisposeFutureProvider<List<String>> getProviderOverride(
     covariant CatsProvider provider,
   ) {
     return call(
@@ -515,7 +515,7 @@ class ClownsFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'clownsProvider';
 }
 
-String _$imagesHash() => r'5987cbd6e37228b3b074f0c1da5c0eafef324cc0';
+String _$imagesHash() => r'eb8bb08041fa37b1b6653c6fb441509678087fac';
 
 /// See also [images].
 class ImagesProvider extends AutoDisposeProvider<List<String>> {

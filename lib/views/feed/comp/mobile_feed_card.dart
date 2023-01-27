@@ -1,7 +1,7 @@
-part of './home_comp.dart';
+part of 'feed_comp.dart';
 
-class _MobileHomeCard extends ConsumerWidget {
-  const _MobileHomeCard({
+class _MobileFeedCard extends ConsumerWidget {
+  const _MobileFeedCard({
     required this.index,
     required this.url,
   });
@@ -37,7 +37,11 @@ class _MobileHomeCard extends ConsumerWidget {
             onSelect: () {
               KatHelpers.downloadImage(
                 context: context,
-                controller: controller,
+                widget: _ModifiedImage(
+                  url: url,
+                  text: text,
+                  quality: FilterQuality.high,
+                ),
               );
             },
             child: const Icon(Icons.download),
@@ -51,34 +55,9 @@ class _MobileHomeCard extends ConsumerWidget {
           ),
           child: Screenshot(
             controller: controller,
-            child: CachedNetworkImage(
-              imageUrl: url,
-              imageBuilder: (context, imageProvider) => Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Image(image: imageProvider),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: BorderedText(
-                      strokeColor: KatColors.white,
-                      strokeWidth: 2,
-                      child: Text(
-                        text,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              placeholder: (context, url) => Shimmer.fromColors(
-                baseColor: KatColors.primaryContainer(context),
-                highlightColor: KatColors.white,
-                child: Container(
-                  color: KatColors.mutedLight,
-                  width: double.infinity,
-                  height: 150,
-                ),
-              ),
+            child: _ModifiedImage(
+              url: url,
+              text: text,
             ),
           ),
         ),

@@ -25,15 +25,15 @@ class KatRichTextButton extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 35),
       child: RichText(
         text: TextSpan(
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.bodySmall,
             children: <TextSpan>[
               TextSpan(text: text),
               TextSpan(
                 text: ' $textCTA',
                 style: Theme.of(context)
                     .textTheme
-                    .caption
-                    ?.copyWith(color: color ?? KatColors.primary(context)),
+                    .bodySmall
+                    ?.copyWith(color: color ?? KatColors.purple),
                 recognizer: TapGestureRecognizer()..onTap = onTap,
               ),
             ]),

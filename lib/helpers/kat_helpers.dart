@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io' show Platform, SocketException;
 import 'dart:math' as math;
 
@@ -65,7 +67,7 @@ class KatHelpers {
 
     NotifController.showPopup(
       context: context,
-      desc: (e.message ?? KatTranslations.unknownError).tr(),
+      desc: e.code.tr(),
       type: NotifType.oops,
     );
   }
@@ -77,8 +79,8 @@ class KatHelpers {
   }) {
     if (e is SocketException) {
       _handleSocketException(context, logger);
-    } else if (e is FirebaseException) {
-      _handleFirebaseAuthException(context, e as FirebaseAuthException);
+    } else if (e is FirebaseAuthException) {
+      _handleFirebaseAuthException(context, e);
     } else if (e is KatSilentException) {
       logger.e(e.message);
     } else {
@@ -168,14 +170,14 @@ class KatHelpers {
   /// captures a widget as an image and saves it to the gallery
   static Future<String?> downloadImage({
     required BuildContext context,
-    required ScreenshotController controller,
+    required Widget widget,
   }) async {
     /// TODO better permissions handling
     try {
-      final image = await controller.capture();
+      final image = await ScreenshotController().captureFromWidget(widget);
 
       final res = await ImageGallerySaver.saveImage(
-        image!,
+        image,
         name: 'aboba.png',
       ) as Map;
 

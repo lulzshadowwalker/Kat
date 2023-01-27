@@ -27,7 +27,7 @@ class KatPasswordField extends HookConsumerWidget {
           isObscure
               ? FontAwesomeIcons.solidEye
               : FontAwesomeIcons.solidEyeSlash,
-          color: KatColors.primary(context),
+          color: KatColors.purple,
           size: 16,
         ),
         onPressed: () => isPassObscure.value = !isObscure,

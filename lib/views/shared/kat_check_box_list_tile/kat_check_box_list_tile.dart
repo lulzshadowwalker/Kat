@@ -17,8 +17,8 @@ class KatCheckBoxListTile extends HookWidget {
   Widget build(BuildContext context) {
     return CheckboxListTile(
       title: title,
-      activeColor: KatColors.primary(context),
-      checkColor: KatColors.primaryContainer(context),
+      activeColor: KatColors.purple,
+      checkColor: KatColors.pink,
       checkboxShape: const CircleBorder(),
       value: value,
       onChanged: (value) {

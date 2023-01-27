@@ -53,7 +53,7 @@ class ImageCircleAvatar extends HookWidget {
             height: _radius,
             width: _radius,
             decoration: BoxDecoration(
-              color: KatColors.primaryContainer(context),
+              color: KatColors.pink,
               shape: BoxShape.circle,
               image: image.value != null
                   ? DecorationImage(
@@ -74,7 +74,7 @@ class ImageCircleAvatar extends HookWidget {
             right: 8,
             child: FaIcon(
               FontAwesomeIcons.circlePlus,
-              color: KatColors.primary(context),
+              color: KatColors.purple,
             ),
           )
         ],

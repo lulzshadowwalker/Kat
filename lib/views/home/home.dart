@@ -1,80 +1,67 @@
-part of './comp/home_comp.dart';
+import 'package:flutter/material.dart';
+import 'package:kat/views/feed/comp/feed_comp.dart';
+import 'package:kat/views/profile/profile.dart';
+import 'package:kat/views/settings/settings.dart';
+import 'package:kat/views/social/social.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
-class Home extends HookConsumerWidget {
-  const Home({super.key});
+import '../auth/auth_imports.dart';
+
+class Home extends HookWidget {
+  const Home({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isPieMenuInactive = useState(false);
-    final images = ref.watch(imagesProvider(context));
-
-    useEffect(() {
-      NotifController().init();
-      return null;
-    }, const []);
-
-    final crossCount = KatHelpers.isMobileBp(context)
-        ? 2
-        : KatHelpers.isTabletBp(context)
-            ? 3
-            : 5;
-
-    return PieCanvas(
-      theme: KatTheme.pieTheme(context),
-      onMenuToggle: (active) => isPieMenuInactive.value = active,
-      child: KatUnfocusableWrapper(
-        child: Scaffold(
-          extendBody: true,
-          extendBodyBehindAppBar: true,
-          bottomNavigationBar: const _KatBottomNavBar(),
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            title: const KatConstrainedBox(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                child: _HomeSearchBar(),
-              ),
-            ),
-          ),
-          body: MasonryGridView(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            physics: isPieMenuInactive.value
-                ? const NeverScrollableScrollPhysics()
-                : null,
-            gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossCount,
-            ),
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            cacheExtent: 300,
-            children: [
-              /// app bar spacing when scrolled to top
-              ...List.generate(
-                crossCount,
-                (index) => SizedBox(
-                  height: AppBar().preferredSize.height * 1.85,
-                ),
-              ),
-
-              /// bod
-              ...List.generate(
-                images.length,
-                (index) => _HomeCard(
-                  index: index,
-                  url: images.elementAt(index),
-                ),
-              ),
-
-              /// bottom bar safe area when scrolled all the way to the bottom
-              ...List.generate(
-                crossCount,
-                (index) =>
-                    const SizedBox(height: kBottomNavigationBarHeight * 2.5),
-              ),
-            ],
-          ),
+  Widget build(BuildContext context) {
+    return PersistentTabView(
+      context,
+      screens: const [
+        Feed(),
+        Social(),
+        Profile(),
+        Settings(),
+      ],
+      backgroundColor: KatColors.purple,
+      controller: PersistentTabController(initialIndex: 0),
+      items: [
+        PersistentBottomNavBarItem(
+          icon: const FaIcon(FontAwesomeIcons.houseChimneyWindow),
+          activeColorPrimary: KatColors.gold,
+          inactiveColorPrimary: KatColors.pink,
+          title: 'Home',
+          iconSize: 24,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const FaIcon(FontAwesomeIcons.userGroup),
+          activeColorPrimary: KatColors.gold,
+          inactiveColorPrimary: KatColors.pink,
+          title: 'Social',
+          iconSize: 24,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const FaIcon(FontAwesomeIcons.solidUser),
+          activeColorPrimary: KatColors.gold,
+          inactiveColorPrimary: KatColors.pink,
+          title: 'Profile',
+          iconSize: 24,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const FaIcon(FontAwesomeIcons.gear),
+          activeColorPrimary: KatColors.gold,
+          inactiveColorPrimary: KatColors.pink,
+          title: 'Settings',
+          iconSize: 24,
+        ),
+      ],
+      decoration: const NavBarDecoration(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(16),
         ),
       ),
+      navBarHeight: kBottomNavigationBarHeight + 8,
+      padding: const NavBarPadding.fromLTRB(null, 24, null, 0),
+      navBarStyle: NavBarStyle.style12,
     );
   }
 }

@@ -61,8 +61,8 @@ class SignIn extends HookConsumerWidget {
                         child: Text(
                           KatTranslations.or.tr(),
                           style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
-                                    color: KatColors.primary(context),
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: KatColors.purple,
                                   ),
                         ),
                       ),

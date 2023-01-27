@@ -18,7 +18,7 @@ class Splash extends HookWidget {
     useFuture(future);
 
     return Scaffold(
-      backgroundColor: KatColors.primaryContainer(context),
+      backgroundColor: KatColors.pink,
       body: Center(
         child: Stack(
           children: [
@@ -44,7 +44,7 @@ class Splash extends HookWidget {
                       'to Kate',
                       style: GoogleFonts.fredokaOne(
                         fontSize: 46,
-                        color: KatColors.primary(context),
+                        color: KatColors.purple,
                       ),
                     ),
                     Text(
@@ -59,7 +59,7 @@ I'm proud of you
                       textAlign: TextAlign.center,
                       style: GoogleFonts.fredokaOne(
                         fontSize: 18,
-                        color: KatColors.primary(context).withOpacity(0.85),
+                        color: KatColors.purple.withOpacity(0.85),
                       ),
                     ),
                   ],

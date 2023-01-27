@@ -1,4 +1,4 @@
-part of './home_comp.dart';
+part of 'feed_comp.dart';
 
 class _TagsSheet extends ConsumerWidget {
   const _TagsSheet({
@@ -33,7 +33,7 @@ class _TagsSheet extends ConsumerWidget {
                   KatTranslations.tags.tr(),
                   style: Theme.of(context)
                       .textTheme
-                      .headline5
+                      .headlineSmall
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 24),

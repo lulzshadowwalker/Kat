@@ -60,7 +60,7 @@ class KatFormField extends StatelessWidget {
           alignLabelWithHint: true,
           hintStyle: Theme.of(context)
               .textTheme
-              .bodyText2
+              .bodyMedium
               ?.copyWith(color: KatColors.muted),
           contentPadding: const EdgeInsets.only(bottom: 5),
           hintText: hintText,
