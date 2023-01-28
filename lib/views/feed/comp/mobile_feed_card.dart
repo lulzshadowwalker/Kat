@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 part of 'feed_comp.dart';
 
 class _MobileFeedCard extends ConsumerWidget {
@@ -9,42 +11,64 @@ class _MobileFeedCard extends ConsumerWidget {
   final int index;
   final String url;
 
+  Widget _higherResImage({required String text}) => _ModifiedImage(
+        url: url,
+        text: text,
+        quality: FilterQuality.high,
+      );
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = ref.watch(processingInputProvider);
-    final controller = ScreenshotController();
+    final image = _ModifiedImage(
+      url: url,
+      text: text,
+    );
+
+    final isFav =
+        ref.watch(userProvider).value?.favs.containsKey(image.id) ?? false;
 
     return KatAnimatedScale(
       index: index,
       child: PieMenu(
         actions: [
           PieAction(
-            tooltip: KatTranslations.addToFavs.tr(),
-            onSelect: () {
-              NotifController.showInDevPopup(context);
+            tooltip: isFav
+                ? KatTranslations.removeFromFavs.tr()
+                : KatTranslations.addToFavs.tr(),
+            onSelect: () async {
+              if (KatHelpers.handleGuest(context)) return;
+
+              final img = await ScreenshotController().captureFromWidget(
+                _higherResImage(text: text),
+              );
+
+              await RemoteDbController.toggleFav(
+                context: context,
+                image: img,
+                id: image.id,
+              );
             },
-            child: const Icon(Icons.favorite),
+            child: Icon(
+              isFav ? FontAwesomeIcons.heartCrack : FontAwesomeIcons.solidHeart,
+            ),
           ),
           PieAction(
             tooltip: KatTranslations.share.tr(),
             onSelect: () {
               NotifController.showInDevPopup(context);
             },
-            child: const Icon(Icons.share),
+            child: const Icon(FontAwesomeIcons.shareNodes),
           ),
           PieAction(
             tooltip: KatTranslations.download.tr(),
             onSelect: () {
               KatHelpers.downloadImage(
                 context: context,
-                widget: _ModifiedImage(
-                  url: url,
-                  text: text,
-                  quality: FilterQuality.high,
-                ),
+                widget: _higherResImage(text: text),
               );
             },
-            child: const Icon(Icons.download),
+            child: const Icon(FontAwesomeIcons.download),
           ),
         ],
         child: Container(
@@ -53,12 +77,20 @@ class _MobileFeedCard extends ConsumerWidget {
             color: KatColors.mutedLight,
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Screenshot(
-            controller: controller,
-            child: _ModifiedImage(
-              url: url,
-              text: text,
-            ),
+          child: Stack(
+            children: [
+              image,
+              if (isFav)
+                Positioned(
+                  right: 12,
+                  bottom: 12,
+                  child: LottieBuilder.asset(
+                    KatAnim.heart,
+                    height: 28,
+                    repeat: false,
+                  ),
+                )
+            ],
           ),
         ),
       ),

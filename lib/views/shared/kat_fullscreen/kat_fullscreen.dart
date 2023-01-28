@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kat/views/auth/auth_imports.dart';
 import '../../../theme/kat_colors.dart';
 
 class KatFullscreen extends StatelessWidget {

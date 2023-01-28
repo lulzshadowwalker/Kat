@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'notif_controller.dart';
-import 'package:kat/models/enums/notif_type.dart';
-import 'package:kat/models/kat_slient_exception.dart';
 import 'package:kat/models/kat_user.dart';
 import 'package:kat/views/auth/auth_imports.dart';
-import 'package:uuid/uuid.dart';
 import '../helpers/typedefs.dart';
 import 'remote_storage.dart';
 
@@ -17,20 +13,6 @@ class RemoteDbController {
   static final _db = FirebaseFirestore.instance;
   static final _log = KatHelpers.getLogger(_cn);
   static final _remoteStorage = RemoteStorageController();
-
-  static void _handleGuest(BuildContext context) {
-    if (AuthController.isGuest) {
-      NotifController.showPopup(
-        context: context,
-        desc: KatTranslations.needAccount.tr(),
-        type: NotifType.tip,
-      );
-
-      throw const KatSilentException('''
-the requested feature cannot be accessed without an active account
-''');
-    }
-  }
 
   /* STRING CONST ------------------------------------------------------------- */
   /// class name
@@ -63,7 +45,7 @@ the requested feature cannot be accessed without an active account
                 {
                   _aCreatedOn: DateTime.now().toUtc(),
                   _aId: uid,
-                  _aFavorites: [],
+                  _aFavorites: <String, String>{},
                 },
               ),
           );
@@ -90,10 +72,9 @@ registered new user with details:
   static Future<void> toggleFav({
     required BuildContext context,
     required Uint8List image,
+    required String id,
   }) async {
     try {
-      _handleGuest(context);
-
       final url = await _remoteStorage.upload(
         context: context,
         childName: 'favorites',
@@ -103,14 +84,25 @@ registered new user with details:
       if (url == null) throw Exception('url is empty');
 
       final uid = AuthController.userId!;
-      final favId = const Uuid().v4();
 
-      await _db.collection(_cUsers).doc(uid).update(
-        {
-          _aFavorites: FieldValue.arrayUnion([{favId: url}]),
-        },
-      );
-      _log.v('image added to the user collection favorites');
+      final favs =
+          await currentUserData.firstWhere((u) => true).then((u) => u.favs);
+
+      if (favs.containsKey(id)) {
+        await _db.collection(_cUsers).doc(uid).update(
+          {
+            _aFavorites: favs..remove(id),
+          },
+        );
+        _log.v('image removed from the user collections favorites');
+      } else {
+        await _db.collection(_cUsers).doc(uid).update(
+          {
+            _aFavorites: favs..addAll({id: url}),
+          },
+        );
+        _log.v('image added to the user collection favorites');
+      }
     } catch (e) {
       KatHelpers.handleException(context: context, e: e, logger: _log);
     }

@@ -11,35 +11,51 @@ class _ModifiedImage extends StatelessWidget {
   final String text;
   final FilterQuality quality;
 
+  /// returns an id generated based on [url] and the applied modifications
+  String get id => const Uuid().v5(Uuid.NAMESPACE_URL, '$url$text');
+
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: url,
-      imageBuilder: (context, imageProvider) => Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Image(image: imageProvider),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: BorderedText(
-              strokeColor: KatColors.white,
-              strokeWidth: 2,
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-              ),
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 250),
+      child: CachedNetworkImage(
+        imageUrl: url,
+        fadeOutDuration: const Duration(milliseconds: 0),
+        filterQuality: quality,
+        imageBuilder: (context, imageProvider) => Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Image(
+              image: imageProvider,
+              filterQuality: quality,
             ),
-          )
-        ],
-      ),
-      placeholder: (context, url) => Shimmer.fromColors(
-        baseColor: KatColors.mutedLight,
-        highlightColor: KatColors.white,
-        child: Container(
-          color: KatColors.mutedLight,
-          width: double.infinity,
-          height: 150,
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: BorderedText(
+                strokeColor: KatColors.black,
+                strokeWidth: 2,
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: KatColors.white,
+                      ),
+                ),
+              ),
+            )
+          ],
         ),
+        placeholder: (context, url) {
+          return Shimmer.fromColors(
+            baseColor: KatColors.mutedLight,
+            highlightColor: KatColors.white,
+            child: Container(
+              color: KatColors.mutedLight,
+              width: double.infinity,
+              height: 150,
+            ),
+          );
+        },
       ),
     );
   }

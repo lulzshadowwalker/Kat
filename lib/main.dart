@@ -35,7 +35,7 @@ void main() async {
       ],
       path: 'assets/translations',
       fallbackLocale: const Locale(KatConst.en),
-      startLocale: const Locale(KatConst.ru),
+      startLocale: const Locale(KatConst.en),
       useOnlyLangCode: true,
       child: const ProviderScope(
         child: Kat(),

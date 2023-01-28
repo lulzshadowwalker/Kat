@@ -9,7 +9,7 @@ class KatUser {
   final String? bio;
   final DateTime? createdOn;
   final String? pfpUrl;
-  final Map<String, String> favs;
+  final Map favs;
 
   const KatUser(
     this.username,
@@ -25,7 +25,8 @@ class KatUser {
       : username = doc.data()?['username'],
         email = doc.data()?['email'],
         displayName = doc.data()?['displayName'],
-        favs = doc.data()?['favorites'],
+        favs = (doc.data()?['favorites'] as Map)
+            .map((key, value) => MapEntry(key.toString(), value.toString())),
         bio = doc.data()?['bio'],
         createdOn = doc.data()?['createdOn']?.toDate(),
         pfpUrl = doc.data()?['pfpUrl'];

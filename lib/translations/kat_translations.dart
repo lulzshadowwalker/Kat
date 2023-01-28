@@ -38,6 +38,7 @@ class KatTranslations {
   static const String onMyPuter = 'onMyPuter';
   static const String iWouldLikeSomeCoffee = 'iWouldLikeSomeCoffee';
   static const String addToFavs = 'addToFavs';
+  static const String removeFromFavs = 'removeFromFavs';
   static const String share = 'share';
   static const String download = 'download';
   static const String tags = 'tags';

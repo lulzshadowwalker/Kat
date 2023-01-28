@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
+import '../controllers/auth_controller.dart';
 import '../models/kat_slient_exception.dart';
 import 'package:logger/logger.dart';
 import 'package:screenshot/screenshot.dart';
@@ -192,5 +193,21 @@ class KatHelpers {
       handleException(context: context, e: e, logger: _log);
       return null;
     }
+  }
+
+  static bool handleGuest(BuildContext context) {
+    if (AuthController.isGuest) {
+      NotifController.showPopup(
+        context: context,
+        desc: KatTranslations.needAccount.tr(),
+        type: NotifType.tip,
+      );
+
+      _log.v('''
+the requested feature cannot be accessed without an active account
+''');
+    }
+
+    return AuthController.isGuest;
   }
 }

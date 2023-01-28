@@ -13,8 +13,11 @@ class KatAnim {
     'assets/anims/cat-404-3.json',
   ];
 
-  ///lottiefiles.com/96002-cute-froggy-looking-around
+  /// lottiefiles.com/96002-cute-froggy-looking-around
   static const String frog = 'assets/anims/frog.json';
+
+  /// https://lottiefiles.com/58563-heart-icon
+  static const String heart= 'assets/anims/heart.json';
 
   /// https://lottiefiles.com/16193-animated-contest-4-at-tgsticker-sticker-23
   static const String clown = 'assets/anims/clown.json';

@@ -59,8 +59,8 @@ class Home extends HookWidget {
           top: Radius.circular(16),
         ),
       ),
-      navBarHeight: kBottomNavigationBarHeight + 8,
-      padding: const NavBarPadding.fromLTRB(null, 24, null, 0),
+      navBarHeight: kBottomNavigationBarHeight + 24,
+      padding: const NavBarPadding.fromLTRB(null, 24, null, 16),
       navBarStyle: NavBarStyle.style12,
     );
   }
