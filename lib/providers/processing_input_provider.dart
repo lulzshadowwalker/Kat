@@ -8,7 +8,7 @@ import '../translations/kat_translations.dart';
 final processingInputProvider = Provider<String>(
   (ref) {
     final term = ref.watch(searchTermsProvider);
-    final showcaseWord = ref.watch(wordsProvider).asData;
+    final showcaseWord = ref.watch(wordProvider).asData;
 
     if (term == null || term.isEmpty) {
       return tr(showcaseWord?.value ?? KatTranslations.saySomething);

@@ -17,7 +17,7 @@ import '../models/notif_config.dart';
 import '../theme/kat_colors.dart';
 import '../translations/kat_translations.dart';
 
-/// ! must be a top level function [read more](https://firebase.flutter.dev/docs/messaging/usage#:~:text=Handling%20messages%20whilst,which%20requires%20initialization).)
+/// ! must be a top level function [read more](https://firebase.flutter.dev/docs/messaging/usage#:~:text=Handling%20messages%20whilst,which%20requires%20initialization)
 Future<void> _handleFcmBackgroundMessage(RemoteMessage message) async {
   final RemoteNotification? notif = message.notification;
   if (notif != null) {

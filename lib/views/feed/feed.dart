@@ -68,8 +68,7 @@ class Feed extends HookConsumerWidget {
                 /// bottom bar safe area when scrolled all the way to the bottom
                 ...List.generate(
                   crossCount,
-                  (index) =>
-                      const SizedBox(height: kBottomNavigationBarHeight * 2.5),
+                  (index) => const SizedBox(height: kBottomNavigationBarHeight),
                 ),
               ],
             ),

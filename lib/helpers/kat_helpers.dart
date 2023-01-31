@@ -112,6 +112,7 @@ class KatHelpers {
           context: context,
           builder: (_) => const KatImagePicker(),
           backgroundColor: Colors.transparent,
+          elevation: 0,
           constraints: const BoxConstraints(maxWidth: 500),
         );
 

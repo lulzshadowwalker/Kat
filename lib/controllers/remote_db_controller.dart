@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kat/models/kat_user.dart';
 import 'package:kat/views/auth/auth_imports.dart';
+
 import '../helpers/typedefs.dart';
 import 'remote_storage.dart';
 
@@ -75,32 +78,35 @@ registered new user with details:
     required String id,
   }) async {
     try {
-      final url = await _remoteStorage.upload(
-        context: context,
-        childName: 'favorites',
-        file: image,
-      );
-
-      if (url == null) throw Exception('url is empty');
-
       final uid = AuthController.userId!;
 
       final favs =
           await currentUserData.firstWhere((u) => true).then((u) => u.favs);
 
-      if (favs.containsKey(id)) {
+      if (favs!.containsKey(id)) {
         await _db.collection(_cUsers).doc(uid).update(
           {
             _aFavorites: favs..remove(id),
           },
         );
+
         _log.v('image removed from the user collections favorites');
       } else {
+        final url = await _remoteStorage.upload(
+          context: context,
+          childName: 'favorites',
+          file: image,
+          fileId: id,
+        );
+
+        if (url == null) throw Exception('url is empty');
+
         await _db.collection(_cUsers).doc(uid).update(
           {
             _aFavorites: favs..addAll({id: url}),
           },
         );
+
         _log.v('image added to the user collection favorites');
       }
     } catch (e) {

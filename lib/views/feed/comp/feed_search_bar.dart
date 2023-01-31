@@ -35,6 +35,7 @@ class _FeedSearchBar extends HookConsumerWidget {
                 context: context,
                 isScrollControlled: true,
                 backgroundColor: Colors.transparent,
+                elevation: 0,
                 builder: (context) => const _TagsSheet(),
               ),
               child: AnimatedContainer(

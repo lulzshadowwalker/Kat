@@ -11,12 +11,6 @@ class _MobileFeedCard extends ConsumerWidget {
   final int index;
   final String url;
 
-  Widget _higherResImage({required String text}) => _ModifiedImage(
-        url: url,
-        text: text,
-        quality: FilterQuality.high,
-      );
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = ref.watch(processingInputProvider);
@@ -26,7 +20,7 @@ class _MobileFeedCard extends ConsumerWidget {
     );
 
     final isFav =
-        ref.watch(userProvider).value?.favs.containsKey(image.id) ?? false;
+        ref.watch(userProvider).value?.favs?.containsKey(image.id) ?? false;
 
     return KatAnimatedScale(
       index: index,
@@ -36,19 +30,11 @@ class _MobileFeedCard extends ConsumerWidget {
             tooltip: isFav
                 ? KatTranslations.removeFromFavs.tr()
                 : KatTranslations.addToFavs.tr(),
-            onSelect: () async {
-              if (KatHelpers.handleGuest(context)) return;
-
-              final img = await ScreenshotController().captureFromWidget(
-                _higherResImage(text: text),
-              );
-
-              await RemoteDbController.toggleFav(
-                context: context,
-                image: img,
-                id: image.id,
-              );
-            },
+            onSelect: () => _toggleFav(
+              context: context,
+              text: text,
+              imageId: image.id,
+            ),
             child: Icon(
               isFav ? FontAwesomeIcons.heartCrack : FontAwesomeIcons.solidHeart,
             ),
@@ -71,29 +57,60 @@ class _MobileFeedCard extends ConsumerWidget {
             child: const Icon(FontAwesomeIcons.download),
           ),
         ],
-        child: Container(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(
-            color: KatColors.mutedLight,
-            borderRadius: BorderRadius.circular(15),
+        child: GestureDetector(
+          onDoubleTap: () => _toggleFav(
+            context: context,
+            text: text,
+            imageId: image.id,
           ),
-          child: Stack(
-            children: [
-              image,
-              if (isFav)
-                Positioned(
-                  right: 12,
-                  bottom: 12,
-                  child: LottieBuilder.asset(
-                    KatAnim.heart,
-                    height: 28,
-                    repeat: false,
-                  ),
-                )
-            ],
+          child: Container(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            decoration: BoxDecoration(
+              color: KatColors.mutedLight,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Stack(
+              children: [
+                image,
+                if (isFav)
+                  Positioned(
+                    right: 12,
+                    bottom: 12,
+                    child: LottieBuilder.asset(
+                      KatAnim.heart,
+                      height: 28,
+                      repeat: false,
+                    ),
+                  )
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _higherResImage({required String text}) => _ModifiedImage(
+        url: url,
+        text: text,
+        quality: FilterQuality.high,
+      );
+
+  Future<void> _toggleFav({
+    required BuildContext context,
+    required String text,
+    required imageId,
+  }) async {
+    if (KatHelpers.handleGuest(context)) return;
+
+    final img = await ScreenshotController().captureFromWidget(
+      _higherResImage(text: text),
+    );
+
+    await RemoteDbController.toggleFav(
+      context: context,
+      image: img,
+      id: imageId,
     );
   }
 }

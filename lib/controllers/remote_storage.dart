@@ -22,13 +22,14 @@ class RemoteStorageController {
     required BuildContext context,
     required String childName,
     required Uint8List file,
+    String? fileId,
   }) async {
     try {
       final uid = AuthController.userId;
       if (uid == null) throw Exception('User ID is null');
       final String userId = uid;
 
-      final String fileId = const Uuid().v4();
+      fileId ??= const Uuid().v4();
 
       final ref =
           _firebaseStorage.ref().child(userId).child(childName).child(fileId);

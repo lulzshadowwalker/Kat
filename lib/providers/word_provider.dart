@@ -8,7 +8,7 @@ const _showcaseTerms = <String>[
 ];
 
 /// periodic stream of predefined words
-final wordsProvider = StreamProvider<String>(
+final wordProvider = StreamProvider<String>(
   (ref) {
     return Stream.periodic(
       const Duration(milliseconds: 2500),
