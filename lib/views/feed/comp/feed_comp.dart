@@ -2,6 +2,7 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:kat/controllers/remote_db_controller.dart';
 import 'package:kat/helpers/kat_anim.dart';
@@ -24,6 +25,8 @@ import '../../shared/kat_check_box_list_tile/kat_check_box_list_tile.dart';
 import '../../shared/kat_constrained_box/kat_constrained_box.dart';
 import '../../shared/kat_form_field_base/kat_form_field_base.dart';
 import '../../shared/kat_fullscreen/kat_fullscreen.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 part 'feed_app_bar.dart';
 part '../feed.dart';

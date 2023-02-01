@@ -41,9 +41,7 @@ class _MobileFeedCard extends ConsumerWidget {
           ),
           PieAction(
             tooltip: KatTranslations.share.tr(),
-            onSelect: () {
-              NotifController.showInDevPopup(context);
-            },
+            onSelect: () => _shareImage(text),
             child: const Icon(FontAwesomeIcons.shareNodes),
           ),
           PieAction(
@@ -87,6 +85,28 @@ class _MobileFeedCard extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _shareImage(String text) async {
+    final image = await ScreenshotController().captureFromWidget(
+      _higherResImage(text: text),
+    );
+
+    final tempDirPath =
+        await getTemporaryDirectory().then((value) => value.path);
+
+    final file = await DefaultCacheManager().putFile(
+      tempDirPath,
+      image,
+      fileExtension: ".jpg",
+      maxAge: const Duration(minutes: 5),
+    );
+
+    await Share.shareXFiles(
+      [XFile(file.path)],
+      subject: 'abooba',
+      text: 'abooba',
     );
   }
 
