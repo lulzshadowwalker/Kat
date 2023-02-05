@@ -64,6 +64,10 @@ dependencies:
   awesome_bottom_bar: ^1.2.2
   firebase_messaging: ^14.2.1
   persistent_bottom_nav_bar_v2: ^4.2.6
+  flag: ^6.0.0
+  dash_flags: ^0.0.3
+  flutter_advanced_switch: ^3.0.1
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
   flutter_test:

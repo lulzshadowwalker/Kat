@@ -4,9 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_status_code/http_status_code.dart';
-import '../../helpers/kat_helpers.dart';
 import 'package:retry/retry.dart';
 
+import '../../helpers/kat_helpers.dart';
 import '../../models/enums/request_type.dart';
 
 class ApiHandler {
@@ -171,6 +171,7 @@ failure,  request of time id ( $timeId )
         ),
         onResponse: onResponse,
       );
+
   static Future<T?> delete<T>({
     required BuildContext context,
     required String url,

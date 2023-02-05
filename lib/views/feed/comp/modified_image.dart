@@ -37,9 +37,12 @@ class _ModifiedImage extends StatelessWidget {
                 child: Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: KatColors.white,
-                      ),
+                  style: (quality == FilterQuality.high
+                          ? Theme.of(context).textTheme.titleMedium
+                          : Theme.of(context).textTheme.bodyLarge)
+                      ?.copyWith(
+                    color: KatColors.white,
+                  ),
                 ),
               ),
             )

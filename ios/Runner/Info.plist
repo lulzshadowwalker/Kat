@@ -15,6 +15,11 @@
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>ru</string>
+	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
 	<key>NSCameraUsageDescription</key>

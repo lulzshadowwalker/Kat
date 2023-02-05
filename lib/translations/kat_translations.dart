@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../models/enums/notif_type.dart';
 
+import '../helpers/kat_const.dart';
 import '../helpers/typedefs.dart';
+import '../models/enums/notif_type.dart';
 
 /// TODO[FIX] why the fock does the locale need a restart to work
 class KatTranslations {
@@ -54,13 +55,31 @@ class KatTranslations {
   static const String inDevelopment = 'inDevelopment';
   static const String tap3TimesToSignOut = 'tap3TimesToSignOut';
   static const String all = 'all';
-
-  /// TODO replace all refs
+  static const String appSettings = 'appSettings';
+  static const String language = 'language';
+  static const String darkMode = 'darkMode';
+  static const String devNotice = 'devNotice';
+  static const String attributions = 'attributions';
+  static const String signOut = 'signOut';
+  static const String createAnAccount = 'createAnAccount';
+  static const String settings = 'settings';
+  static const String viewProfile = 'viewProfile';
+  static const String guest = 'guest';
+  static const String resetPassword = 'resetPassword';
+  static const String passwordResetEmailSent = 'passwordResetEmailSent';
+  static const String account = 'account';
   static final String oops = NotifType.oops.name;
   static final String warning = NotifType.warning.name;
   static final String tip = NotifType.tip.name;
   static final String success = NotifType.success.name;
+  static const String update = 'update';
+  static const String passwordToContinue = 'passwordToContinue';
 
-  static LangCode? currenetLangCode(BuildContext context) =>
+  static LangCode? currentLangCode(BuildContext context) =>
       EasyLocalization.of(context)?.locale.languageCode;
+
+  static List<Locale> get supportedLocales => const [
+        Locale(KatConst.en),
+        Locale(KatConst.ru),
+      ];
 }

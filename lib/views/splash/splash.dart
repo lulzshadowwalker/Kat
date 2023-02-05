@@ -5,7 +5,7 @@ class Splash extends HookWidget {
 
   static Future<void> _start(BuildContext context) async {
     Future.delayed(
-      const Duration(seconds: 12),
+      const Duration(seconds: 1),
       () {
         context.goNamed(KatRoutes.signUp);
       },

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:kat/kat_local.dart';
-import 'package:kat/models/pexel.dart';
-import 'package:kat/views/auth/auth_imports.dart';
+import '../../kat_local.dart';
+import '../../models/pexel.dart';
+import '../../views/auth/auth_imports.dart';
 
 import 'api_handler.dart';
 
@@ -21,7 +21,7 @@ class PexelsApi {
       context: context,
       url: url,
       headers: {
-        'Authorization': KatLocal.pixelsApiKey,
+        'Authorization': KatLocal.pexelsApiKey,
       },
       onResponse: (res) => Pexel.fromJson(jsonDecode(res.body)),
     );

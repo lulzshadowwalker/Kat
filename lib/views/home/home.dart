@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kat/views/feed/comp/feed_comp.dart';
-import 'package:kat/views/profile/profile.dart';
-import 'package:kat/views/settings/settings.dart';
+import '../feed/comp/feed_comp.dart';
+import '../profile/profile.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../auth/auth_imports.dart';
+import '../settings/comps/settings_comps.dart';
 
 class Home extends HookWidget {
   const Home({

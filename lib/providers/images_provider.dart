@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kat/controllers/apis/pexels_api.dart';
+import '../controllers/apis/pexels_api.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../controllers/apis/cats_api.dart';
@@ -10,46 +10,46 @@ import 'tags_provider.dart';
 
 part 'images_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<String>> cats(CatsRef ref, BuildContext context) async {
   final cats = await CatsApi.fetchCats(context);
   return cats.map((e) => e.url).toCompactMap.toList();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<String>> shibes(ShibesRef ref, BuildContext context) {
   return ShibesApi.fetchShibes(context);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<String>> birds(BirdsRef ref, BuildContext context) {
   return ShibesApi.fetchBirds(context);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<String>> dogs(DogsRef ref, BuildContext context) {
   return DogsApi.fetchDogs(context);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<String>> monkeys(MonkeysRef ref, BuildContext context) =>
     PexelsApi.search(context, 'monkey').then(
       (v) => v?.urls ?? [],
     );
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<String>> fishes(FishesRef ref, BuildContext context) =>
     PexelsApi.search(context, 'fish').then(
       (v) => v?.urls ?? [],
     );
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<String>> clowns(ClownsRef ref, BuildContext context) =>
     PexelsApi.search(context, 'clown').then(
       (v) => v?.urls ?? [],
     );
 
-@riverpod
+@Riverpod(keepAlive: true)
 List<String> images(ImagesRef ref, BuildContext context) {
   final images = <String>[];
   final selectedTags = ref.watch(selectedTagsProvider);

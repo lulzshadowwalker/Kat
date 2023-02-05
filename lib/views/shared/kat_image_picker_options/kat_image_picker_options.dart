@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../auth/auth_imports.dart';
 
-class KatImagePicker extends StatelessWidget {
-  const KatImagePicker({super.key});
+class KatImagePickerOptions extends StatelessWidget {
+  const KatImagePickerOptions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class KatImagePicker extends StatelessWidget {
           KatExpandedElevatedButton(
             backgroundColor: KatColors.purple,
             foregroundColor: KatColors.pink,
-            onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
+            onPressed: () => KatHelpers.pop(context, ImageSource.gallery),
             leading: FaIcon(
               FontAwesomeIcons.solidImage,
               color: KatColors.same(context),
@@ -31,7 +31,7 @@ class KatImagePicker extends StatelessWidget {
           KatExpandedElevatedButton(
             backgroundColor: KatColors.purple,
             foregroundColor: KatColors.pink,
-            onPressed: () => Navigator.of(context).pop(ImageSource.camera),
+            onPressed: () => KatHelpers.pop(context, ImageSource.camera),
             leading: FaIcon(
               FontAwesomeIcons.camera,
               color: KatColors.same(context),
@@ -45,7 +45,7 @@ class KatImagePicker extends StatelessWidget {
           KatExpandedElevatedButton(
             backgroundColor: KatColors.pink,
             foregroundColor: KatColors.purple,
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => KatHelpers.pop(context),
             fontWeight: FontWeight.bold,
             text: KatTranslations.cancel.tr(),
             // color: Colors.transparent,

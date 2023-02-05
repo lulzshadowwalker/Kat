@@ -90,7 +90,10 @@ class _MobileFeedCard extends ConsumerWidget {
     );
   }
 
-  Widget _higherResImage({required String text}) => _ModifiedImage(
+  Widget _higherResImage({
+    required String text,
+  }) =>
+      _ModifiedImage(
         url: url,
         text: text,
         quality: FilterQuality.high,

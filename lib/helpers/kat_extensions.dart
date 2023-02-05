@@ -1,3 +1,8 @@
+import 'dart:typed_data';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+
 import '../views/auth/auth_imports.dart';
 
 /// capitalizes the given string
@@ -26,4 +31,17 @@ extension RandomIndex on List {
 
 extension NullAwareString on String? {
   int get length => '$this'.length;
+}
+
+extension StringToImageProvider on String? {
+  NetworkImage? get asNetImg => this != null ? NetworkImage(this!) : null;
+
+  AssetImage? get asAssetImg => this != null ? AssetImage(this!) : null;
+
+  CachedNetworkImageProvider? get asCachedNetImg =>
+      this != null ? CachedNetworkImageProvider(this!) : null;
+}
+
+extension DataToMemProvider on Uint8List? {
+  MemoryImage? get asMemImg => this != null ? MemoryImage(this!) : null;
 }

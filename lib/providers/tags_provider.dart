@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import '../controllers/selected_tags_notifier.dart';
-
 import '../views/auth/auth_imports.dart';
 
 final tagsProvider = Provider<List<String>>((ref) {

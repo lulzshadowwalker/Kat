@@ -109,7 +109,7 @@ class NotifController {
   static void showPopup({
     required BuildContext context,
     String? title,
-    required String desc,
+    required String message,
     required NotifType type,
   }) {
     title ??= type.name.tr();
@@ -121,7 +121,7 @@ class NotifController {
             ? _showMobilePopop(
                 context: context,
                 title: title,
-                desc: desc,
+                desc: message,
                 type: type,
                 duration: duration,
               )
@@ -131,7 +131,7 @@ class NotifController {
                 title: Text(title),
                 width: MediaQuery.of(context).size.width * 0.25,
                 toastDuration: duration,
-                description: Text(desc),
+                description: Text(message),
               ).show(context);
         break;
       case NotifType.oops:
@@ -139,7 +139,7 @@ class NotifController {
             ? _showMobilePopop(
                 context: context,
                 title: title,
-                desc: desc,
+                desc: message,
                 type: type,
                 duration: duration,
               )
@@ -149,7 +149,7 @@ class NotifController {
                 title: Text(title),
                 width: MediaQuery.of(context).size.width * 0.3,
                 toastDuration: duration,
-                description: Text(desc),
+                description: Text(message),
               ).show(context);
         break;
       case NotifType.warning:
@@ -157,7 +157,7 @@ class NotifController {
             ? _showMobilePopop(
                 context: context,
                 title: title,
-                desc: desc,
+                desc: message,
                 type: type,
                 duration: duration,
               )
@@ -169,7 +169,7 @@ class NotifController {
                 title: Text(title),
                 width: MediaQuery.of(context).size.width * 0.3,
                 toastDuration: duration,
-                description: Text(desc),
+                description: Text(message),
               ).show(context);
         break;
       case NotifType.tip:
@@ -177,7 +177,7 @@ class NotifController {
             ? _showMobilePopop(
                 context: context,
                 title: title,
-                desc: desc,
+                desc: message,
                 type: type,
                 duration: duration,
               )
@@ -187,7 +187,7 @@ class NotifController {
                 title: Text(title),
                 width: MediaQuery.of(context).size.width * 0.3,
                 toastDuration: duration,
-                description: Text(desc),
+                description: Text(message),
               ).show(context);
         break;
     }
@@ -196,7 +196,7 @@ class NotifController {
 Popup shown with details
   type: ${type.name},
   title: $title, 
-  description: $desc
+  description: $message
 ''');
   }
 
@@ -205,7 +205,7 @@ Popup shown with details
     NotifController.showPopup(
       context: context,
       title: KatTranslations.sry.tr(),
-      desc: KatTranslations.inDevelopment.tr(),
+      message: KatTranslations.inDevelopment.tr(),
       type: NotifType.tip,
     );
   }

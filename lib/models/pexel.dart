@@ -1,4 +1,4 @@
-import 'package:kat/helpers/kat_extensions.dart';
+import '../helpers/kat_extensions.dart';
 
 class Pexel {
   int? totalResults;

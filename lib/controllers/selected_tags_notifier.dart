@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
-import 'package:kat/views/auth/auth_imports.dart';
+import '../views/auth/auth_imports.dart';
 
 class SelectedTagsNotifier extends ChangeNotifier {
   SelectedTagsNotifier(List<String> tags)

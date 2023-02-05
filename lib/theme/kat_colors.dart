@@ -30,7 +30,7 @@ class KatColors {
   static final Color red = fromHex('#ff4b4b');
   static const Color blue = Colors.lightBlue;
   static final Color muted = fromHex('999999');
-  static final Color dark = fromHex('#121315');
+  static final Color dark = fromHex('#1C1B1E');
   static final Color purple = fromHex('#6649B5');
   static final Color pink = fromHex('#E7DDFC');
   static final Color gold = fromHex('#DCBC8F');

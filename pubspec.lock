@@ -273,6 +273,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.4"
+  dash_flags:
+    dependency: "direct main"
+    description:
+      name: dash_flags
+      sha256: b287e98855eb0340fba4a13f6e9a68227136c1595119f7bf63fecc8cd7e68d64
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   dbus:
     dependency: transitive
     description:
@@ -305,6 +313,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.6.4"
+  enum_to_string:
+    dependency: transitive
+    description:
+      name: enum_to_string
+      sha256: bd9e83a33b754cb43a75b36a9af2a0b92a757bfd9847d2621ca0b1bed45f8e7a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   equatable:
     dependency: "direct main"
     description:
@@ -441,11 +457,27 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  flag:
+    dependency: "direct main"
+    description:
+      name: flag
+      sha256: "13ded2a1ec2d8e67bf076d3329ce256a7a2f6f5b1080ddb41c23eb0742571aff"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_advanced_switch:
+    dependency: "direct main"
+    description:
+      name: flutter_advanced_switch
+      sha256: b16c92c648a35c95cf9cfd0d6cf3391765f1c9cc5786418999d0058ed51f3d6b
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -547,6 +579,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.2"
+  flutter_svg:
+    dependency: transitive
+    description:
+      name: flutter_svg
+      sha256: "6ff9fa12892ae074092de2fa6a9938fb21dbabfdaa2ff57dc697ff912fc8d4b2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -901,6 +941,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      sha256: e3e67b1629e6f7e8100b367d3db6ba6af4b1f0bb80f64db18ef1fbabd2fa9ccf
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path_provider:
     dependency: transitive
     description:
@@ -1379,7 +1435,7 @@ packages:
     source: hosted
     version: "2.3.0"
   webview_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter
       sha256: "392c1d83b70fe2495de3ea2c84531268d5b8de2de3f01086a53334d8b6030a88"
@@ -1451,5 +1507,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.4 <4.0.0"
+  dart: ">=2.18.5 <4.0.0"
   flutter: ">=3.3.0"

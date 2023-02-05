@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:url_strategy/url_strategy.dart';
+
 import 'firebase_options.dart';
 import 'helpers/kat_const.dart';
 import 'kat.dart';
@@ -15,6 +17,8 @@ void main() async {
   );
 
   await EasyLocalization.ensureInitialized();
+
+  await GetStorage.init();
 
   /// removes the annoying '#' from the url
   setPathUrlStrategy();
@@ -43,3 +47,4 @@ void main() async {
     ),
   );
 }
+    

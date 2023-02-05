@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:http/http.dart' as http;
 import 'package:kat/controllers/apis/api_handler.dart';
+import 'package:kat/kat_local.dart';
 import '../../models/cat.dart';
 
 class CatsApi {
@@ -16,6 +17,9 @@ class CatsApi {
     return await ApiHandler.get<List<Cat>>(
           context: context,
           url: url,
+          headers: {
+            'x-api-key': KatLocal.theCatApiKey,
+          },
           onResponse: (res) => (jsonDecode(res.body) as List)
               .map((e) => Cat.fromJson(e))
               .toList(),

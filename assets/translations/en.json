@@ -56,5 +56,20 @@
     "fishes": "fishes",
     "monkeys": "monkeys",
     "clowns": "clowns",
-    "all": "all"
+    "all": "all",
+    "appSettings": "App Settings",
+    "language": "language",
+    "darkMode": "dark mode",
+    "devNotice": "Developer Notice",
+    "attributions": "attributions",
+    "settings": "settings",
+    "signOut": "Sign out",
+    "createAnAccount": "Create an account",
+    "viewProfile": "view profile",
+    "guest": "Guest",
+    "account": "account",
+    "resetPassword": "reset password",
+    "passwordResetEmailSent": "Password reset email has been sent",
+    "update": "Update",
+    "passwordToContinue": "enter password to continue"
 }
