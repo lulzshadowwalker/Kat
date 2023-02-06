@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
+
 import '../../helpers/kat_anim.dart';
-import '../../models/enums/notif_type.dart';
 import '../../router/kat_routes.dart';
 import '../auth/auth_imports.dart';
-import 'package:lottie/lottie.dart';
 
 class NotFound extends StatelessWidget {
   const NotFound({super.key});
@@ -33,7 +33,7 @@ class NotFound extends StatelessWidget {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: NotifType.oops.name.tr(),
+                        text: KatTranslations.oops.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium

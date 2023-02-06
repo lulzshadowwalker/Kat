@@ -1,23 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../helpers/kat_anim.dart';
-import 'package:lottie/lottie.dart';
-import '../../../helpers/kat_helpers.dart';
 
-import '../../../theme/kat_colors.dart';
+import '../../auth/auth_imports.dart';
+import '../kat_circle_image_avatar/kat_circle_image_avatar.dart';
 
 /// interactable circle avatar
 /// ..
 /// user can tap to select an image
-class ImageCircleAvatar extends HookWidget {
-  const ImageCircleAvatar({
+class ImagePickerCircleAvatar extends HookWidget {
+  const ImagePickerCircleAvatar({
     this.onSelected,
+    this.initialImage,
     Key? key,
   }) : super(key: key);
 
-  final Function(Uint8List?)? onSelected;
+  final void Function(Uint8List? image)? onSelected;
+  final ImageProvider? initialImage;
   static const double _radius = 128;
 
   @override
@@ -49,25 +47,9 @@ class ImageCircleAvatar extends HookWidget {
       },
       child: Stack(
         children: [
-          Container(
-            height: _radius,
-            width: _radius,
-            decoration: BoxDecoration(
-              color: KatColors.pink,
-              shape: BoxShape.circle,
-              image: image.value != null
-                  ? DecorationImage(
-                      image: Image.memory(image.value!).image,
-                      fit: BoxFit.cover,
-                    )
-                  : null,
-            ),
-            child: image.value == null
-                ? FractionallySizedBox(
-                    widthFactor: 0.65,
-                    child: LottieBuilder.asset(KatAnim.frog),
-                  )
-                : null,
+          KatCircleImageAvatar(
+            radius: _radius,
+            image: image.value.asMemImg ?? initialImage,
           ),
           Positioned(
             bottom: 0,

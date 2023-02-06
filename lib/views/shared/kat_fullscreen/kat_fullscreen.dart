@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kat/views/auth/auth_imports.dart';
-import '../../../theme/kat_colors.dart';
+
+import '../../auth/auth_imports.dart';
 
 class KatFullscreen extends StatelessWidget {
   const KatFullscreen({
@@ -13,18 +13,17 @@ class KatFullscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => Scaffold(
-            extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              foregroundColor: KatColors.white,
-            ),
-            backgroundColor: KatColors.dark,
-            body: Center(
-              child: child,
-            ),
+      onTap: () => KatHelpers.push(
+        context,
+        Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            foregroundColor: KatColors.white,
+          ),
+          backgroundColor: KatColors.dark,
+          body: Center(
+            child: child,
           ),
         ),
       ),

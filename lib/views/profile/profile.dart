@@ -5,8 +5,11 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Profile'),
+    return Scaffold(
+      appBar: AppBar(),
+      body: const Center(
+        child: Text('Profile'),
+      ),
     );
   }
 }

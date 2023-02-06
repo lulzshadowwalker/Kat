@@ -29,10 +29,10 @@ class _SystemHash {
   }
 }
 
-String _$catsHash() => r'c59353773e4eb4afa86a8f0c0341c06467db5bbc';
+String _$catsHash() => r'251f49497a69c04b380aa70aba17bf2fe356761e';
 
 /// See also [cats].
-class CatsProvider extends AutoDisposeFutureProvider<List<String>> {
+class CatsProvider extends FutureProvider<List<String>> {
   CatsProvider(
     this.context,
   ) : super(
@@ -62,7 +62,7 @@ class CatsProvider extends AutoDisposeFutureProvider<List<String>> {
   }
 }
 
-typedef CatsRef = AutoDisposeFutureProviderRef<List<String>>;
+typedef CatsRef = FutureProviderRef<List<String>>;
 
 /// See also [cats].
 final catsProvider = CatsFamily();
@@ -79,7 +79,7 @@ class CatsFamily extends Family<AsyncValue<List<String>>> {
   }
 
   @override
-  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+  FutureProvider<List<String>> getProviderOverride(
     covariant CatsProvider provider,
   ) {
     return call(
@@ -97,10 +97,10 @@ class CatsFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'catsProvider';
 }
 
-String _$shibesHash() => r'8b31ceb35ae0ddacaa924af98dc9a1cbd77b423b';
+String _$shibesHash() => r'fa6e62d1ff937815e0371368fbe5bb13a3a92432';
 
 /// See also [shibes].
-class ShibesProvider extends AutoDisposeFutureProvider<List<String>> {
+class ShibesProvider extends FutureProvider<List<String>> {
   ShibesProvider(
     this.context,
   ) : super(
@@ -132,7 +132,7 @@ class ShibesProvider extends AutoDisposeFutureProvider<List<String>> {
   }
 }
 
-typedef ShibesRef = AutoDisposeFutureProviderRef<List<String>>;
+typedef ShibesRef = FutureProviderRef<List<String>>;
 
 /// See also [shibes].
 final shibesProvider = ShibesFamily();
@@ -149,7 +149,7 @@ class ShibesFamily extends Family<AsyncValue<List<String>>> {
   }
 
   @override
-  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+  FutureProvider<List<String>> getProviderOverride(
     covariant ShibesProvider provider,
   ) {
     return call(
@@ -167,10 +167,10 @@ class ShibesFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'shibesProvider';
 }
 
-String _$birdsHash() => r'5ca196c516b620f70440092a7687f10428286828';
+String _$birdsHash() => r'02e9e1ca23722c99ffbbc6fda9b2624b8cd0b467';
 
 /// See also [birds].
-class BirdsProvider extends AutoDisposeFutureProvider<List<String>> {
+class BirdsProvider extends FutureProvider<List<String>> {
   BirdsProvider(
     this.context,
   ) : super(
@@ -202,7 +202,7 @@ class BirdsProvider extends AutoDisposeFutureProvider<List<String>> {
   }
 }
 
-typedef BirdsRef = AutoDisposeFutureProviderRef<List<String>>;
+typedef BirdsRef = FutureProviderRef<List<String>>;
 
 /// See also [birds].
 final birdsProvider = BirdsFamily();
@@ -219,7 +219,7 @@ class BirdsFamily extends Family<AsyncValue<List<String>>> {
   }
 
   @override
-  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+  FutureProvider<List<String>> getProviderOverride(
     covariant BirdsProvider provider,
   ) {
     return call(
@@ -237,10 +237,10 @@ class BirdsFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'birdsProvider';
 }
 
-String _$dogsHash() => r'81d5065d866e7bc628c49aa434fb09fdd013cf55';
+String _$dogsHash() => r'27dc30de2b4b7c1af024cc6a88fec378daa7a607';
 
 /// See also [dogs].
-class DogsProvider extends AutoDisposeFutureProvider<List<String>> {
+class DogsProvider extends FutureProvider<List<String>> {
   DogsProvider(
     this.context,
   ) : super(
@@ -270,7 +270,7 @@ class DogsProvider extends AutoDisposeFutureProvider<List<String>> {
   }
 }
 
-typedef DogsRef = AutoDisposeFutureProviderRef<List<String>>;
+typedef DogsRef = FutureProviderRef<List<String>>;
 
 /// See also [dogs].
 final dogsProvider = DogsFamily();
@@ -287,7 +287,7 @@ class DogsFamily extends Family<AsyncValue<List<String>>> {
   }
 
   @override
-  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+  FutureProvider<List<String>> getProviderOverride(
     covariant DogsProvider provider,
   ) {
     return call(
@@ -305,10 +305,10 @@ class DogsFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'dogsProvider';
 }
 
-String _$monkeysHash() => r'1eeeaa4ad4be4c0ca91f250e2a97517e0c486f12';
+String _$monkeysHash() => r'b80d406b0fb54de8257029bfa2c3707b48292c13';
 
 /// See also [monkeys].
-class MonkeysProvider extends AutoDisposeFutureProvider<List<String>> {
+class MonkeysProvider extends FutureProvider<List<String>> {
   MonkeysProvider(
     this.context,
   ) : super(
@@ -340,7 +340,7 @@ class MonkeysProvider extends AutoDisposeFutureProvider<List<String>> {
   }
 }
 
-typedef MonkeysRef = AutoDisposeFutureProviderRef<List<String>>;
+typedef MonkeysRef = FutureProviderRef<List<String>>;
 
 /// See also [monkeys].
 final monkeysProvider = MonkeysFamily();
@@ -357,7 +357,7 @@ class MonkeysFamily extends Family<AsyncValue<List<String>>> {
   }
 
   @override
-  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+  FutureProvider<List<String>> getProviderOverride(
     covariant MonkeysProvider provider,
   ) {
     return call(
@@ -375,10 +375,10 @@ class MonkeysFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'monkeysProvider';
 }
 
-String _$fishesHash() => r'efa7a248fcd3a4b6823cf7700b16a9532636bb0b';
+String _$fishesHash() => r'978d3bd6e32801960cf27fa0cdf0bd2fdf801c39';
 
 /// See also [fishes].
-class FishesProvider extends AutoDisposeFutureProvider<List<String>> {
+class FishesProvider extends FutureProvider<List<String>> {
   FishesProvider(
     this.context,
   ) : super(
@@ -410,7 +410,7 @@ class FishesProvider extends AutoDisposeFutureProvider<List<String>> {
   }
 }
 
-typedef FishesRef = AutoDisposeFutureProviderRef<List<String>>;
+typedef FishesRef = FutureProviderRef<List<String>>;
 
 /// See also [fishes].
 final fishesProvider = FishesFamily();
@@ -427,7 +427,7 @@ class FishesFamily extends Family<AsyncValue<List<String>>> {
   }
 
   @override
-  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+  FutureProvider<List<String>> getProviderOverride(
     covariant FishesProvider provider,
   ) {
     return call(
@@ -445,10 +445,10 @@ class FishesFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'fishesProvider';
 }
 
-String _$clownsHash() => r'eda8dff02af56853db121edbd146c5fd5c4913cc';
+String _$clownsHash() => r'b85947042cdbbc6afe88697c8a253e0ec8bb2182';
 
 /// See also [clowns].
-class ClownsProvider extends AutoDisposeFutureProvider<List<String>> {
+class ClownsProvider extends FutureProvider<List<String>> {
   ClownsProvider(
     this.context,
   ) : super(
@@ -480,7 +480,7 @@ class ClownsProvider extends AutoDisposeFutureProvider<List<String>> {
   }
 }
 
-typedef ClownsRef = AutoDisposeFutureProviderRef<List<String>>;
+typedef ClownsRef = FutureProviderRef<List<String>>;
 
 /// See also [clowns].
 final clownsProvider = ClownsFamily();
@@ -497,7 +497,7 @@ class ClownsFamily extends Family<AsyncValue<List<String>>> {
   }
 
   @override
-  AutoDisposeFutureProvider<List<String>> getProviderOverride(
+  FutureProvider<List<String>> getProviderOverride(
     covariant ClownsProvider provider,
   ) {
     return call(
@@ -515,10 +515,10 @@ class ClownsFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'clownsProvider';
 }
 
-String _$imagesHash() => r'eb8bb08041fa37b1b6653c6fb441509678087fac';
+String _$imagesHash() => r'ff3d83447e6f6db622e2404cf4b41c5d1455a059';
 
 /// See also [images].
-class ImagesProvider extends AutoDisposeProvider<List<String>> {
+class ImagesProvider extends Provider<List<String>> {
   ImagesProvider(
     this.context,
   ) : super(
@@ -550,7 +550,7 @@ class ImagesProvider extends AutoDisposeProvider<List<String>> {
   }
 }
 
-typedef ImagesRef = AutoDisposeProviderRef<List<String>>;
+typedef ImagesRef = ProviderRef<List<String>>;
 
 /// See also [images].
 final imagesProvider = ImagesFamily();
@@ -567,7 +567,7 @@ class ImagesFamily extends Family<List<String>> {
   }
 
   @override
-  AutoDisposeProvider<List<String>> getProviderOverride(
+  Provider<List<String>> getProviderOverride(
     covariant ImagesProvider provider,
   ) {
     return call(

@@ -27,11 +27,11 @@ class AuthController {
   static final _auth = FirebaseAuth.instance;
   static final _log = KatHelpers.getLogger(_cn);
 
-  static UserId? get userId => _user?.uid;
-  static User? get _user => _auth.currentUser;
+  static UserId? get userId => user?.uid;
+  static User? get user => _auth.currentUser;
   static Stream<User?> get authState => _auth.authStateChanges();
-  static bool get isAuthenticated => _user != null;
-  static bool get isGuest => _user?.isAnonymous ?? true;
+  static bool get isAuthenticated => user != null;
+  static bool get isGuest => user?.isAnonymous ?? true;
 
   static Future<void> guestSignIn(BuildContext context) async {
     try {
@@ -41,7 +41,25 @@ class AuthController {
 
       NotifController.showPopup(
         context: context,
-        desc: KatTranslations.signedInAnon.tr(),
+        message: KatTranslations.signedInAnon.tr(),
+        type: NotifType.success,
+      );
+    } catch (e) {
+      KatHelpers.handleException(context: context, e: e, logger: _log);
+    }
+  }
+
+  static Future<void> sendPasswordResetEmail(BuildContext context) async {
+    try {
+      if (isGuest) {
+        throw Exception('tried resetting the password for a guest user');
+      }
+      await _auth.sendPasswordResetEmail(email: user!.email!);
+
+      _log.v('password reset email has been sent');
+      NotifController.showPopup(
+        context: context,
+        message: KatTranslations.passwordResetEmailSent.tr(),
         type: NotifType.success,
       );
     } catch (e) {
@@ -141,6 +159,19 @@ class AuthController {
         ref: ref,
         uid: userCredential.user!.uid,
       );
+    } catch (e) {
+      KatHelpers.handleException(context: context, e: e, logger: _log);
+    }
+  }
+
+  static Future<void> updateEmail(
+    BuildContext context,
+    String email,
+  ) async {
+    try {
+      await user?.updateEmail(email);
+
+      _log.v('updated user email successfully');
     } catch (e) {
       KatHelpers.handleException(context: context, e: e, logger: _log);
     }

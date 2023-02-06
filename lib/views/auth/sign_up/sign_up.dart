@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:kat/views/shared/kat_single_child_scroll_view/kat_single_child_scroll_view.dart';
-import 'package:kat/views/shared/kat_unfocusable_wrapper/kat_unfocusable_wrapper.dart';
+import '../../shared/kat_single_child_scroll_view/kat_single_child_scroll_view.dart';
+import '../../shared/kat_unfocusable_wrapper/kat_unfocusable_wrapper.dart';
 import '../../../controllers/notif_controller.dart';
 import '../../shared/kat_constrained_box/kat_constrained_box.dart';
 import '../../../hooks/use_invalidate_cred.dart';
@@ -40,7 +40,7 @@ class SignUp extends HookConsumerWidget {
                       const Spacer(),
 
                       // avatar
-                      ImageCircleAvatar(
+                      ImagePickerCircleAvatar(
                         onSelected: (img) =>
                             ref.read(credProvider).pfpRaw = img,
                       ),

@@ -1,11 +1,15 @@
-import 'text_feild_imports.dart';
 import 'package:flutter/material.dart';
+
 import '../../../helpers/kat_extensions.dart';
+import 'text_feild_imports.dart';
 
 class KatPasswordField extends HookConsumerWidget {
   const KatPasswordField({
+    this.hintText,
     Key? key,
   }) : super(key: key);
+
+  final String? hintText;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +21,7 @@ class KatPasswordField extends HookConsumerWidget {
           val.length >= 8 ? null : KatTranslations.pickStrongPassword.tr(),
       onSaved: (val) => ref.read(credProvider).password = val,
       prefixIcon: const Icon(Icons.lock),
-      hintText: KatTranslations.password.tr(),
+      hintText: hintText ?? KatTranslations.password.tr(),
       obscureText: isObscure,
 
       /// TODO use an animated eye icon for the password field (fancy lottie animation ~.~)

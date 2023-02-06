@@ -9,15 +9,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
-import '../controllers/auth_controller.dart';
-import '../models/kat_slient_exception.dart';
 import 'package:logger/logger.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../controllers/auth_controller.dart';
 import '../controllers/notif_controller.dart';
 import '../models/enums/notif_type.dart';
+import '../models/kat_slient_exception.dart';
 import '../translations/kat_translations.dart';
-import '../views/shared/kat_image_picker/kat_image_picker.dart';
+import '../views/shared/kat_image_picker_options/kat_image_picker_options.dart';
 import 'kat_const.dart';
 import 'kat_log_printer.dart';
 
@@ -41,7 +41,7 @@ class KatHelpers {
 
     NotifController.showPopup(
       context: context,
-      desc: KatTranslations.networkRequestFailed.tr(),
+      message: KatTranslations.networkRequestFailed.tr(),
       type: NotifType.oops,
     );
   }
@@ -55,7 +55,7 @@ class KatHelpers {
 
     NotifController.showPopup(
       context: context,
-      desc: KatTranslations.unknownError.tr(),
+      message: KatTranslations.unknownError.tr(),
       type: NotifType.oops,
     );
   }
@@ -68,7 +68,7 @@ class KatHelpers {
 
     NotifController.showPopup(
       context: context,
-      desc: e.code.tr(),
+      message: e.code.tr(),
       type: NotifType.oops,
     );
   }
@@ -110,7 +110,7 @@ class KatHelpers {
       if (!kIsWeb && KatHelpers.isAndroidOrIos) {
         imageSource = await showModalBottomSheet(
           context: context,
-          builder: (_) => const KatImagePicker(),
+          builder: (_) => const KatImagePickerOptions(),
           backgroundColor: Colors.transparent,
           elevation: 0,
           constraints: const BoxConstraints(maxWidth: 500),
@@ -185,7 +185,7 @@ class KatHelpers {
 
       NotifController.showPopup(
         context: context,
-        desc: KatTranslations.imageDownloaded.tr(),
+        message: KatTranslations.imageDownloaded.tr(),
         type: NotifType.success,
       );
 
@@ -200,7 +200,7 @@ class KatHelpers {
     if (AuthController.isGuest) {
       NotifController.showPopup(
         context: context,
-        desc: KatTranslations.needAccount.tr(),
+        message: KatTranslations.needAccount.tr(),
         type: NotifType.tip,
       );
 
@@ -211,4 +211,42 @@ the requested feature cannot be accessed without an active account
 
     return AuthController.isGuest;
   }
+
+  static Future<T?> push<T>(
+    BuildContext context,
+    Widget page,
+  ) async =>
+      await Navigator.of(context).push<T>(
+        MaterialPageRoute(
+          builder: (context) => page,
+        ),
+      );
+
+  static Future<T?> pushRep<T, TO>(
+    BuildContext context,
+    Widget page,
+  ) async =>
+      await Navigator.of(context).pushReplacement<T, TO>(
+        MaterialPageRoute(
+          builder: (context) => page,
+        ),
+      );
+
+  static Future<T?> pushAndRemoveUntil<T>(
+    BuildContext context,
+    Widget page, [
+    bool Function(Route<dynamic>)? predicate,
+  ]) async =>
+      await Navigator.of(context).pushAndRemoveUntil<T>(
+        MaterialPageRoute(
+          builder: (context) => page,
+        ),
+        predicate ?? (_) => false,
+      );
+
+  static void pop<T>(
+    BuildContext context, [
+    T? result,
+  ]) =>
+      Navigator.of(context).pop(result);
 }

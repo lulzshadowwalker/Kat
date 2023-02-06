@@ -1,0 +1,4 @@
+enum AttributeType {
+  image,
+  anim,
+}

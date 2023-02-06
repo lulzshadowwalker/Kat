@@ -3,6 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:kat/controllers/notif_controller.dart';
+import 'package:kat/models/enums/notif_type.dart';
 import 'package:kat/models/kat_user.dart';
 import 'package:kat/views/auth/auth_imports.dart';
 
@@ -44,6 +46,7 @@ class RemoteDbController {
 
       await _db.collection(_cUsers).doc(uid).set(
             cred.toMap()
+              ..['displayName'] = cred.username
               ..addAll(
                 {
                   _aCreatedOn: DateTime.now().toUtc(),
@@ -109,6 +112,50 @@ registered new user with details:
 
         _log.v('image added to the user collection favorites');
       }
+    } catch (e) {
+      KatHelpers.handleException(context: context, e: e, logger: _log);
+    }
+  }
+
+  static Future<void> updateAccountDetails({
+    required BuildContext context,
+    String? email,
+    Uint8List? pfp,
+  }) async {
+    try {
+      final uid = AuthController.userId;
+
+      var user = await currentUserData.firstWhere((u) => true);
+
+      if (email != null) {
+        await AuthController.updateEmail(
+          context,
+          email,
+        );
+
+        user = user.copyWith(
+          email: email,
+        );
+      }
+
+      if (pfp != null) {
+        user = user.copyWith(
+            pfp: await _remoteStorage.upload(
+          context: context,
+          childName: _cUsers,
+          file: pfp,
+        ));
+      }
+
+      await _db.collection(_cUsers).doc(uid).update(user.toMap);
+
+      _log.v('updated user account details successfully');
+
+      NotifController.showPopup(
+        context: context,
+        message: 'updated info successfully'.tr(),
+        type: NotifType.success,
+      );
     } catch (e) {
       KatHelpers.handleException(context: context, e: e, logger: _log);
     }

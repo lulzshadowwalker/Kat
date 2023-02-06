@@ -13,7 +13,7 @@ class KatTheme {
   static const String ruFontFamily = KatFonts.ukrainianPrincessShadow;
 
   static String? _fontFamily(BuildContext context) =>
-      KatTranslations.currenetLangCode(context) == KatConst.en
+      KatTranslations.currentLangCode(context) == KatConst.en
           ? enFontFamily
 
           /// TODO find a better russian font
@@ -25,15 +25,14 @@ class KatTheme {
         Brightness.light: KatTranslations.light.tr(),
       };
 
-  static String? currentThemeName(BuildContext context) =>
-      themes[_brightness(context)];
+  static String? currentThemeName(BuildContext context) => themes[_brightness];
 
   static Brightness _brightness(BuildContext context) =>
       Theme.of(context).brightness;
 
   /// returns [true] if current theme's brightness is [Brightness.light]
-  // ignore: unrelated_type_equality_checks
-  static bool get isLight => _brightness == Brightness.light;
+  static bool isLight(BuildContext context) =>
+      _brightness(context) == Brightness.light;
 
   /// returns light by default, unless changed by the user in the settings.
   static ThemeMode get themeMode {
@@ -74,7 +73,7 @@ class KatTheme {
 
       //
       colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.light,
+        brightness: Brightness.dark,
         seedColor: _seedColor,
       ),
 

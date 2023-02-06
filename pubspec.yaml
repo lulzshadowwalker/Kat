@@ -65,6 +65,10 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^4.2.6
   share_plus: ^6.3.0
   path_provider: ^2.0.12
+  flag: ^6.0.0
+  dash_flags: ^0.0.3
+  flutter_advanced_switch: ^3.0.1
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
   flutter_test:
