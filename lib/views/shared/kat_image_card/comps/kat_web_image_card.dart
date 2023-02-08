@@ -1,20 +1,23 @@
-part of 'feed_comp.dart';
+part of './kat_image_card_comps.dart';
 
-class _WebFeedCard extends HookConsumerWidget {
-  const _WebFeedCard({
+class _KatWebImageCard extends HookConsumerWidget {
+  const _KatWebImageCard({
     required this.index,
     required this.url,
+    this.prompt,
   });
 
   final int index;
   static const _duration = Duration(milliseconds: 240);
   final String url;
   static final _borderRadius = BorderRadius.circular(15);
+  final String? prompt;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final text = prompt.maybeAsEmpty;
+
     final isHovering = useState(false);
-    final text = ref.watch(processingInputProvider);
 
     return KatAnimatedScale(
       index: index,

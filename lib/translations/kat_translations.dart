@@ -74,6 +74,10 @@ class KatTranslations {
   static final String success = NotifType.success.name;
   static const String update = 'update';
   static const String passwordToContinue = 'passwordToContinue';
+  static const String profile = 'profile';
+  static const String updatedInfo = 'updatedInfo';
+  static const String signupToSaveCreations = 'signupToSaveCreations';
+  static const String startBySavingSomeCringe = 'startBySavingSomeCringe';
 
   static LangCode? currentLangCode(BuildContext context) =>
       EasyLocalization.of(context)?.locale.languageCode;

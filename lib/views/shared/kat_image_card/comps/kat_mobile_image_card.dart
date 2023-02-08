@@ -1,26 +1,34 @@
 // ignore_for_file: use_build_context_synchronously
 
-part of 'feed_comp.dart';
+part of './kat_image_card_comps.dart';
 
-class _MobileFeedCard extends ConsumerWidget {
-  const _MobileFeedCard({
+class _KatMobileImageCard extends ConsumerWidget {
+  const _KatMobileImageCard({
     required this.index,
     required this.url,
-  });
+    required this.isFav,
+    this.imageId,
+    this.prompt,
+  }) : assert((isFav == true && imageId != null) ||
+            (isFav == false && imageId == null));
 
   final int index;
   final String url;
+  final String? prompt;
+  final bool isFav;
+  final String? imageId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final text = ref.watch(processingInputProvider);
+    final favs = ref.watch(userProvider).value?.favs?.keys.toList() ?? [];
+
+    final text = prompt.maybeAsEmpty;
     final image = _ModifiedImage(
       url: url,
       text: text,
     );
 
-    final isFav =
-        ref.watch(userProvider).value?.favs?.containsKey(image.id) ?? false;
+    final isFav = this.isFav == false ? favs.contains(image.id) : this.isFav;
 
     return KatAnimatedScale(
       index: index,
@@ -33,7 +41,7 @@ class _MobileFeedCard extends ConsumerWidget {
             onSelect: () => _toggleFav(
               context: context,
               text: text,
-              imageId: image.id,
+              imageId: imageId ?? image.id,
             ),
             child: Icon(
               isFav ? FontAwesomeIcons.heartCrack : FontAwesomeIcons.solidHeart,
@@ -46,12 +54,10 @@ class _MobileFeedCard extends ConsumerWidget {
           ),
           PieAction(
             tooltip: KatTranslations.download.tr(),
-            onSelect: () {
-              KatHelpers.downloadImage(
-                context: context,
-                widget: _higherResImage(text: text),
-              );
-            },
+            onSelect: () => KatHelpers.downloadImage(
+              context: context,
+              widget: _higherResImage(text: text),
+            ),
             child: const Icon(FontAwesomeIcons.download),
           ),
         ],
@@ -59,7 +65,7 @@ class _MobileFeedCard extends ConsumerWidget {
           onDoubleTap: () => _toggleFav(
             context: context,
             text: text,
-            imageId: image.id,
+            imageId: imageId ?? image.id,
           ),
           child: Container(
             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -75,7 +81,7 @@ class _MobileFeedCard extends ConsumerWidget {
                     right: 12,
                     bottom: 12,
                     child: LottieBuilder.asset(
-                      KatAnim.heart,
+                      KatAnims.heart,
                       height: 28,
                       repeat: false,
                     ),
@@ -122,6 +128,15 @@ class _MobileFeedCard extends ConsumerWidget {
     required imageId,
   }) async {
     if (KatHelpers.handleGuest(context)) return;
+
+    if (isFav) {
+      await RemoteDbController.removeFav(
+        context: context,
+        id: imageId,
+      );
+
+      return;
+    }
 
     final img = await ScreenshotController().captureFromWidget(
       _higherResImage(text: text),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import '../../helpers/kat_anim.dart';
+import '../../helpers/kat_anims.dart';
 import '../../helpers/kat_images.dart';
 import '../auth/auth_imports.dart';
 import 'package:lottie/lottie.dart';
@@ -13,7 +13,7 @@ class Attributions extends StatelessWidget {
   const Attributions({super.key});
 
   static final _attributions = <Attribution>[
-    ...KatAnim.attributions,
+    ...KatAnims.attributions,
     ...KatImages.attributions,
   ];
 
@@ -69,10 +69,10 @@ class Attributions extends StatelessWidget {
                           )
                         : Padding(
                             padding: const EdgeInsets.all(24.0),
-                            child: Image.asset(
-                              att.assetPath,
+                            child: Image(
+                              image: AssetImage(att.assetPath),
                               fit: BoxFit.cover,
-                              filterQuality: FilterQuality.low,
+                              filterQuality: FilterQuality.medium,
                             ),
                           ),
                   ),

@@ -10,6 +10,7 @@ class KatRichTextButton extends StatelessWidget {
     required this.text,
     required this.textCTA,
     required this.onTap,
+    this.textAlign = TextAlign.center,
     this.color,
   });
 
@@ -17,6 +18,7 @@ class KatRichTextButton extends StatelessWidget {
   final String textCTA;
   final Color? color;
   final void Function() onTap;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class KatRichTextButton extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.only(bottom: 35),
       child: RichText(
+        textAlign: textAlign,
         text: TextSpan(
             style: Theme.of(context).textTheme.bodySmall,
             children: <TextSpan>[

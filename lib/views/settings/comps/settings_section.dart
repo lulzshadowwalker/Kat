@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 part of './settings_comps.dart';
 
 class _SettingsSection extends StatelessWidget {

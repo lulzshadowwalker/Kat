@@ -10,6 +10,7 @@ import '../../../providers/user_provider.dart';
 import '../../../theme/kat_theme.dart';
 import '../../attributions/attributions.dart';
 import '../../auth/auth_imports.dart';
+import '../../profile/comps/profile_comps.dart';
 import '../../shared/kat_single_child_scroll_view/kat_single_child_scroll_view.dart';
 import '../../shared/kat_unfocusable_wrapper/kat_unfocusable_wrapper.dart';
 import '../../shared/text_fields/kat_email_field.dart';

@@ -1,27 +1,20 @@
 import 'package:go_router/go_router.dart';
 import '../views/attributions/attributions.dart';
-import '../views/profile/profile.dart';
 import '../controllers/auth_controller.dart';
 import '../views/auth/sign_in/sign_in.dart';
 import '../views/auth/sign_up/sign_up.dart';
 import '../views/home/home.dart';
 import '../views/not_found/not_found.dart';
+import '../views/profile/comps/profile_comps.dart';
 import '../views/settings/comps/settings_comps.dart';
 import '../views/splash/comps/splash_comps.dart';
 import 'gorouter_refresh_stream.dart';
 import 'kat_routes.dart';
 
 class KatRouter {
-  /// TODO add custom platform-dependent page transitions
-  ///  ios, slide right to go back
-  ///  other, scale up
-  ///  (use a proper animation curve)
   static final config = GoRouter(
     errorBuilder: (context, state) => const NotFound(),
     redirect: (context, state) {
-      /// TODO if a user is logged out, when they login they have to go back to
-      ///  the page the came from. If none, they should be redirected to the
-      ///  home screen
       final isOnSplash = state.location == KatRoutes.splash;
       final isAuthenticated = AuthController.isAuthenticated;
 

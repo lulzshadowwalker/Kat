@@ -72,5 +72,9 @@
     "resetPassword": "сброс пароля",
     "passwordResetEmailSent": "Отправлено письмо о сбросе пароля",
     "update": "Обновление",
-    "passwordToContinue": "введите пароль для продолжения"
+    "passwordToContinue": "введите пароль для продолжения",
+    "profile": "профиль",
+    "updatedInfo": "успешно обновлено",
+    "signupToSaveCreations": "подпишитесь, чтобы сохранять свои чувства на всех устройствах",
+    "startBySavingSomeCringe": "начните с того, что сэкономите немного"
 }

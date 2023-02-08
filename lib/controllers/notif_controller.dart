@@ -10,7 +10,7 @@ import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:lottie/lottie.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import '../helpers/kat_anim.dart';
+import '../helpers/kat_anims.dart';
 import '../helpers/kat_helpers.dart';
 import '../models/enums/notif_type.dart';
 import '../models/notif_config.dart';
@@ -40,19 +40,19 @@ class NotifController {
   static final _notifConfigs = <NotifType, NotifConfig>{
     NotifType.success: NotifConfig(
       color: KatColors.purple,
-      leading: LottieBuilder.asset(KatAnim.success, repeat: false),
+      leading: LottieBuilder.asset(KatAnims.success, repeat: false),
     ),
     NotifType.warning: NotifConfig(
       color: KatColors.yellow,
-      leading: LottieBuilder.asset(KatAnim.warning, repeat: false),
+      leading: LottieBuilder.asset(KatAnims.warning, repeat: false),
     ),
     NotifType.oops: NotifConfig(
       color: KatColors.red,
-      leading: LottieBuilder.asset(KatAnim.oops, repeat: false),
+      leading: LottieBuilder.asset(KatAnims.oops, repeat: false),
     ),
     NotifType.tip: NotifConfig(
       color: KatColors.blue,
-      leading: LottieBuilder.asset(KatAnim.tip, repeat: false),
+      leading: LottieBuilder.asset(KatAnims.tip, repeat: false),
     ),
   };
 
@@ -68,7 +68,7 @@ class NotifController {
   }) {
     ScaffoldMessenger.maybeOf(context)?.removeCurrentSnackBar();
 
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
       SnackBar(
         duration: duration,
         backgroundColor: _getNotifConfig(type).color,

@@ -71,5 +71,9 @@
     "resetPassword": "reset password",
     "passwordResetEmailSent": "Password reset email has been sent",
     "update": "Update",
-    "passwordToContinue": "enter password to continue"
+    "passwordToContinue": "enter password to continue",
+    "profile": "profile",
+    "updatedInfo": "updated successfully",
+    "signupToSaveCreations": "sign up to save your cringe across your devices",
+    "startBySavingSomeCringe": "start by saving some cringe"
 }

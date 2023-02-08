@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../helpers/kat_anim.dart';
+import '../../../helpers/kat_anims.dart';
 import '../../../theme/kat_colors.dart';
 
 /// circle image avatar with a cute little frog placeholder if [image] is null
@@ -33,7 +33,7 @@ class KatCircleImageAvatar extends StatelessWidget {
       child: image == null
           ? FractionallySizedBox(
               widthFactor: 0.65,
-              child: LottieBuilder.asset(KatAnim.frog),
+              child: LottieBuilder.asset(KatAnims.frog),
             )
           : null,
     );

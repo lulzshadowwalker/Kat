@@ -23,7 +23,7 @@ class SignUp extends HookConsumerWidget {
     useEffect(() {
       NotifController().init();
       return null;
-    }, const []);
+    }, []);
 
     return KatUnfocusableWrapper(
       child: Scaffold(

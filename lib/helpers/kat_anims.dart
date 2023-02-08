@@ -2,7 +2,7 @@ import '../models/attribution.dart';
 
 import '../models/enums/attribute_type.dart';
 
-class KatAnim {
+class KatAnims {
   /// https://lottiefiles.com/75212-cat-loader
   static const String loading = 'assets/anims/loading.json';
 
@@ -19,6 +19,9 @@ class KatAnim {
 
   /// https://lottiefiles.com/96002-cute-froggy-looking-around
   static const String frog = 'assets/anims/frog.json';
+
+  /// https://lottiefiles.com/69679-cheeky-face
+  static const String cheeky = 'assets/anims/cheeky.json';
 
   /// https://lottiefiles.com/58563-heart-icon
   static const String heart = 'assets/anims/heart.json';
@@ -40,6 +43,18 @@ class KatAnim {
 
   /// https://lottiefiles.com/95379-warning
   static const String warning = 'assets/anims/warning.json';
+
+  /// https://lottiefiles.com/88299-owls
+  static const String owl = 'assets/anims/owl.json';
+
+  /// https://lottiefiles.com/112646-party-pigeon
+  static const String pigeon = 'assets/anims/pigeon.json';
+
+  /// https://lottiefiles.com/6893-pulp-fiction-cat
+  static const String catHey = 'assets/anims/cat-hey.json';
+
+  /// https://lottiefiles.com/125009-gibli-tribute
+  static const String ghibliKiki = 'assets/anims/ghibli-kiki.json';
 
   static List<Attribution> attributions = [
     const Attribution(
@@ -102,6 +117,31 @@ class KatAnim {
     const Attribution(
       assetPath: warning,
       url: 'https://lottiefiles.com/95379-warning',
+      attributeType: AttributeType.anim,
+    ),
+    const Attribution(
+      assetPath: owl,
+      url: 'https://lottiefiles.com/88299-owls',
+      attributeType: AttributeType.anim,
+    ),
+    const Attribution(
+      assetPath: pigeon,
+      url: 'https://lottiefiles.com/112646-party-pigeon',
+      attributeType: AttributeType.anim,
+    ),
+    const Attribution(
+      assetPath: ghibliKiki,
+      url: 'https://lottiefiles.com/125009-gibli-tribute',
+      attributeType: AttributeType.anim,
+    ),
+    const Attribution(
+      assetPath: catHey,
+      url: 'https://lottiefiles.com/6893-pulp-fiction-cat',
+      attributeType: AttributeType.anim,
+    ),
+    const Attribution(
+      assetPath: cheeky,
+      url: 'https://lottiefiles.com/69679-cheeky-face',
       attributeType: AttributeType.anim,
     ),
   ];

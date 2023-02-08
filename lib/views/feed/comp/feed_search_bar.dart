@@ -17,6 +17,9 @@ class _FeedSearchBar extends HookConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextField(
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(80),
+                ],
                 decoration: InputDecoration.collapsed(
                   hintText: processingInput,
                   hintStyle: _textStyle(context),

@@ -5,13 +5,14 @@ class Feed extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final prompt = ref.watch(processingInputProvider);
     final isPieMenuInactive = useState(false);
     final images = ref.watch(imagesProvider(context));
 
     useEffect(() {
       NotifController().init();
       return null;
-    }, const []);
+    }, []);
 
     final crossCount = KatHelpers.isMobileBp(context)
         ? 2
@@ -35,17 +36,11 @@ class Feed extends HookConsumerWidget {
             backgroundColor: KatColors.purple,
             color: KatColors.pink,
             edgeOffset: _FeedAppBar.height,
-            child: MasonryGridView(
+            child: KatGridView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               physics: isPieMenuInactive.value
                   ? const NeverScrollableScrollPhysics()
                   : const ClampingScrollPhysics(),
-              gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossCount,
-              ),
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-              cacheExtent: 300,
               children: [
                 /// app bar spacing when scrolled to top
                 ...List.generate(
@@ -59,9 +54,11 @@ class Feed extends HookConsumerWidget {
                 /// body
                 ...List.generate(
                   images.length,
-                  (index) => _FeedCard(
+                  (index) => KatImageCard(
                     index: index,
                     url: images.elementAt(index),
+                    prompt: prompt,
+                    isFav: false,
                   ),
                 ),
 

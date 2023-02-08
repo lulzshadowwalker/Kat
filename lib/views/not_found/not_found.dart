@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../helpers/kat_anim.dart';
+import '../../helpers/kat_anims.dart';
 import '../../router/kat_routes.dart';
 import '../auth/auth_imports.dart';
 
@@ -23,7 +23,7 @@ class NotFound extends StatelessWidget {
                 FractionallySizedBox(
                   widthFactor: 0.25,
                   child: LottieBuilder.asset(
-                    KatAnim.notFound[KatAnim.notFound.randomIndex],
+                    KatAnims.notFound.random,
                     frameRate: FrameRate.max,
                   ),
                 ),

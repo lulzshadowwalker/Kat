@@ -47,7 +47,7 @@ class _SettingsProfileHeader extends ConsumerWidget {
                       return;
                     }
 
-                    context.goNamed(KatRoutes.profile);
+                    KatHelpers.push(context, const Profile());
                   },
                   child: Text(
                     AuthController.isGuest

@@ -8,7 +8,7 @@ class _KatConffeti extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LottieBuilder.asset(
-      KatAnim.confetti,
+      KatAnims.confetti,
       frameRate: FrameRate.max,
       filterQuality: FilterQuality.high,
       repeat: false,

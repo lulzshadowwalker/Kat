@@ -12,7 +12,7 @@ class CatsApi {
 
   /// returns a list of 1000 images
   static Future<List<Cat>> fetchCats(BuildContext context) async {
-    const url = '$_baseUrl/cats?limit=1000';
+    const url = '$_baseUrl/cats?limit=100';
 
     return await ApiHandler.get<List<Cat>>(
           context: context,

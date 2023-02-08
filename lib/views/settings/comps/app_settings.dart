@@ -23,32 +23,34 @@ class _AppSettings extends HookConsumerWidget {
         _SettingsOption(
           title: const Text(KatTranslations.language).tr(),
           trailing: DropdownButton(
-              value: KatTranslations.currentLangCode(context),
-              borderRadius: BorderRadius.circular(10),
-              underline: Container(),
-              elevation: 4,
-              items: List.generate(
-                KatTranslations.supportedLocales.length,
-                (index) {
-                  final langCode =
-                      KatTranslations.supportedLocales[index].languageCode;
+            value: KatTranslations.currentLangCode(context),
+            borderRadius: BorderRadius.circular(10),
+            underline: Container(),
+            elevation: 4,
+            items: List.generate(
+              KatTranslations.supportedLocales.length,
+              (index) {
+                final langCode =
+                    KatTranslations.supportedLocales[index].languageCode;
 
-                  return DropdownMenuItem(
-                    value: langCode,
-                    child: Center(
-                      child: SizedBox(
-                        height: 25,
-                        width: 35,
-                        child: LanguageFlag(
-                          language: Language.fromCode(langCode),
-                        ),
+                return DropdownMenuItem(
+                  value: langCode,
+                  child: Center(
+                    child: SizedBox(
+                      height: 25,
+                      width: 35,
+                      child: LanguageFlag(
+                        language: Language.fromCode(langCode),
                       ),
                     ),
-                  );
-                },
-              ),
-              onChanged: (val) =>
-                  context.setLocale(Locale(val ?? KatConst.en))),
+                  ),
+                );
+              },
+            ),
+            onChanged: (val) => context.setLocale(
+              Locale(val ?? KatConst.en),
+            ),
+          ),
         ),
         _SettingsOption(
           title: const Text(KatTranslations.darkMode).tr(),

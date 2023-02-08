@@ -1,4 +1,4 @@
-part of './feed_comp.dart';
+part of './kat_image_card_comps.dart';
 
 class _ModifiedImage extends StatelessWidget {
   const _ModifiedImage({
@@ -38,7 +38,7 @@ class _ModifiedImage extends StatelessWidget {
                   text,
                   textAlign: TextAlign.center,
                   style: (quality == FilterQuality.high
-                          ? Theme.of(context).textTheme.titleMedium
+                          ? Theme.of(context).textTheme.headlineMedium
                           : Theme.of(context).textTheme.bodyLarge)
                       ?.copyWith(
                     color: KatColors.white,
@@ -55,7 +55,7 @@ class _ModifiedImage extends StatelessWidget {
             child: Container(
               color: KatColors.mutedLight,
               width: double.infinity,
-              height: 150,
+              height: 100,
             ),
           );
         },

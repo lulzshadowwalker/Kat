@@ -65,14 +65,14 @@ registered new user with details:
     }
   }
 
-  static Stream<KatUser> get currentUserData {
+  static Stream<KatUser?> get currentUserData {
     final uid = AuthController.userId;
 
     return _db
         .collection(_cUsers)
         .doc(uid)
         .snapshots()
-        .map(KatUser.fromDocSnap);
+        .map((doc) => AuthController.isGuest ? null : KatUser.fromDocSnap(doc));
   }
 
   static Future<void> toggleFav({
@@ -84,7 +84,7 @@ registered new user with details:
       final uid = AuthController.userId!;
 
       final favs =
-          await currentUserData.firstWhere((u) => true).then((u) => u.favs);
+          await currentUserData.firstWhere((u) => true).then((u) => u!.favs);
 
       if (favs!.containsKey(id)) {
         await _db.collection(_cUsers).doc(uid).update(
@@ -95,23 +95,66 @@ registered new user with details:
 
         _log.v('image removed from the user collections favorites');
       } else {
-        final url = await _remoteStorage.upload(
+        addFav(
           context: context,
-          childName: 'favorites',
-          file: image,
-          fileId: id,
+          image: image,
+          id: id,
         );
-
-        if (url == null) throw Exception('url is empty');
-
-        await _db.collection(_cUsers).doc(uid).update(
-          {
-            _aFavorites: favs..addAll({id: url}),
-          },
-        );
-
-        _log.v('image added to the user collection favorites');
       }
+    } catch (e) {
+      KatHelpers.handleException(context: context, e: e, logger: _log);
+    }
+  }
+
+  static Future<void> removeFav({
+    required BuildContext context,
+    required String id,
+  }) async {
+    try {
+      final uid = AuthController.userId!;
+
+      final favs =
+          await currentUserData.firstWhere((u) => true).then((u) => u!.favs);
+
+      await _db.collection(_cUsers).doc(uid).update(
+        {
+          _aFavorites: favs!..remove(id),
+        },
+      );
+
+      _log.v('image removed from the user collections favorites');
+    } catch (e) {
+      KatHelpers.handleException(context: context, e: e, logger: _log);
+    }
+  }
+
+  static Future<void> addFav({
+    required BuildContext context,
+    required Uint8List image,
+    required String id,
+  }) async {
+    try {
+      final uid = AuthController.userId!;
+
+      final favs =
+          await currentUserData.firstWhere((u) => true).then((u) => u!.favs);
+
+      final url = await _remoteStorage.upload(
+        context: context,
+        childName: 'favorites',
+        file: image,
+        fileId: id,
+      );
+
+      if (url == null) throw Exception('url is empty');
+
+      await _db.collection(_cUsers).doc(uid).update(
+        {
+          _aFavorites: favs!..addAll({id: url}),
+        },
+      );
+
+      _log.v('image added to the user collection favorites');
     } catch (e) {
       KatHelpers.handleException(context: context, e: e, logger: _log);
     }
@@ -133,13 +176,13 @@ registered new user with details:
           email,
         );
 
-        user = user.copyWith(
+        user = user!.copyWith(
           email: email,
         );
       }
 
       if (pfp != null) {
-        user = user.copyWith(
+        user = user!.copyWith(
             pfp: await _remoteStorage.upload(
           context: context,
           childName: _cUsers,
@@ -147,13 +190,13 @@ registered new user with details:
         ));
       }
 
-      await _db.collection(_cUsers).doc(uid).update(user.toMap);
+      await _db.collection(_cUsers).doc(uid).update(user!.toMap);
 
       _log.v('updated user account details successfully');
 
       NotifController.showPopup(
         context: context,
-        message: 'updated info successfully'.tr(),
+        message: KatTranslations.updatedInfo.tr(),
         type: NotifType.success,
       );
     } catch (e) {

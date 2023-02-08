@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../helpers/kat_anim.dart';
+import '../../../helpers/kat_anims.dart';
 import 'package:lottie/lottie.dart';
 
 class Loading extends StatelessWidget {
@@ -12,7 +12,7 @@ class Loading extends StatelessWidget {
         widthFactor: 0.5,
         heightFactor: 0.35,
         child: LottieBuilder.asset(
-          KatAnim.loading,
+          KatAnims.loading,
           frameRate: FrameRate.max,
         ),
       ),

@@ -25,12 +25,16 @@ extension CompactMap<T> on Iterable<T?> {
       map((e) => e).where((e) => e != null).toList().cast();
 }
 
-extension RandomIndex on List {
+extension RandomIndex<T> on List<T> {
   int get randomIndex => KatHelpers.randomInt(max: length - 1);
+
+  T get random => elementAt(randomIndex);
 }
 
 extension NullAwareString on String? {
   int get length => '$this'.length;
+
+  String get maybeAsEmpty => this ?? '';
 }
 
 extension StringToImageProvider on String? {

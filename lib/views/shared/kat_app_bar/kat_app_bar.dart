@@ -7,12 +7,14 @@ class KatAppBar extends StatelessWidget with PreferredSizeWidget {
     required this.title,
     this.backgroundColor,
     this.foregroundColor,
+    this.actions,
     super.key,
   });
 
   final String title;
   final Color? backgroundColor;
   final Color? foregroundColor;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class KatAppBar extends StatelessWidget with PreferredSizeWidget {
           thickness: 1.5,
         ),
       ),
+      actions: actions,
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor ?? KatColors.muted,
     );

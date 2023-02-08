@@ -137,7 +137,7 @@ PODS:
   - PromisesObjC (2.1.1)
   - search_choices (0.0.1):
     - Flutter
-  - share_extend (0.0.1):
+  - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
@@ -163,7 +163,7 @@ DEPENDENCIES:
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - search_choices (from `.symlinks/plugins/search_choices/ios`)
-  - share_extend (from `.symlinks/plugins/share_extend/ios`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
@@ -220,8 +220,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/ios"
   search_choices:
     :path: ".symlinks/plugins/search_choices/ios"
-  share_extend:
-    :path: ".symlinks/plugins/share_extend/ios"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/ios"
   sqflite:
@@ -268,7 +268,7 @@ SPEC CHECKSUMS:
   path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   search_choices: b50731e8c425078048f681f39c34375c58d6ce8d
-  share_extend: b6748dc53695587891126a89533b862b92548c7b
+  share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
