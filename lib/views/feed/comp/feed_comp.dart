@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kat/views/shared/kat_grid_view/kat_grid_view.dart';
-import 'package:kat/views/shared/kat_image_card/comps/kat_image_card_comps.dart';
+import '../../shared/kat_grid_view/kat_grid_view.dart';
+import '../../shared/kat_image_card/comps/kat_image_card_comps.dart';
 import 'package:pie_menu/pie_menu.dart';
 
 import '../../../controllers/notif_controller.dart';

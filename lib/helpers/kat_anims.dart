@@ -6,6 +6,9 @@ class KatAnims {
   /// https://lottiefiles.com/75212-cat-loader
   static const String loading = 'assets/anims/loading.json';
 
+  /// https://lottiefiles.com/7148-the-nyan-cats
+  static const String nyanCat = 'assets/anims/nyan-cat.json';
+
   static const notFound = <String>[
     /// https://lottiefiles.com/119968-alien-spaceship-abducting-a-cat-404-error
     'assets/anims/cat-404-1.json',

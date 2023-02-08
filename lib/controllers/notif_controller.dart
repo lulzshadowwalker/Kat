@@ -277,8 +277,6 @@ Popup shown with details
 
       await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-      await _initPeriodicNotifs();
-
       await _initCloudMessaging();
 
       _log.v('[NotifController] has been initialized');
@@ -288,24 +286,7 @@ Popup shown with details
   }
 
   Future<void> _initPeriodicNotifs() async {
-    const templates = {
-      'гони преколы': 'я не знаю, что мне делать со своей кринге энерджи',
-      'uhm Uhmm uhmm mm': 'ahm ohm uhmmmm umm uhm',
-      'Tip 💡': 'you can\'t be sad if ur sleeping 😌',
-      'some idiot once said':
-          'when life fucks you in the pussy fuck it in the ass 😇🔪',
-      'Улыбка 🤭': 'Сегодня будет хороший день, я чувствую это',
-      'not to be rude': 'but you kinda smell, take a shower stinkyy 🫣',
-      'the beauty u c in anything': 'is a reflection of the beauty in u ✨',
-      'did u fart ????': '🤨',
-      'I\'m not a photographer but..':
-          'I can picture u the best artist in the world 📷',
-      'it\'s only for character development':
-          '( ur the main character, it\'s part of the plot )',
-      'cats can speak just like us':
-          'ask ur cat to do it but promise her u wont tell anyone 🤫'
-    };
-
+    const templates = {};
     final i = DateTime.now().day % templates.length;
 
     await _flutterLocalNotificationsPlugin.periodicallyShow(

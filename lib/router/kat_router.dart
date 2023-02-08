@@ -1,4 +1,7 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
+import '../helpers/kat_const.dart';
+import '../views/onboarding/comps/onboarding_comps.dart';
 import '../views/attributions/attributions.dart';
 import '../controllers/auth_controller.dart';
 import '../views/auth/sign_in/sign_in.dart';
@@ -15,12 +18,16 @@ class KatRouter {
   static final config = GoRouter(
     errorBuilder: (context, state) => const NotFound(),
     redirect: (context, state) {
+      final isFirstLaunch =
+          GetStorage().read<bool>(KatConst.spIsFirstLaunch) ?? true;
       final isOnSplash = state.location == KatRoutes.splash;
       final isAuthenticated = AuthController.isAuthenticated;
-
       final isGoingToAuthenticate = state.location == KatRoutes.signIn ||
           state.location == KatRoutes.signUp;
-      if (!isAuthenticated && !isGoingToAuthenticate && !isOnSplash) {
+
+      if (!isOnSplash && isFirstLaunch) {
+        return KatRoutes.onboarding;
+      } else if (!isAuthenticated && !isGoingToAuthenticate && !isOnSplash) {
         return KatRoutes.signUp;
       } else if (isAuthenticated && isGoingToAuthenticate) {
         return KatRoutes.home;
@@ -66,6 +73,11 @@ class KatRouter {
         name: KatRoutes.splash,
         path: KatRoutes.splash,
         builder: (context, state) => const Splash(),
+      ),
+      GoRoute(
+        name: KatRoutes.onboarding,
+        path: KatRoutes.onboarding,
+        builder: (context, state) => const Onboarding(),
       ),
     ],
   );

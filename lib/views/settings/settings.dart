@@ -21,7 +21,8 @@ class Settings extends ConsumerWidget {
               const _SettingsProfileHeader(),
               const SizedBox(height: 32),
               const _AppSettings(),
-              const _DeveloperNotice(),
+              // ignore: prefer_const_constructors
+              _DeveloperNotice(),
               const Spacer(),
               if (!AuthController.isGuest)
                 _SettingsOption(

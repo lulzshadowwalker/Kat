@@ -15,9 +15,11 @@ class Home extends HookWidget {
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
-      screens: const [
-        Feed(),
-        Profile(),
+      // ignore: prefer_const_literals_to_create_immutables
+      screens: [
+        const Feed(),
+        const Profile(),
+        // ignore: prefer_const_constructors
         Settings(),
       ],
       backgroundColor: KatColors.purple,

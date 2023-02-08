@@ -69,6 +69,7 @@ dependencies:
   dash_flags: ^0.0.3
   flutter_advanced_switch: ^3.0.1
   webview_flutter: ^3.0.4
+  concentric_transition: ^1.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,17 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../shared/kat_single_child_scroll_view/kat_single_child_scroll_view.dart';
-import '../../shared/kat_unfocusable_wrapper/kat_unfocusable_wrapper.dart';
+
 import '../../../controllers/notif_controller.dart';
-import '../../shared/kat_constrained_box/kat_constrained_box.dart';
 import '../../../hooks/use_invalidate_cred.dart';
 import '../../../models/enums/auth_type.dart';
 import '../../../router/kat_routes.dart';
-import '../components/guest_auth_text_button.dart';
-
+import '../../shared/kat_constrained_box/kat_constrained_box.dart';
+import '../../shared/kat_single_child_scroll_view/kat_single_child_scroll_view.dart';
+import '../../shared/kat_unfocusable_wrapper/kat_unfocusable_wrapper.dart';
 import '../../shared/text_fields/kat_email_field.dart';
 import '../../shared/text_fields/kat_password_field.dart';
 import '../auth_imports.dart';
-import 'package:flutter/material.dart';
+import '../components/guest_auth_text_button.dart';
 
 class SignIn extends HookConsumerWidget {
   SignIn({super.key});

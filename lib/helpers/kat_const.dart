@@ -30,4 +30,6 @@ class KatConst {
 
   static const int mobileBreakpoint = 520;
   static const int tabletBreakpoint = 1024;
+
+  static const String spIsFirstLaunch = 'isFirstLaunch';
 }
