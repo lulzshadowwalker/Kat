@@ -30,6 +30,7 @@ class _SettingsProfileHeader extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  /// TODO implement an extension to return null if the string is empty
                   user?.displayName ??
                       user?.username ??
                       KatTranslations.guest.tr(),

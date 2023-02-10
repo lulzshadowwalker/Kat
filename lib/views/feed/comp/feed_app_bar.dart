@@ -9,8 +9,10 @@ class _FeedAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: height,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarBrightness: KatTheme.brightness(context),
+      ),
       backgroundColor: Colors.transparent,
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
       title: const KatConstrainedBox(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 4, vertical: 60),

@@ -18,9 +18,9 @@ class KatImagePickerOptions extends StatelessWidget {
             backgroundColor: KatColors.purple,
             foregroundColor: KatColors.pink,
             onPressed: () => KatHelpers.pop(context, ImageSource.gallery),
-            leading: FaIcon(
+            leading: const FaIcon(
               FontAwesomeIcons.solidImage,
-              color: KatColors.same(context),
+              color: KatColors.white,
               size: 16,
             ),
             text: KatTranslations.gallery.tr(),
@@ -32,9 +32,9 @@ class KatImagePickerOptions extends StatelessWidget {
             backgroundColor: KatColors.purple,
             foregroundColor: KatColors.pink,
             onPressed: () => KatHelpers.pop(context, ImageSource.camera),
-            leading: FaIcon(
+            leading: const FaIcon(
               FontAwesomeIcons.camera,
-              color: KatColors.same(context),
+              color: KatColors.white,
               size: 16,
             ),
             text: KatTranslations.camera.tr(),

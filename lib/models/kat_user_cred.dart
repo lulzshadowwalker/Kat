@@ -49,6 +49,7 @@ class KatUserCred {
       : email = profile[KatConst.gEmail],
         password = '',
         displayName = profile[KatConst.gName],
+        username = profile[KatConst.gName],
         pfpUrl = profile[KatConst.gProfilePicture],
         id = profile[KatConst.gUserId];
 

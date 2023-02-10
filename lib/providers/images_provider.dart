@@ -49,7 +49,7 @@ Future<List<String>> clowns(ClownsRef ref, BuildContext context) =>
       (v) => v?.urls ?? [],
     );
 
-@Riverpod(keepAlive: true)
+@riverpod
 List<String> images(ImagesRef ref, BuildContext context) {
   final images = <String>[];
   final selectedTags = ref.watch(selectedTagsProvider);

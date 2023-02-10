@@ -285,6 +285,10 @@ Popup shown with details
     }
   }
 
+  /// firebase cloud messaging token
+  static Future<String?> get fcmToken async =>
+      await FirebaseMessaging.instance.getToken();
+
   Future<void> _initPeriodicNotifs() async {
     const templates = {};
     final i = DateTime.now().day % templates.length;

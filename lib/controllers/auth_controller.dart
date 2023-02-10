@@ -118,7 +118,6 @@ class AuthController {
     }
   }
 
-  /// TODO configure google auth to work with web
   static Future<void> googleAuth(
     BuildContext context,
     WidgetRef ref,
@@ -148,17 +147,26 @@ class AuthController {
       final userCredential = await _auth.signInWithCredential(ouathCredential);
       _log.v('Signed-in with Google auth');
 
-      ref.read(credProvider.notifier).setData(
-            KatUserCred.fromGoogleAuth(
-              userCredential.additionalUserInfo!.profile!,
-            ),
-          );
+      await _auth
+          .fetchSignInMethodsForEmail(googleUser.email)
+          .then((authMethods) async {
+        if (authMethods.contains('google.com')) {
+          /// TODO remove in future release
+          await RemoteDbController.registerFcmToken(context);
+        } else {
+          ref.read(credProvider.notifier).setData(
+                KatUserCred.fromGoogleAuth(
+                  userCredential.additionalUserInfo!.profile!,
+                ),
+              );
 
-      await RemoteDbController.createUserRecord(
-        context: context,
-        ref: ref,
-        uid: userCredential.user!.uid,
-      );
+          await RemoteDbController.createUserRecord(
+            context: context,
+            ref: ref,
+            uid: userCredential.user!.uid,
+          );
+        }
+      });
     } catch (e) {
       KatHelpers.handleException(context: context, e: e, logger: _log);
     }

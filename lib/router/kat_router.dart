@@ -40,7 +40,7 @@ class KatRouter {
       GoRoute(
         name: KatRoutes.home,
         path: KatRoutes.home,
-        builder: (context, state) => const Home(),
+        builder: (context, state) => Home(),
         routes: [
           GoRoute(
             name: KatRoutes.profile,

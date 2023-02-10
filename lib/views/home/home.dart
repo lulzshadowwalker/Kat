@@ -26,19 +26,19 @@ class Home extends HookWidget {
       controller: PersistentTabController(initialIndex: 0),
       items: [
         PersistentBottomNavBarItem(
-          icon: const FaIcon(FontAwesomeIcons.houseChimneyWindow),
+          icon: const Icon(FontAwesomeIcons.houseChimneyWindow),
           activeColorPrimary: KatColors.gold,
           inactiveColorPrimary: KatColors.pink,
           iconSize: 24,
         ),
         PersistentBottomNavBarItem(
-          icon: const FaIcon(FontAwesomeIcons.solidUser),
+          icon: const Icon(FontAwesomeIcons.solidUser),
           activeColorPrimary: KatColors.gold,
           inactiveColorPrimary: KatColors.pink,
           iconSize: 24,
         ),
         PersistentBottomNavBarItem(
-          icon: const FaIcon(FontAwesomeIcons.gear),
+          icon: const Icon(FontAwesomeIcons.gear),
           activeColorPrimary: KatColors.gold,
           inactiveColorPrimary: KatColors.pink,
           iconSize: 24,
@@ -50,7 +50,7 @@ class Home extends HookWidget {
         ),
       ),
       navBarHeight: kBottomNavigationBarHeight + 24,
-      padding: const NavBarPadding.fromLTRB(null, 24, null, 16),
+      padding: const NavBarPadding.fromLTRB(null, 24, null, 24),
       navBarStyle: NavBarStyle.style12,
     );
   }

@@ -26,6 +26,7 @@ class RemoteDbController {
   static const String _aCreatedOn = 'createdOn';
   static const String _aId = 'id';
   static const String _aFavorites = 'favorites';
+  static const String _aFcmToken = 'fcmToken';
   /* -------------------------------------------------------------------------- */
   static Future<void> createUserRecord({
     required BuildContext context,
@@ -52,6 +53,7 @@ class RemoteDbController {
                   _aCreatedOn: DateTime.now().toUtc(),
                   _aId: uid,
                   _aFavorites: <String, String>{},
+                  _aFcmToken: await NotifController.fcmToken,
                 },
               ),
           );
@@ -162,6 +164,7 @@ registered new user with details:
 
   static Future<void> updateAccountDetails({
     required BuildContext context,
+    String? username,
     String? email,
     Uint8List? pfp,
   }) async {
@@ -170,6 +173,7 @@ registered new user with details:
 
       var user = await currentUserData.firstWhere((u) => true);
 
+      /// TODO refactor [RemoteDbController.updateAccountDetails] to only pass the user model
       if (email != null) {
         await AuthController.updateEmail(
           context,
@@ -199,6 +203,23 @@ registered new user with details:
         message: KatTranslations.updatedInfo.tr(),
         type: NotifType.success,
       );
+    } catch (e) {
+      KatHelpers.handleException(context: context, e: e, logger: _log);
+    }
+  }
+
+  /// TODO this is just a temp to update fcm tokens for exisitng users
+  static Future<void> registerFcmToken(BuildContext context) async {
+    try {
+      final token = await NotifController.fcmToken;
+      await _db.collection(_cUsers).doc(AuthController.userId).update({
+        _aFcmToken: token,
+      });
+
+      _log.v('''
+FCM token registered in the user record
+  $token
+''');
     } catch (e) {
       KatHelpers.handleException(context: context, e: e, logger: _log);
     }

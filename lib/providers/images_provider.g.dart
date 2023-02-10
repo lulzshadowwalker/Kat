@@ -515,10 +515,10 @@ class ClownsFamily extends Family<AsyncValue<List<String>>> {
   String? get name => r'clownsProvider';
 }
 
-String _$imagesHash() => r'ff3d83447e6f6db622e2404cf4b41c5d1455a059';
+String _$imagesHash() => r'eb8bb08041fa37b1b6653c6fb441509678087fac';
 
 /// See also [images].
-class ImagesProvider extends Provider<List<String>> {
+class ImagesProvider extends AutoDisposeProvider<List<String>> {
   ImagesProvider(
     this.context,
   ) : super(
@@ -550,7 +550,7 @@ class ImagesProvider extends Provider<List<String>> {
   }
 }
 
-typedef ImagesRef = ProviderRef<List<String>>;
+typedef ImagesRef = AutoDisposeProviderRef<List<String>>;
 
 /// See also [images].
 final imagesProvider = ImagesFamily();
@@ -567,7 +567,7 @@ class ImagesFamily extends Family<List<String>> {
   }
 
   @override
-  Provider<List<String>> getProviderOverride(
+  AutoDisposeProvider<List<String>> getProviderOverride(
     covariant ImagesProvider provider,
   ) {
     return call(

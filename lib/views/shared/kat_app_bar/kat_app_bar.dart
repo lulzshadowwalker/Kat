@@ -21,10 +21,9 @@ class KatAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        style: Theme.of(context)
-            .textTheme
-            .titleLarge
-            ?.copyWith(color: foregroundColor ?? KatColors.muted),
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: foregroundColor ?? KatColors.muted,
+            ),
       ),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(2.0),

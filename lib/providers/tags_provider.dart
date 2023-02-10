@@ -17,7 +17,7 @@ final tagsProvider = Provider<List<String>>((ref) {
   );
 });
 
-final selectedTagsProvider = ChangeNotifierProvider((ref) {
+final selectedTagsProvider = ChangeNotifierProvider.autoDispose((ref) {
   final allTags = ref.watch(tagsProvider);
 
   return SelectedTagsNotifier(List.from(allTags));

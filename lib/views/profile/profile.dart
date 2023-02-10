@@ -18,17 +18,21 @@ class Profile extends HookConsumerWidget {
           title:
               user?.displayName ?? user?.username ?? KatTranslations.guest.tr(),
           actions: [
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2,
-                  color: KatColors.purple,
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: FittedBox(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2,
+                      color: KatColors.purple,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: KatCircleImageAvatar(
+                    image: user?.pfp.asCachedNetImg,
+                  ),
                 ),
-                shape: BoxShape.circle,
-              ),
-              child: KatCircleImageAvatar(
-                image: user?.pfp.asCachedNetImg,
-                radius: 80,
               ),
             )
           ],

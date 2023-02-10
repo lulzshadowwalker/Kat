@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../helpers/kat_fonts.dart';
@@ -25,14 +26,14 @@ class KatTheme {
         Brightness.light: KatTranslations.light.tr(),
       };
 
-  static String? currentThemeName(BuildContext context) => themes[_brightness];
+  static String? currentThemeName(BuildContext context) => themes[brightness];
 
-  static Brightness _brightness(BuildContext context) =>
+  static Brightness brightness(BuildContext context) =>
       Theme.of(context).brightness;
 
   /// returns [true] if current theme's brightness is [Brightness.light]
   static bool isLight(BuildContext context) =>
-      _brightness(context) == Brightness.light;
+      brightness(context) == Brightness.light;
 
   /// returns light by default, unless changed by the user in the settings.
   static ThemeMode get themeMode {

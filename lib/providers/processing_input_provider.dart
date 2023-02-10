@@ -5,7 +5,7 @@ import 'word_provider.dart';
 
 import '../translations/kat_translations.dart';
 
-final processingInputProvider = Provider<String>(
+final processingInputProvider = Provider.autoDispose<String>(
   (ref) {
     final term = ref.watch(searchTermsProvider);
     final showcaseWord = ref.watch(wordProvider).asData;

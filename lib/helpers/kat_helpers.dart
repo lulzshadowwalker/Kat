@@ -180,7 +180,7 @@ class KatHelpers {
 
       final res = await ImageGallerySaver.saveImage(
         image,
-        name: 'aboba.png',
+        name: 'aboba${DateTime.now()}.png',
       ) as Map;
 
       NotifController.showPopup(
